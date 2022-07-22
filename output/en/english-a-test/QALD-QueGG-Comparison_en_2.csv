@@ -1,0 +1,191 @@
+148,What was the first Queen album?,SELECT DISTINCT ?uri WHERE { ?uri a <http://dbpedia.org/ontology/Album> . ?uri <http://dbpedia.org/ontology/artist> <http://dbpedia.org/resource/Queen_(band)> . ?uri <http://dbpedia.org/ontology/releaseDate> ?d . } ORDER BY ASC(?d) OFFSET 0 LIMIT 1,,[],[]
+149,Through which countries does the Yenisei river flow?,"PREFIX res: <http://dbpedia.org/resource/>
+PREFIX dbp: <http://dbpedia.org/property/>
+SELECT DISTINCT ?uri 
+WHERE {
+        res:Yenisei_River dbp:country ?uri .
+}",,[],[]
+150,Which television shows were created by Walt Disney?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?uri
+WHERE {
+	?uri rdf:type dbo:TelevisionShow .
+        ?uri dbo:creator res:Walt_Disney .
+}",,"[(http://dbpedia.org/resource/Figaro_(Disney) ), (http://dbpedia.org/resource/Oswald_the_Lucky_Rabbit ), (http://dbpedia.org/resource/The_Mickey_Mouse_Club ), (http://dbpedia.org/resource/Pete_Junior ), (http://dbpedia.org/resource/Evil_Queen_(Disney) ), (http://dbpedia.org/resource/Ludwig_Von_Drake ), (http://dbpedia.org/resource/Clarabelle_Cow ), (http://dbpedia.org/resource/List_of_Jiminy_Cricket_educational_serials ), (http://dbpedia.org/resource/Mickey_Mouse ), (http://dbpedia.org/resource/Mickey_Mouse_Clubhouse ), (http://dbpedia.org/resource/Minnie_Mouse ), (http://dbpedia.org/resource/Humphrey_the_Bear ), (http://dbpedia.org/resource/Louie_the_Mountain_Lion ), (http://dbpedia.org/resource/Goofy ), (http://dbpedia.org/resource/Horace_Horsecollar ), (http://dbpedia.org/resource/Pete_(Disney) ), (http://dbpedia.org/resource/Donald_Duck ), (http://dbpedia.org/resource/Julius_the_Cat )]",[]
+151,What is the bridge with the longest span?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?uri 
+WHERE {
+        ?uri rdf:type dbo:Bridge .
+        ?uri dbo:mainspan ?s . 
+} 
+ORDER BY DESC(?s) 
+OFFSET 0 LIMIT 1",,[],[]
+152,What country is Sitecore from?,SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Sitecore> <http://dbpedia.org/ontology/foundationPlace> ?uri . },,[(http://dbpedia.org/resource/Denmark )],[]
+153,Whom did Lance Bass marry?,SELECT DISTINCT ?uri WHERE { ?uri <http://dbpedia.org/ontology/spouse> <http://dbpedia.org/resource/Lance_Bass> . } ,,[],[]
+154,What is the capital of Canada?,"PREFIX dbo:  <http://dbpedia.org/ontology/>
+PREFIX res:  <http://dbpedia.org/resource/>
+SELECT DISTINCT ?uri 
+WHERE {
+        res:Canada dbo:capital ?uri .
+}",,[(http://dbpedia.org/resource/Ottawa )],[]
+155,Who was Vincent van Gogh inspired by?,SELECT DISTINCT ?uri WHERE { ?uri <http://dbpedia.org/ontology/influenced> <http://dbpedia.org/resource/Vincent_van_Gogh> . },,"[(http://dbpedia.org/resource/Adolphe_Joseph_Thomas_Monticelli ), (http://dbpedia.org/resource/Anton_Mauve )]",[]
+156,In which city did John F. Kennedy die?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?uri
+WHERE { 
+        res:John_F._Kennedy dbo:deathPlace ?uri .
+        ?uri rdf:type dbo:City .
+}",,"[(http://dbpedia.org/resource/Dallas ), (http://dbpedia.org/resource/Texas )]",[]
+157,Was U.S. president Jackson involved in a war?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+ASK 
+WHERE {
+	res:Andrew_Jackson dbo:battle ?battle .    
+}",,[],[]
+158,Who wrote the Game of Thrones theme?,SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Game_of_Thrones> <http://dbpedia.org/ontology/composer> ?uri. },,[(http://dbpedia.org/resource/Ramin_Djawadi )],[]
+159,Who designed the Brooklyn Bridge?,"PREFIX res: <http://dbpedia.org/resource/>
+PREFIX dbo: <http://dbpedia.org/ontology/>
+SELECT DISTINCT ?uri 
+WHERE {
+        res:Brooklyn_Bridge dbo:architect ?uri .
+}",,[(http://dbpedia.org/resource/John_A._Roebling )],[]
+160,When did Boris Becker end his active career?,SELECT DISTINCT ?d WHERE { <http://dbpedia.org/resource/Boris_Becker> <http://dbpedia.org/ontology/activeYearsEndDate> ?d . } ,,"[(""1999-06-30""^^xsd:date )]",[]
+161,Which types of grapes grow in Oregon?,SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Oregon_wine> <http://dbpedia.org/ontology/growingGrape> ?uri . } ,,"[(http://dbpedia.org/resource/Barbera ), (http://dbpedia.org/resource/Gew%C3%BCrztraminer ), (http://dbpedia.org/resource/Black_Muscat ), (http://dbpedia.org/resource/M%C3%BCller-Thurgau ), (http://dbpedia.org/resource/Riesling ), (http://dbpedia.org/resource/Merlot ), (http://dbpedia.org/resource/Chenin_blanc ), (http://dbpedia.org/resource/Malbec ), (http://dbpedia.org/resource/Pinot_Meunier ), (http://dbpedia.org/resource/Grenache ), (http://dbpedia.org/resource/Chardonnay ), (http://dbpedia.org/resource/Melon ), (http://dbpedia.org/resource/Pinot_noir ), (http://dbpedia.org/resource/Syrah ), (http://dbpedia.org/resource/Huxelrebe ), (http://dbpedia.org/resource/Cabernet_Sauvignon ), (http://dbpedia.org/resource/Sangiovese ), (http://dbpedia.org/resource/Dolcetto ), (http://dbpedia.org/resource/Pinot_gris ), (http://dbpedia.org/resource/Sauvignon_blanc ), (http://dbpedia.org/resource/Cabernet_Franc ), (http://dbpedia.org/resource/Muscat_Blanc_%C3%A0_Petits_Grains ), (http://dbpedia.org/resource/Marechal_Foch ), (http://dbpedia.org/resource/Pinot_blanc ), (http://dbpedia.org/resource/Scheurebe ), (http://dbpedia.org/resource/Baco_noir ), (http://dbpedia.org/resource/L%C3%A9on_Millot ), (http://dbpedia.org/resource/Muscat_(grape) ), (http://dbpedia.org/resource/Carmine ), (http://dbpedia.org/resource/S%C3%A9millon ), (http://dbpedia.org/resource/Viognier ), (http://dbpedia.org/resource/Gamay ), (http://dbpedia.org/resource/Zinfandel ), (http://dbpedia.org/resource/Petit_Verdot )]",[]
+162,How tall is Michael Jordan?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+SELECT DISTINCT ?num 
+WHERE {
+        res:Michael_Jordan dbo:height ?num .
+}",,"[(""1.9812""^^xsd:double )]",[]
+163,To which party does the mayor of Paris belong?,SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Paris> <http://dbpedia.org/ontology/mayor> ?x . ?x <http://dbpedia.org/ontology/party> ?uri . },,[(http://dbpedia.org/resource/Socialist_Party_(France) )],[]
+164,Who wrote the book The Pillars of the Earth?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+SELECT DISTINCT ?uri 
+WHERE {
+        res:The_Pillars_of_the_Earth dbo:author ?uri .
+}",,[(http://dbpedia.org/resource/Ken_Follett )],[]
+165,Who was the 16th president of the United States?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?uri
+WHERE {
+         ?uri dbo:office 'President of the United States' .
+         ?uri dbo:orderInOffice '16th' .
+}",,"[(http://dbpedia.org/resource/%C5%A0imun_de_Michieli-Vitturi ), (http://dbpedia.org/resource/A._H._G._Dawson )]",[]
+166,How high is the Mount Everest?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+SELECT DISTINCT ?num 
+WHERE {
+	res:Mount_Everest dbo:elevation ?num.
+}",,"[(""8848.0""^^xsd:double )]",[]
+167,Who was the doctoral supervisor of Albert Einstein?,SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Albert_Einstein> <http://dbpedia.org/ontology/doctoralAdvisor> ?uri . },,[(http://dbpedia.org/resource/Alfred_Kleiner )],[]
+168,In which city does Sylvester Stallone live?,SELECT DISTINCT ?uri WHERE { ?uri a <http://dbpedia.org/ontology/City> . <http://dbpedia.org/resource/Sylvester_Stallone> <http://dbpedia.org/ontology/residence> ?uri . },,"[(http://dbpedia.org/resource/Beverly_Hills, (http://dbpedia.org/resource/California )]",[]
+169,What is the currency of the Czech Republic?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+SELECT DISTINCT ?uri
+WHERE {
+	res:Czech_Republic dbo:currency ?uri .
+}",,[(http://dbpedia.org/resource/Czech_koruna )],[]
+170,Did Socrates influence Aristotle?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+ASK 
+WHERE {
+	res:Aristotle dbo:influencedBy res:Socrates .
+}",,[],[]
+171,What is the time zone of Salt Lake City?,"PREFIX res: <http://dbpedia.org/resource/>
+PREFIX dbp: <http://dbpedia.org/property/>
+SELECT DISTINCT ?uri 
+WHERE {
+	res:Salt_Lake_City dbp:timezone ?uri . 
+}",,[(http://dbpedia.org/resource/Mountain_Time_Zone )],[]
+172,Who is the son of Sonny and Cher?,SELECT DISTINCT ?uri WHERE { ?uri <http://dbpedia.org/ontology/parent> <http://dbpedia.org/resource/Cher> . ?uri <http://dbpedia.org/ontology/parent> <http://dbpedia.org/resource/Sonny_Bono> . },,[(http://dbpedia.org/resource/Chaz_Bono )],[]
+173,In which city are the headquarters of the United Nations?,SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Headquarters_of_the_United_Nations> <http://dbpedia.org/ontology/location> ?uri . ?uri a <http://dbpedia.org/ontology/City> . } ,,[],[]
+174,Who is the founder of Penguin Books?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> 
+SELECT DISTINCT ?uri
+WHERE { 
+        res:Penguin_Books dbo:founder ?uri .
+}",,[(http://dbpedia.org/resource/Allen_Lane )],[]
+175,When was Jack Wolfskin founded?,SELECT DISTINCT ?year WHERE {  <http://dbpedia.org/resource/Jack_Wolfskin> <http://dbpedia.org/ontology/foundingYear> ?year . } ,,"[(""1981""^^xsd:gYear )]",[]
+176,Who is the mayor of Rotterdam?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+SELECT DISTINCT ?uri
+WHERE {
+        res:Rotterdam dbo:leaderName ?uri .
+}",,[(http://dbpedia.org/resource/Ahmed_Aboutaleb )],[]
+177,Give me all Swedish oceanographers.,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+SELECT DISTINCT ?uri
+WHERE {
+        ?uri dbo:field res:Oceanography . 
+        ?uri dbo:birthPlace res:Sweden .        
+}",,"[(http://dbpedia.org/resource/Tad_Murty ), (http://dbpedia.org/resource/Henry_Elderfield ), (http://dbpedia.org/resource/Bj%C3%B8rn_Helland-Hansen ), (http://dbpedia.org/resource/Stephen_E._Calvert ), (http://dbpedia.org/resource/Walter_Munk ), (http://dbpedia.org/resource/Maurice_Ewing ), (http://dbpedia.org/resource/Shailesh_Nayak ), (http://dbpedia.org/resource/Mar%C3%ADa_de_los_%C3%81ngeles_Alvari%C3%B1o_Gonz%C3%A1lez ), (http://dbpedia.org/resource/Josh_Willis ), (http://dbpedia.org/resource/Archibald_Gowanlock_Huntsman ), (http://dbpedia.org/resource/Lucien_Laubier ), (http://dbpedia.org/resource/Vagn_Walfrid_Ekman ), (http://dbpedia.org/resource/T._Wayland_Vaughan ), (http://dbpedia.org/resource/Joseph_Pedlosky ), (http://dbpedia.org/resource/Peter_Clift ), (http://dbpedia.org/resource/Alexandra_Worden ), (http://dbpedia.org/resource/Louis_Dangeard ), (http://dbpedia.org/resource/Stefan_Rahmstorf ), (http://dbpedia.org/resource/Felisa_Wolfe-Simon ), (http://dbpedia.org/resource/Archie_Carr ), (http://dbpedia.org/resource/Bruce_C._Heezen ), (http://dbpedia.org/resource/Alfred_C._Redfield ), (http://dbpedia.org/resource/Anny_Cazenave ), (http://dbpedia.org/resource/Marie_Tharp ), (http://dbpedia.org/resource/Robert_F._Dill ), (http://dbpedia.org/resource/Suzette_Kimball ), (http://dbpedia.org/resource/Sulochana_Gadgil ), (http://dbpedia.org/resource/Henryk_Arctowski ), (http://dbpedia.org/resource/Mojib_Latif ), (http://dbpedia.org/resource/Michael_Fasham ), (http://dbpedia.org/resource/Wies%C5%82aw_Mas%C5%82owski ), (http://dbpedia.org/resource/Jeffrey_C._Wynn ), (http://dbpedia.org/resource/Reuben_Lasker ), (http://dbpedia.org/resource/Alfred_Merz ), (http://dbpedia.org/resource/Harald_Sverdrup_(oceanographer) ), (http://dbpedia.org/resource/Peter_Huybers ), (http://dbpedia.org/resource/Sylvia_Earle ), (http://dbpedia.org/resource/Carl_Wunsch ), (http://dbpedia.org/resource/Nikolai_Mikhailovich_Knipovich ), (http://dbpedia.org/resource/Georg_W%C3%BCst ), (http://dbpedia.org/resource/Peter_A._Rona ), (http://dbpedia.org/resource/John_Imbrie )]",[]
+178,Show me Hemingway's autobiography.,SELECT DISTINCT ?uri WHERE { ?uri <http://dbpedia.org/ontology/author> <http://dbpedia.org/resource/Ernest_Hemingway> . ?uri <http://dbpedia.org/ontology/literaryGenre> <http://dbpedia.org/resource/Autobiography> . },,"[(http://dbpedia.org/resource/Death_in_the_Afternoon ), (http://dbpedia.org/resource/Green_Hills_of_Africa ), (http://dbpedia.org/resource/A_Farewell_to_Arms ), (http://dbpedia.org/resource/Islands_in_the_Stream_(novel) ), (http://dbpedia.org/resource/A_Clean, (http://dbpedia.org/resource/The_Complete_Short_Stories_of_Ernest_Hemingway ), (http://dbpedia.org/resource/The_Fifth_Column_and_Four_Stories_of_the_Spanish_Civil_War ), (http://dbpedia.org/resource/To_Have_and_Have_Not ), (http://dbpedia.org/resource/A_Moveable_Feast ), (http://dbpedia.org/resource/The_Garden_of_Eden_(novel) ), (http://dbpedia.org/resource/Dateline:_Toronto ), (http://dbpedia.org/resource/In_Another_Country ), (http://dbpedia.org/resource/For_Whom_the_Bell_Tolls ), (http://dbpedia.org/resource/Che_Ti_Dice_La_Patria%3F ), (http://dbpedia.org/resource/The_Old_Man_and_the_Sea ), (http://dbpedia.org/resource/Now_I_Lay_Me ), (http://dbpedia.org/resource/The_Dangerous_Summer ), (http://dbpedia.org/resource/Hills_Like_White_Elephants ), (http://dbpedia.org/resource/The_Fifth_Column_and_the_First_Forty-Nine_Stories ), (http://dbpedia.org/resource/Across_the_River_and_into_the_Trees ), (http://dbpedia.org/resource/A_Day's_Wait )]",[]
+179,Who are the parents of the wife of Juan Carlos I?,"PREFIX dbo: <http://dbpedia.org/ontology/> 
+PREFIX res: <http://dbpedia.org/resource/> 
+SELECT DISTINCT ?uri 
+WHERE { 
+        res:Juan_Carlos_I_of_Spain dbo:spouse ?x . 
+        ?x dbo:parent ?uri . 
+}",,"[(http://dbpedia.org/resource/Frederica_of_Hanover ), (http://dbpedia.org/resource/Paul_of_Greece )]",[]
+180,Did Tesla win a nobel prize in physics?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+ASK 
+WHERE {
+        res:Nikola_Tesla dbo:award res:Nobel_Prize_in_Physics .
+}",,[],[]
+181,Who is the tallest basketball player?,SELECT DISTINCT ?uri WHERE {  ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/BasketballPlayer> .  ?uri <http://dbpedia.org/ontology/height> ?num . } ORDER BY DESC(?num) OFFSET 0 LIMIT 1 ,,[],[]
+182,Which city has the least inhabitants?,SELECT DISTINCT ?uri WHERE {  ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/City> .  ?uri <http://dbpedia.org/ontology/populationTotal> ?pop . } ORDER BY ASC(?pop) OFFSET 0 LIMIT 1 ,,[],[]
+183,Is proinsulin a protein?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+ASK 
+WHERE {
+	res:Proinsulin rdf:type dbo:Protein .
+}",,[],[]
+184,Who were the parents of Queen Victoria?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+SELECT DISTINCT ?uri
+WHERE {
+         res:Queen_Victoria dbo:parent ?uri .
+}",,"[(http://dbpedia.org/resource/Prince_Edward, (http://dbpedia.org/resource/Princess_Victoria_of_Saxe-Coburg-Saalfeld )]",[]
+185,Did Che Guevara have children?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+ASK
+WHERE { 
+        res:Che_Guevara dbo:child ?uri . 
+}",,[],[]
+186,Is Lake Baikal bigger than the Great Bear Lake?,"PREFIX res: <http://dbpedia.org/resource/>
+PREFIX dbo: <http://dbpedia.org/ontology/> 
+ASK
+WHERE {  
+        res:Lake_Baikal dbo:areaTotal ?a1 . 
+        res:Great_Bear_Lake dbo:areaTotal ?a2 .
+        FILTER (?a1 > ?a2)
+}",,[],[]
+187,Did Kaurismäki ever win the Grand Prix at Cannes?,ASK WHERE { <http://dbpedia.org/resource/Aki_Kaurismäki> <http://dbpedia.org/ontology/award> <http://dbpedia.org/resource/Grand_Prix_(Cannes_Film_Festival)> . },,[],[]
+188,Give me all books by William Goldman with more than 300 pages.,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX res: <http://dbpedia.org/resource/>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+SELECT DISTINCT ?uri 
+WHERE {
+        ?uri rdf:type dbo:Book .
+        ?uri dbo:author res:William_Goldman .
+        ?uri dbo:numberOfPages ?x .
+        FILTER (?x > 300)
+}",,"[(http://dbpedia.org/resource/The_Color_of_Light ), (http://dbpedia.org/resource/Boys_and_Girls_Together ), (http://dbpedia.org/resource/Which_Lie_Did_I_Tell%3F ), (http://dbpedia.org/resource/Wait_Till_Next_Year ), (http://dbpedia.org/resource/Tinsel_(novel) ), (http://dbpedia.org/resource/Control_(novel) ), (http://dbpedia.org/resource/Marathon_Man_(novel) ), (http://dbpedia.org/resource/Hype_and_Glory ), (http://dbpedia.org/resource/The_Princess_Bride ), (http://dbpedia.org/resource/Brothers_(Goldman_novel) )]",[]
+189,Where is Fort Knox located?,SELECT DISTINCT ?uri WHERE {  <http://dbpedia.org/resource/Fort_Knox> <http://dbpedia.org/property/location> ?uri . },,[(http://dbpedia.org/resource/Kentucky )],[]
+190,In which U.S. state is Fort Knox located?,"PREFIX dbo: <http://dbpedia.org/ontology/>
+PREFIX dbp: <http://dbpedia.org/property/>
+PREFIX res: <http://dbpedia.org/resource/>
+SELECT DISTINCT ?uri
+WHERE {
+	res:Fort_Knox dbp:location ?uri .
+        ?uri dbo:country res:United_States .
+}",,[(http://dbpedia.org/resource/Kentucky )],[]
+191,Where is Syngman Rhee buried?,SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Syngman_Rhee> <http://dbpedia.org/ontology/restingPlace> ?uri . } ,,[],[]
+192,What is the timezone in San Pedro de Atacama?,SELECT DISTINCT ?uri WHERE {  <http://dbpedia.org/resource/San_Pedro_de_Atacama> <http://dbpedia.org/ontology/timeZone> ?uri . } ,,[(http://dbpedia.org/resource/Time_in_Chile )],[]

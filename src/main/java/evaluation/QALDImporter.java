@@ -38,14 +38,7 @@ public class QALDImporter {
   }
 
     public void writeToCSV(List<String[]> dataLines, String fileName) throws IOException {
-        /*for(String[] rows:dataLines){
-            for(String row:rows){
-              System.out.println("row::"+row);                            
-            }
-            System.out.println();     
-            System.out.println();           
-
-        }*/
+      
         CSVWriter writer = new CSVWriter(new FileWriter(fileName), ',', '"', '"', "\n");
         //CSVWriter writer = new CSVWriter(new FileWriter(fileName), '\t', '"', '"', "\n");
         dataLines.forEach(writer::writeNext);

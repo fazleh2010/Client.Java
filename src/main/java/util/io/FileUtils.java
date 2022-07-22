@@ -139,6 +139,25 @@ public class FileUtils {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(file, InputCofiguration.class);
     }
+    
+     public static void listToFiles(List<String> list, String fileName) {
+        String str = "";
+        for (String element : list) {
+                String line = element + "\n";
+                str += line;
+
+        }
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            writer.write(str);
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+     
+     
 
     
 

@@ -28,13 +28,16 @@ public class QueGG {
     private static String questionsFile = "questions";
     private static String summaryFile = "summary";
     private static Boolean online = true;
-    private static Integer menu=2;
+    private static String FIND_SIMILARITY = "FIND_COMPARISION";
+    private static String FIND_QALD_QUEGG_ANSWER = "FIND_QALD_QeeGG_ANSWER";
+    private static String EVALUTE_QALD_QUEGG="EVALUTE_QALD_QUEGG";
+    private static String menu=EVALUTE_QALD_QUEGG;
 
     public static void main(String[] args) throws Exception {
         QueGG queGG = new QueGG();
         String configFile = null, dataSetConfFile = null;
-        configFile="/home/elahi/AHack/general/Client.Java/conf/inputConf.json";
-        dataSetConfFile="/home/elahi/AHack/general/Client.Java/conf/dbpedia.json";
+        configFile="/home/elahi/AHack/general/Z-Client/Client.Java/conf/inputConf.json";
+        dataSetConfFile="/home/elahi/AHack/general/Z-Client/Client.Java/conf/dbpedia.json";
 
         try {
             InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));
@@ -61,6 +64,7 @@ public class QueGG {
         String languageCode = language.name().toLowerCase();
         String resultMatchFile = outputDir + File.separator + "QALD-QueGG-Match_" + languageCode + ".csv";
         String resultComparisonFile = outputDir + File.separator + "QALD-QueGG-Comparison_" + languageCode + ".csv";
+        String qaldAnswerFile= outputDir + File.separator + "QALD-answer_" + languageCode + ".csv";
         String qaldQueGGAnswerFile= outputDir + File.separator + "QALD-QueGG-answer_" + languageCode + ".csv";
         String qaldRaw = outputDir + File.separator + "QALD-2017-dataset-raw.csv";
         //EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint,menu,resultMatchFile);
@@ -95,7 +99,7 @@ public class QueGG {
                     }
                 }
             }
-            EvaluateAgainstQALD evaluateAgainstQALD =new EvaluateAgainstQALD(languageCode,endpoint,menu,resultMatchFile,resultComparisonFile,qaldQueGGAnswerFile);
+            EvaluateAgainstQALD evaluateAgainstQALD =new EvaluateAgainstQALD(languageCode,endpoint,menu,resultMatchFile,resultComparisonFile,qaldAnswerFile,qaldQueGGAnswerFile);
             evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile,qaldRaw, languageCode, questionType, similarityMeasure);
 
             /*if(menu==1){
