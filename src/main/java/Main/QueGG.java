@@ -2,68 +2,58 @@ package Main;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import evaluation.EvaluateAgainstQALD;
-import static evaluation.EvaluateAgainstQALD.PROTOTYPE_QUESTION;
 import static evaluation.EvaluateAgainstQALD.REAL_QUESTION;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import java.lang.reflect.InvocationTargetException;
-import java.nio.file.Path;
 import java.util.*;
-import java.util.List;
-import java.util.stream.Collectors;
-import static java.util.Objects.isNull;
-import java.io.File;
-import java.io.IOException;
-import util.io.CsvFile;
-import util.io.FileUtils;
-import util.io.InputCofiguration;
-import util.io.Language;
-import util.io.LinkedData;
+import java.io.*;
+import util.io.*;
+
 
 @NoArgsConstructor
-public class QueGG {
+public class QueGG implements Constants{
 
     private static final Logger LOG = LogManager.getLogger(QueGG.class);
-    private static String questionsFile = "questions";
-    private static String summaryFile = "summary";
-    private static Boolean online = true;
-    private static String FIND_SIMILARITY = "FIND_COMPARISION";
-    private static String FIND_QALD_QUEGG_ANSWER = "FIND_QALD_QeeGG_ANSWER";
-    private static String EVALUTE_QALD_QUEGG="EVALUTE_QALD_QUEGG";
-    private static String menu=EVALUTE_QALD_QUEGG;
+    private static LinkedHashSet <String> menu = new LinkedHashSet <String>();;
+    private static String configFile = "conf/inputConf.json";
+    private static String dataSetConfFile = "conf/dbpedia.json";
 
     public static void main(String[] args) throws Exception {
         QueGG queGG = new QueGG();
-        String configFile = null, dataSetConfFile = null;
-        configFile="/home/elahi/AHack/general/Z-Client/Client.Java/conf/inputConf.json";
-        dataSetConfFile="/home/elahi/AHack/general/Z-Client/Client.Java/conf/dbpedia.json";
+        //menu.add(FIND_SIMILARITY);
+        //menu.add(FIND_QALD_ANSWER);
+        //menu.add(FIND_QALD_QUEGG_ANSWER);
+        menu.add(EVALUTE_QALD_QUEGG);
 
         try {
             InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));
             inputCofiguration.setLinkedData(dataSetConfFile);
             if (inputCofiguration.isEvalution()) {
-                Language language = inputCofiguration.getLanguage();
-                String qaldDir = inputCofiguration.getQaldDir();
-                String outputDir = inputCofiguration.getOutputDir();
-                LinkedData linkedData = inputCofiguration.getLinkedData();
-                Double similarity = inputCofiguration.getSimilarityThresold();
-                queGG.evalution(qaldDir, outputDir, language, linkedData.getEndpoint(), EvaluateAgainstQALD.REAL_QUESTION, similarity);
+                queGG.evalution(inputCofiguration,EvaluateAgainstQALD.REAL_QUESTION);
             }
 
         } catch (IllegalArgumentException | IOException e) {
+             e.printStackTrace();
             System.err.printf("%s: %s%n", e.getClass().getSimpleName(), e.getMessage());
-            System.err.printf("Usage: <%s> <input directory> <output directory>%n", Arrays.toString(Language.values()));
         }
 
     }
 
-    public void evalution(String qaldDir, String outputDir, Language language, String endpoint, String questionType, Double similarityMeasure) throws IOException, Exception {
-        ObjectMapper objectMapper = new ObjectMapper();
+    public void evalution(InputCofiguration inputCofiguration,String questionType) throws IOException, Exception {
         String queGGJson = null, queGGJsonCombined = null, qaldFile = null, qaldModifiedFile = null;
-        String languageCode = language.name().toLowerCase();
-        String resultMatchFile = outputDir + File.separator + "QALD-QueGG-Match_" + languageCode + ".csv";
-        String resultComparisonFile = outputDir + File.separator + "QALD-QueGG-Comparison_" + languageCode + ".csv";
+        ObjectMapper objectMapper = new ObjectMapper();
+        String qaldDir = inputCofiguration.getQaldDir();
+        String outputDir = inputCofiguration.getOutputDir();
+        LinkedData linkedData = inputCofiguration.getLinkedData();
+        Double similarity = inputCofiguration.getSimilarityThresold();
+        String endpoint=linkedData.getEndpoint();
+        Double similarityMeasure=inputCofiguration.getSimilarityThresold();
+        String languageCode = inputCofiguration.getLanguageCode();
+      
+        
+        String FIND_SIMILARITY_OUTPUT = outputDir + File.separator + "QALD-QueGG-Match_" + languageCode + ".csv";
+        String comparisonFile = outputDir + File.separator + "QALD-QueGG-Comparison_" + languageCode + ".csv";
         String qaldAnswerFile= outputDir + File.separator + "QALD-answer_" + languageCode + ".csv";
         String qaldQueGGAnswerFile= outputDir + File.separator + "QALD-QueGG-answer_" + languageCode + ".csv";
         String qaldRaw = outputDir + File.separator + "QALD-2017-dataset-raw.csv";
@@ -99,7 +89,7 @@ public class QueGG {
                     }
                 }
             }
-            EvaluateAgainstQALD evaluateAgainstQALD =new EvaluateAgainstQALD(languageCode,endpoint,menu,resultMatchFile,resultComparisonFile,qaldAnswerFile,qaldQueGGAnswerFile);
+            EvaluateAgainstQALD evaluateAgainstQALD =new EvaluateAgainstQALD(languageCode,endpoint,menu,FIND_SIMILARITY_OUTPUT,comparisonFile,qaldAnswerFile,qaldQueGGAnswerFile);
             evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile,qaldRaw, languageCode, questionType, similarityMeasure);
 
             /*if(menu==1){
@@ -115,13 +105,13 @@ public class QueGG {
     }
 
     private void questionEvaluation(InputCofiguration inputCofiguration) throws Exception {
-        Language language = inputCofiguration.getLanguage();
+        Language language = inputCofiguration.getLanguage(inputCofiguration.getLanguageCode());
         String qaldDir = inputCofiguration.getQaldDir();
         String outputDir = inputCofiguration.getOutputDir();
         LinkedData linkedData = inputCofiguration.getLinkedData();
         Double similarityMeasure = inputCofiguration.getSimilarityThresold();
         Boolean combinedFlag = inputCofiguration.getCompositeFlag();
-        evalution(qaldDir, outputDir, language, linkedData.getEndpoint(), EvaluateAgainstQALD.REAL_QUESTION, similarityMeasure);
+        evalution(inputCofiguration,EvaluateAgainstQALD.REAL_QUESTION);
 
     }
 

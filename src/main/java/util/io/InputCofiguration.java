@@ -57,7 +57,7 @@ public class InputCofiguration {
         return languageCode;
     }
 
-    public Language getLanguage() {
+    public Language getLanguage(String languageCode) {
         if (languageCode.contains("de")) {
             return Language.DE;
         } else if (languageCode.contains("en")) {
