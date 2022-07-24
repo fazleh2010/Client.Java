@@ -8,6 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.*;
 import java.io.*;
+import static java.lang.System.exit;
 import util.io.*;
 
 
@@ -21,10 +22,11 @@ public class QueGG implements Constants{
 
     public static void main(String[] args) throws Exception {
         QueGG queGG = new QueGG();
-        //menu.add(FIND_SIMILARITY);
-        //menu.add(FIND_QALD_ANSWER);
-        //menu.add(FIND_QALD_QUEGG_ANSWER);
-        menu.add(EVALUTE_QALD_QUEGG);
+        // FIND_SIMILARITY has to run alone. for unknown reasons all menu does not work
+         menu.add(FIND_QALD_ANSWER);
+         //menu.add(FIND_SIMILARITY);
+         //menu.add(FIND_QALD_QUEGG_ANSWER);
+         //menu.add(EVALUTE_QALD_QUEGG);
 
         try {
             InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));
@@ -37,6 +39,7 @@ public class QueGG implements Constants{
              e.printStackTrace();
             System.err.printf("%s: %s%n", e.getClass().getSimpleName(), e.getMessage());
         }
+        exit(1);
 
     }
 
@@ -66,6 +69,9 @@ public class QueGG implements Constants{
                 } else if (fileName.contains("train-multilingual.json")) {
                     qaldFile = qaldDir + File.separator + fileName;
                 }
+            }
+            else if(fileName.contains("lcquad")){
+                qaldFile=qaldModifiedFile = qaldDir + File.separator + fileName;
             }
         }
 

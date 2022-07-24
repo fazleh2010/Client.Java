@@ -2,7 +2,7 @@
   "languageCode" : "en",
   "inputDir" : "lexicon",
   "outputDir" : "output",
-  "qaldDir" : "qald7Original",
+  "qaldDir" : "LcQuad",
   "numberOfEntities" : 100,
   "similarityThresold" : 0.7,
   "csvToTurtle" : false,

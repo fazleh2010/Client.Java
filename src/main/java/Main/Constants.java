@@ -5,6 +5,10 @@
  */
 package Main;
 
+import org.apache.jena.rdf.model.Model;
+import org.apache.jena.rdf.model.ModelFactory;
+import org.linkeddatafragments.model.LinkedDataFragmentGraph;
+
 /**
  *
  * @author elahi
@@ -21,5 +25,7 @@ public interface Constants {
     public static final String BOG = "BOG";
     public static final String PROTOTYPE_QUESTION = "PROTOTYPE_QUESTION";
     public static final String REAL_QUESTION = "REAL_QUESTION";
+    public static LinkedDataFragmentGraph ldfg = new LinkedDataFragmentGraph("http://data.linkeddatafragments.org/dbpedia2014");
+    public static Model model = ModelFactory.createModelForGraph(ldfg); 
 
 }

@@ -1,0 +1,16 @@
+{
+  "languageCode" : "en",
+  "inputDir" : "lexicon",
+  "outputDir" : "output",
+  "qaldDir" : "qald7Original",
+  "numberOfEntities" : 100,
+  "similarityThresold" : 0.7,
+  "csvToTurtle" : false,
+  "turtleToProtoType" : false,
+  "single": false,
+  "composite": false,
+  "protoTypeToQuestion" : false,
+  "evalution" : true
+}
+
+
