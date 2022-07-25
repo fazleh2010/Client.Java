@@ -17,12 +17,11 @@ public class QueGG implements Constants{
 
     private static final Logger LOG = LogManager.getLogger(QueGG.class);
     private static LinkedHashSet <String> menu = new LinkedHashSet <String>();;
-    private static String configFile = "conf/inputConf.json";
-    private static String dataSetConfFile = "conf/dbpedia.json";
 
     public static void main(String[] args) throws Exception {
         QueGG queGG = new QueGG();
         // FIND_SIMILARITY has to run alone. for unknown reasons all menu does not work
+         //menu.add(FIND_QALD_ANSWER);
          menu.add(FIND_QALD_ANSWER);
          //menu.add(FIND_SIMILARITY);
          //menu.add(FIND_QALD_QUEGG_ANSWER);
@@ -53,13 +52,14 @@ public class QueGG implements Constants{
         String endpoint=linkedData.getEndpoint();
         Double similarityMeasure=inputCofiguration.getSimilarityThresold();
         String languageCode = inputCofiguration.getLanguageCode();
+        String dataset=inputCofiguration.getDataset();
       
         
-        String FIND_SIMILARITY_OUTPUT = outputDir + File.separator + "QALD-QueGG-Match_" + languageCode + ".csv";
-        String comparisonFile = outputDir + File.separator + "QALD-QueGG-Comparison_" + languageCode + ".csv";
-        String qaldAnswerFile= outputDir + File.separator + "QALD-answer_" + languageCode + ".csv";
-        String qaldQueGGAnswerFile= outputDir + File.separator + "QALD-QueGG-answer_" + languageCode + ".csv";
-        String qaldRaw = outputDir + File.separator + "QALD-2017-dataset-raw.csv";
+        String FIND_SIMILARITY_OUTPUT = outputDir + File.separator + dataset+"-QueGG-Match_" + languageCode + ".csv";
+        String comparisonFile = outputDir + File.separator + dataset+"-QueGG-Comparison_" + languageCode + ".csv";
+        String qaldAnswerFile= outputDir + File.separator + dataset+"-answer_" + languageCode + ".csv";
+        String qaldQueGGAnswerFile= outputDir + File.separator + dataset+"-QueGG-answer_" + languageCode + ".csv";
+        String qaldRaw = outputDir + File.separator + dataset+"-dataset-raw.csv";
         //EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint,menu,resultMatchFile);
 
         for (String fileName : new File(qaldDir).list()) {

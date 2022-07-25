@@ -46,6 +46,8 @@ public class InputCofiguration {
     private Boolean compositeFlag;
     @JsonProperty("single")
     private Boolean singleFlag;
+    @JsonProperty("dataset")
+    private String dataset;
      
     private LinkedData linkedData = null;
 
@@ -132,6 +134,10 @@ public class InputCofiguration {
 
     public Boolean getSingleFlag() {
         return singleFlag;
+    }
+
+    public String getDataset() {
+        return dataset;
     }
     
     @Override

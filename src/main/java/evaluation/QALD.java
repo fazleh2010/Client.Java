@@ -12,6 +12,10 @@ public class QALD {
   public QALDDatasetDefinition dataset;
   @JsonProperty
   public List<QALDQuestions> questions=new ArrayList<QALDQuestions> ();
+  
+    public QALD(){
+        
+    }
 
     public QALD(String datasetString, List<LcQuadElement> lcQuadElements) {
         dataset = new QALDDatasetDefinition(datasetString);
@@ -26,6 +30,10 @@ public class QALD {
   public static class QALDDatasetDefinition {
     @JsonProperty
     String id;
+    
+     public QALDDatasetDefinition(){
+        
+    }
     
     public QALDDatasetDefinition(String id){
         this.id=id;
@@ -46,6 +54,11 @@ public class QALD {
     @JsonProperty
     public String keywords;
     
+    public QALDQuestion(){
+
+    }
+
+    
     public QALDQuestion(String language,String string, String keywords){
     this.language=language;
     this.string=string;
@@ -62,6 +75,10 @@ public class QALD {
   public static class QALDQuery {
     @JsonProperty
     public String sparql;
+    
+    public QALDQuery(){
+        
+    }
     
     public QALDQuery(String sparql){
         this.sparql=sparql;
@@ -85,6 +102,10 @@ public class QALD {
         public List<QALDQuestion> question;
         @JsonProperty
         public QALDQuery query;
+        
+        public QALDQuestions(){
+            
+        }
 
         public QALDQuestions(LcQuadElement lcQuadElemen) {
             System.out.println(" lcQuadElemen.getId()::" + lcQuadElemen.getId());

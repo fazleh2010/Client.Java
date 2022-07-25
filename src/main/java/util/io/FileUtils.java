@@ -63,6 +63,25 @@ public class FileUtils {
 
         return fileAsString;
     }
+    
+    public static Set<Integer> fileToSet(String fileName) {
+         InputStream is; Set<Integer> ids=new TreeSet<Integer>();
+        try {
+            is = new FileInputStream(fileName);
+            BufferedReader buf = new BufferedReader(new InputStreamReader(is));
+            String line = buf.readLine();
+            StringBuilder sb = new StringBuilder();
+            while (line != null) {
+                line = buf.readLine();
+                Integer id=Integer.parseInt(line);
+                ids.add(id);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return ids;
+    }
 
     public static List<File> getFiles(String fileDir, String category, String extension) {
         String[] files = new File(fileDir).list();

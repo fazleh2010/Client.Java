@@ -8,6 +8,7 @@ import org.apache.jena.sparql.lang.SPARQLParser;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.io.IOException;
+import static java.lang.System.exit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -26,6 +27,7 @@ import org.apache.jena.rdf.model.ModelFactory;
 import org.linkeddatafragments.client.LinkedDataFragmentSpql;
 import org.linkeddatafragments.model.LinkedDataFragmentGraph;
 import util.io.CsvFile;
+import util.io.FileUtils;
 
 public class EvaluateAgainstQALD implements Constants{
 
@@ -60,7 +62,7 @@ public class EvaluateAgainstQALD implements Constants{
         QALD qaldModified = qaldImporter.readQald(qaldModifiedFile);
         QALD qaldOriginal = qaldImporter.readQald(qaldOriginalFile);
         
-        System.out.println("menu::"+menu);
+     
         
         if (menu.contains(FIND_SIMILARITY)) {
             entryComparisons = getAllSentenceMatchesCsv(qaldModified, questions, languageCode, BOG, similarityMeasure);
@@ -68,12 +70,23 @@ public class EvaluateAgainstQALD implements Constants{
             Writer.writeResult(qaldImporter, qaldOriginal, result, this.FIND_SIMILARITY_RESULT, languageCode,FIND_SIMILARITY);
             System.out.println("FIND_SIMILARITY completed!!");
         }
-        if (menu.contains(FIND_QALD_ANSWER)) {
-            entryComparisons = getQaldAnswer(qaldModified,languageCode);
-            result = doEvaluation(qaldModified, entryComparisons, languageCode, questionType, false);
-            Writer.writeResult(qaldImporter, qaldOriginal, result, this.QALD_ANSWER_FILE, languageCode,FIND_QALD_ANSWER);
-            System.out.println("FIND_QALD_ANSWER completed!!");
-        }
+            if (menu.contains(ANSWER_SELECTED)) {
+                Set<Integer> ids=new TreeSet<Integer>();
+                ids=FileUtils.fileToSet(singleTripeFile);
+                 Boolean online = true;
+                entryComparisons = getGoldAnswer(qaldModified, languageCode, online,ids);
+                result = doEvaluation(entryComparisons);
+                Writer.writeResult(qaldImporter, qaldOriginal, result, this.QALD_ANSWER_FILE, languageCode, FIND_QALD_ANSWER);
+                System.out.println("FIND_QALD_ANSWER completed!!");
+            } else  if (menu.contains(FIND_QALD_ANSWER)) {
+                Boolean online = true;
+                entryComparisons = getGoldAnswer(qaldModified, languageCode, online,new TreeSet<Integer>());
+                result = doEvaluation(entryComparisons);
+                Writer.writeResult(qaldImporter, qaldOriginal, result, this.QALD_ANSWER_FILE, languageCode, FIND_QALD_ANSWER);
+                System.out.println("FIND_QALD_ANSWER completed!!");
+            }
+        
+       
         if (menu.contains(FIND_QALD_QUEGG_ANSWER)) {
             entryComparisons = getMatchedSentences(this.FIND_SIMILARITY_RESULT, this.QALD_ANSWER_FILE, this.QALD_QUEGG_ANSWER_FILE);
             System.out.println("FIND_QALD_QUEGG_ANSWER completed!!");
@@ -419,9 +432,10 @@ public class EvaluateAgainstQALD implements Constants{
         return entryComparisons;
     }
   
-    private List<EntryComparison> getQaldAnswer(QALD qaldFile, String languageCode) throws Exception {
+    private List<EntryComparison> getGoldAnswer(QALD qaldFile, String languageCode,Boolean flag,Set<Integer> ids) throws Exception {
         List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
         Integer index = 0;
+        Integer total = qaldFile.questions.size();
         for (QALD.QALDQuestions qaldQuestions : qaldFile.questions) {
             List<String> qualResults = new ArrayList<String>();
             String qaldQuestion = QALDImporter.getQaldQuestionString(qaldQuestions, languageCode);
@@ -431,17 +445,27 @@ public class EvaluateAgainstQALD implements Constants{
             String qaldSparql = qaldQuestions.query.sparql;
             Entry qaldEntry = new Entry();
             Entry queGGEntry = new Entry();
+            Integer id=Integer.parseInt(qaldQuestions.id);
+                    
+            if(!ids.isEmpty()&&!ids.contains(id)){
+                continue;
+            }
+            
             qaldEntry.setActualEntry(qaldQuestions);
-            qaldEntry.setId(qaldQuestions.id);
+            qaldEntry.setId(id.toString());
             qaldEntry.setQuestions(qaldQuestion);
             qaldEntry.setSparql(qaldSparql);
-            System.out.println("qaldEntry.getId()c"+qaldEntry.getId());
-            System.out.println("qaldSparqlqaldEntry.getId()"+qaldSparql);
-            qualResults = this.getSparqlQuery(qaldSparql, true, qualResults);
+            if (flag) {
+                qualResults = this.getSparqlQuery(qaldSparql, true, qualResults);
+                System.out.println(" index::" + index + " total::" + total + " id::" + qaldEntry.getId() + " sparql::" + qaldSparql + " qualResults::" + qualResults.size());
+            }
+            System.out.println();
             qaldEntry.setResultList(qualResults);
             entryComparison.setQaldEntry(qaldEntry);
             entryComparison.setQueGGEntry(queGGEntry);
             entryComparisons.add(entryComparison);
+
+            
         }
         return entryComparisons;
     }
@@ -516,7 +540,7 @@ public class EvaluateAgainstQALD implements Constants{
         }
         
 
-        if (menu.contains(FIND_QALD_QUEGG_ANSWER) || menu.contains(FIND_QALD_ANSWER)) {
+        if (menu.contains(FIND_QALD_QUEGG_ANSWER) || menu.contains(FIND_QALD_ANSWER)||menu.contains(ANSWER_SELECTED)) {
             LinkedDataFragmentSpql main = new LinkedDataFragmentSpql(model, endpoint, sparql);
             uriResultList = main.sparqlObjectAsVariable(sparql);
             uriResultList = main.parseResultList(uriResultList);
