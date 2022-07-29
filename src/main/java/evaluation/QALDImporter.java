@@ -61,11 +61,23 @@ public class QALDImporter {
     private List<String[]> qaldJsonToCSVTemplate(QALD qaldFile, String languageCode) {
         List<String[]> list = new ArrayList<>();
         list.add(new String[]{"id", "answertype", "question", "sparql"});
-        qaldFile.questions.forEach(qaldQuestions -> {
+
+        for (QALDQuestions qaldQuestions : qaldFile.questions) {
+            //System.out.println(qaldQuestions.id+" "+qaldQuestions.question+" "+qaldQuestions.query.sparql+" "+qaldQuestions.answertype);
+            try{
             list.add(new String[]{qaldQuestions.id, qaldQuestions.answertype, getQaldQuestionString(qaldQuestions,
                 languageCode
                 ), qaldQuestions.query.sparql});
-        });
+            }
+            catch(Exception ex){
+                
+            }
+        }
+        /*qaldFile.questions.forEach(qaldQuestions -> {
+            list.add(new String[]{qaldQuestions.id, qaldQuestions.answertype, getQaldQuestionString(qaldQuestions,
+                languageCode
+                ), qaldQuestions.query.sparql});
+        });*/
         return list;
     }
 
@@ -77,9 +89,9 @@ public class QALDImporter {
     }
 
     public static String getQaldSparqlQuery(QALD.QALDQuestions qaldQuestions) {
-        String sparql = qaldQuestions.query.sparql;
-        return sparql;
-
+        if(qaldQuestions.query!=null)
+           return  qaldQuestions.query.sparql;
+        return null;
     }
 
     public static void main(String[] args) throws IOException {

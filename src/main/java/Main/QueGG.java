@@ -38,7 +38,6 @@ public class QueGG implements Constants{
              e.printStackTrace();
             System.err.printf("%s: %s%n", e.getClass().getSimpleName(), e.getMessage());
         }
-        exit(1);
 
     }
 

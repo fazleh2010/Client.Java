@@ -436,6 +436,7 @@ public class EvaluateAgainstQALD implements Constants{
         Integer total = qaldFile.questions.size();
         for (QALD.QALDQuestions qaldQuestions : qaldFile.questions) {
             List<String> qualResults = new ArrayList<String>();
+            System.out.println(qaldQuestions.id);
             String qaldQuestion = QALDImporter.getQaldQuestionString(qaldQuestions, languageCode);
             String qaldSparqlQuery = QALDImporter.getQaldSparqlQuery(qaldQuestions);
             index = index + 1;
