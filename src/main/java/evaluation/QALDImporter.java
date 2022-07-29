@@ -9,9 +9,11 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import static java.lang.System.exit;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import util.io.LcQuad;
 import util.io.LcQuadElement;
 
@@ -21,14 +23,20 @@ public class QALDImporter {
     public QALDImporter() {
     }
 
-    public void qaldToCSV(String qaldFile, String outputFile, String languageCode) throws IOException {
+    public void qaldToCSV(String qaldFile, String outputFile, String languageCode) {
         QALD qald = null;
-        if (qaldFile.contains("qald")) {
-            qald = readQald(qaldFile);
-        } else {
-            qald = lcQuad(qaldFile);
+        try {
+            if (qaldFile.contains("qald")) {
+
+                qald = readQald(qaldFile);
+
+            } else {
+                qald = lcQuad(qaldFile);
+            }
+            writeToCSV(qaldJsonToCSVTemplate(qald, languageCode), outputFile);
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(QALDImporter.class.getName()).log(Level.SEVERE, null, ex);
         }
-        writeToCSV(qaldJsonToCSVTemplate(qald, languageCode), outputFile);
     }
 
     public QALD readQald(String qaldFile) throws IOException {

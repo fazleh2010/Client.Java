@@ -112,6 +112,7 @@ public class LinkedDataFragmentSpql {
      
     public List<String> sparqlObjectAsVariable(String qaldSparql) {
         List<String> results = new ArrayList<String>();
+        System.out.println("qaldSparql::"+qaldSparql);
         Query qry = QueryFactory.create(qaldSparql);
         QueryExecution qe = QueryExecutionFactory.create(qry, model);
         ResultSet rs = qe.execSelect();

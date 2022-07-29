@@ -54,7 +54,7 @@ public class EvaluateAgainstQALD implements Constants{
         //}
     }
 
-    public void evaluateAndOutput(Map<String, String[]> questions, String qaldOriginalFile, String qaldModifiedFile, String qaldRaw, String languageCode, String questionType, Double similarityMeasure) throws IOException, Exception {
+    public void evaluateAndOutput(Map<String, String[]> questions, String qaldOriginalFile, String qaldModifiedFile, String qaldRaw, String languageCode, String questionType, Double similarityMeasure,Boolean online) throws IOException, Exception {
         QALDImporter qaldImporter = new QALDImporter();
         EvaluationResult result = null;
         List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
@@ -73,13 +73,11 @@ public class EvaluateAgainstQALD implements Constants{
             if (menu.contains(ANSWER_SELECTED)) {
                 Set<Integer> ids=new TreeSet<Integer>();
                 ids=FileUtils.fileToSet(singleTripeFile);
-                 Boolean online = true;
                 entryComparisons = getGoldAnswer(qaldModified, languageCode, online,ids);
                 result = doEvaluation(entryComparisons);
                 Writer.writeResult(qaldImporter, qaldOriginal, result, this.QALD_ANSWER_FILE, languageCode, FIND_QALD_ANSWER);
                 System.out.println("FIND_QALD_ANSWER completed!!");
             } else  if (menu.contains(FIND_QALD_ANSWER)) {
-                Boolean online = true;
                 entryComparisons = getGoldAnswer(qaldModified, languageCode, online,new TreeSet<Integer>());
                 result = doEvaluation(entryComparisons);
                 Writer.writeResult(qaldImporter, qaldOriginal, result, this.QALD_ANSWER_FILE, languageCode, FIND_QALD_ANSWER);
@@ -442,7 +440,8 @@ public class EvaluateAgainstQALD implements Constants{
             String qaldSparqlQuery = QALDImporter.getQaldSparqlQuery(qaldQuestions);
             index = index + 1;
             EntryComparison entryComparison = new EntryComparison();
-            String qaldSparql = qaldQuestions.query.sparql;
+            //String qaldSparql = qaldQuestions.query.sparql;
+
             Entry qaldEntry = new Entry();
             Entry queGGEntry = new Entry();
             Integer id=Integer.parseInt(qaldQuestions.id);
@@ -454,10 +453,10 @@ public class EvaluateAgainstQALD implements Constants{
             qaldEntry.setActualEntry(qaldQuestions);
             qaldEntry.setId(id.toString());
             qaldEntry.setQuestions(qaldQuestion);
-            qaldEntry.setSparql(qaldSparql);
+            qaldEntry.setSparql(qaldSparqlQuery);
             if (flag) {
-                qualResults = this.getSparqlQuery(qaldSparql, true, qualResults);
-                System.out.println(" index::" + index + " total::" + total + " id::" + qaldEntry.getId() + " sparql::" + qaldSparql + " qualResults::" + qualResults.size());
+                System.out.println(" id::" + id + " total::" + total + " id::" + qaldEntry.getId() + " sparql::" + qaldSparqlQuery + " qualResults::" + qualResults.size());
+                qualResults = this.getSparqlQuery(qaldSparqlQuery, true, qualResults);
             }
             System.out.println();
             qaldEntry.setResultList(qualResults);
@@ -510,6 +509,11 @@ public class EvaluateAgainstQALD implements Constants{
     private List<String> getSparqlQuery(String sparql, Boolean flag, List<String> resultList) {
         LOG.debug("Executing QALD SPARQL Query:\n{}", sparql);
         List<String> uriResultList = new ArrayList<String>();
+        
+        if(sparql!=null)
+            ;
+        else
+           return new ArrayList<String>(); 
 
         if (menu.contains(EVALUTE_QALD_QUEGG)) {
             return resultList;
@@ -523,6 +527,8 @@ public class EvaluateAgainstQALD implements Constants{
                  ||qaldSparql.contains("RecordLabel")){
             return new ArrayList<String>(); 
          }*/
+        
+        
         if (sparql.contains("ORDER BY") || sparql.contains("UNION")
                 || sparql.contains("RecordLabel")) {
             return new ArrayList<String>();

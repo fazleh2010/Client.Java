@@ -16,7 +16,7 @@ import util.io.*;
 public class QueGG implements Constants{
 
     private static final Logger LOG = LogManager.getLogger(QueGG.class);
-    private static LinkedHashSet <String> menu = new LinkedHashSet <String>();;
+    private static LinkedHashSet <String> menu = new LinkedHashSet <String>();
 
     public static void main(String[] args) throws Exception {
         QueGG queGG = new QueGG();
@@ -96,7 +96,7 @@ public class QueGG implements Constants{
                 }
             }
             EvaluateAgainstQALD evaluateAgainstQALD =new EvaluateAgainstQALD(languageCode,endpoint,menu,FIND_SIMILARITY_OUTPUT,comparisonFile,qaldAnswerFile,qaldQueGGAnswerFile);
-            evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile,qaldRaw, languageCode, questionType, similarityMeasure);
+            evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile,qaldRaw, languageCode, questionType, similarityMeasure,online);
 
             /*if(menu==1){
               evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile,qaldRaw, languageCode, questionType, similarityMeasure);

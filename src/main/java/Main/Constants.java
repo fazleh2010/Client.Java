@@ -5,6 +5,8 @@
  */
 package Main;
 
+import java.util.Set;
+import java.util.TreeSet;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.linkeddatafragments.model.LinkedDataFragmentGraph;
@@ -30,6 +32,9 @@ public interface Constants {
     public static Model model = ModelFactory.createModelForGraph(ldfg); 
     public static String configFile = "conf/inputConf.json";
     public static String singleTripeFile = "conf/oneTriple.txt";
-    public static String dataSetConfFile = "conf/dbpedia.json";
+    public static String dataSetConfFile = "conf/dbpedia.json";   
+    public static Boolean online=false;
+
+   
 
 }
