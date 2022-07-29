@@ -160,6 +160,11 @@ public class CsvFile implements CsvConstants {
             } else*/ {
                 reader = new CSVReader(new FileReader(qaldFile));
                 rows = reader.readAll();
+                /*for(String []row:rows){
+                   System.out.println(row[0]) ; 
+                   System.out.println(row[1]) ; 
+                   System.out.println(row[2]) ; 
+                }*/
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CsvFile.class.getName()).log(Level.SEVERE, null, ex);

@@ -17,19 +17,23 @@ public class QueGG implements Constants{
 
     private static final Logger LOG = LogManager.getLogger(QueGG.class);
     private static LinkedHashSet <String> menu = new LinkedHashSet <String>();
+    private static Boolean online = false;
+
 
     public static void main(String[] args) throws Exception {
         QueGG queGG = new QueGG();
         // FIND_SIMILARITY has to run alone. for unknown reasons all menu does not work
          //menu.add(FIND_QALD_ANSWER);
-         menu.add(FIND_QALD_ANSWER);
          //menu.add(FIND_SIMILARITY);
          //menu.add(FIND_QALD_QUEGG_ANSWER);
-         //menu.add(EVALUTE_QALD_QUEGG);
+         menu.add(EVALUTE_QALD_QUEGG);
 
         try {
             InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));
+            online=inputCofiguration.getOnline();
             inputCofiguration.setLinkedData(dataSetConfFile);
+             Boolean online=inputCofiguration.getOnline();
+
             if (inputCofiguration.isEvalution()) {
                 queGG.evalution(inputCofiguration,EvaluateAgainstQALD.REAL_QUESTION);
             }
@@ -94,8 +98,8 @@ public class QueGG implements Constants{
                     }
                 }
             }
-            EvaluateAgainstQALD evaluateAgainstQALD =new EvaluateAgainstQALD(languageCode,endpoint,menu,FIND_SIMILARITY_OUTPUT,comparisonFile,qaldAnswerFile,qaldQueGGAnswerFile);
-            evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile,qaldRaw, languageCode, questionType, similarityMeasure,online);
+            EvaluateAgainstQALD evaluateAgainstQALD =new EvaluateAgainstQALD(languageCode,endpoint,menu,FIND_SIMILARITY_OUTPUT,comparisonFile,qaldAnswerFile,qaldQueGGAnswerFile,online);
+            evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile,qaldRaw, languageCode, questionType, similarityMeasure);
 
             /*if(menu==1){
               evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile,qaldRaw, languageCode, questionType, similarityMeasure);

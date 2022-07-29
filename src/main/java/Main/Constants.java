@@ -33,8 +33,6 @@ public interface Constants {
     public static String configFile = "conf/inputConf.json";
     public static String singleTripeFile = "conf/oneTriple.txt";
     public static String dataSetConfFile = "conf/dbpedia.json";   
-    public static Boolean online=false;
-
    
 
 }

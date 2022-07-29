@@ -48,6 +48,9 @@ public class InputCofiguration {
     private Boolean singleFlag;
     @JsonProperty("dataset")
     private String dataset;
+    @JsonProperty("online")
+    private Boolean online;
+    
      
     private LinkedData linkedData = null;
 
@@ -138,6 +141,10 @@ public class InputCofiguration {
 
     public String getDataset() {
         return dataset;
+    }
+
+    public Boolean getOnline() {
+        return online;
     }
     
     @Override

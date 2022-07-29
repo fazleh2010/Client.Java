@@ -40,8 +40,9 @@ public class EvaluateAgainstQALD implements Constants{
     private String evalutionFile = null;
     private String QALD_QUEGG_ANSWER_FILE = null;
     private String QALD_ANSWER_FILE = null;
+    private Boolean online = false;
 
-    public EvaluateAgainstQALD(String language, String endpoint, Set<String> menu, String FIND_SIMILARITY_RESULT, String resultComparisonFile, String qaldAnswerFile, String qaldQueGGAnswerFile) {
+    public EvaluateAgainstQALD(String language, String endpoint, Set<String> menu, String FIND_SIMILARITY_RESULT, String resultComparisonFile, String qaldAnswerFile, String qaldQueGGAnswerFile,Boolean online) {
         this.language = language;
         this.endpoint = endpoint;
         this.menu = menu;
@@ -49,12 +50,13 @@ public class EvaluateAgainstQALD implements Constants{
         this.evalutionFile = resultComparisonFile;
         this.QALD_QUEGG_ANSWER_FILE = qaldQueGGAnswerFile;
         this.QALD_ANSWER_FILE = qaldAnswerFile;
+        this.online=online;
         //if (this.endpoint.contains("http://data.linkeddatafragments.org")) {
         //   this.model = ModelFactory.createModelForGraph(new LinkedDataFragmentGraph(this.endpoint));   
         //}
     }
 
-    public void evaluateAndOutput(Map<String, String[]> questions, String qaldOriginalFile, String qaldModifiedFile, String qaldRaw, String languageCode, String questionType, Double similarityMeasure,Boolean online) throws IOException, Exception {
+    public void evaluateAndOutput(Map<String, String[]> questions, String qaldOriginalFile, String qaldModifiedFile, String qaldRaw, String languageCode, String questionType, Double similarityMeasure) throws IOException, Exception {
         QALDImporter qaldImporter = new QALDImporter();
         EvaluationResult result = null;
         List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
@@ -564,12 +566,12 @@ public class EvaluateAgainstQALD implements Constants{
         return false;
     }
 
-    private List<EntryComparison> getMatchedSentences(String resultMatchFile, String qaldAnswerFile, String qaldqueGGAnswerFile) {
+    private List<EntryComparison> getMatchedSentences(String matchFile, String qaldAnswerFile, String qaldqueGGAnswerFile) {
         List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
         List<String[]> qaldAnswerData = new ArrayList<String[]>();
         Integer index = 0;
         CsvFile csvFile = new CsvFile();
-        List<String[]> rows = csvFile.getRows(new File(resultMatchFile));
+        List<String[]> rows = csvFile.getRows(new File(matchFile));
         List<String[]> qaldAnswerRows = csvFile.getRows(new File(qaldAnswerFile));
         Map<String, String> qaldInfo = this.getQaldOffLineAnswer(qaldAnswerRows);
         
@@ -744,8 +746,8 @@ public class EvaluateAgainstQALD implements Constants{
             if (index == 1) {
                 continue;
             }
-
-            String id = row[0];
+            //String[] info = row[0].replace("\n", "").split("\t");
+            String id=row[0];
             String answer = row[3];
             map.put(id, answer);
         }
