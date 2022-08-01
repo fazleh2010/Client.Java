@@ -23,10 +23,10 @@ public class QueGG implements Constants{
     public static void main(String[] args) throws Exception {
         QueGG queGG = new QueGG();
         // FIND_SIMILARITY has to run alone. for unknown reasons all menu does not work
-         //menu.add(FIND_QALD_ANSWER);
+         menu.add(FIND_QALD_ANSWER);
          //menu.add(FIND_SIMILARITY);
          //menu.add(FIND_QALD_QUEGG_ANSWER);
-         menu.add(EVALUTE_QALD_QUEGG);
+         //menu.add(EVALUTE_QALD_QUEGG);
 
         try {
             InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));

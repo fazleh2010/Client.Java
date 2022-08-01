@@ -22,6 +22,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.jena.query.QueryParseException;
 import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.linkeddatafragments.client.LinkedDataFragmentSpql;
@@ -550,9 +551,14 @@ public class EvaluateAgainstQALD implements Constants{
         
 
         if (menu.contains(FIND_QALD_QUEGG_ANSWER) || menu.contains(FIND_QALD_ANSWER)||menu.contains(ANSWER_SELECTED)) {
+            try{
             LinkedDataFragmentSpql main = new LinkedDataFragmentSpql(model, endpoint, sparql);
             uriResultList = main.sparqlObjectAsVariable(sparql);
-            uriResultList = main.parseResultList(uriResultList);
+            uriResultList = main.parseResultList(uriResultList);      
+            }catch(QueryParseException ex){
+                return new ArrayList<String>(); 
+            }
+          
         }
 
         return uriResultList;
