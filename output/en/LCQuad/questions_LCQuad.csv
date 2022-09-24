@@ -1,0 +1,10 @@
+id	question	sparql	answer_uri	answer_label	Frane
+94	Which american football team  has stadium as O.co Coliseum?	SELECT DISTINCT ?uri WHERE {?uri <http://dbpedia.org/ontology/locationCity> <http://dbpedia.org/resource/O.co_Coliseum>  . ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/AmericanFootballTeam>}	null	null	NNP
+116	Where was Live in Detroit, MI recorded ?	SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Live_in_Detroit,_MI> <http://dbpedia.org/ontology/recordedIn> ?uri }	null	null	NNP
+117	who all have been a manager of english under twenty one football team?	SELECT DISTINCT ?uri WHERE {?uri <http://dbpedia.org/property/managerclubs> <http://dbpedia.org/resource/England_national_under-21_football_team> }	null	null	NNP
+125	Count all the different purposes followed by the different NGOs.	SELECT DISTINCT COUNT(?uri) WHERE { ?x <http://dbpedia.org/property/type> <http://dbpedia.org/resource/Non-governmental_organization> . ?x <http://dbpedia.org/property/purpose> ?uri  . }	null	null	NNP
+133	In which time zone is Pong Pha?	SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Pong_Pha> <http://dbpedia.org/ontology/timeZone> ?uri }	null	null	NNP
+154	Raymond Johansen is the mayor of what city?	SELECT DISTINCT ?uri WHERE {?uri <http://dbpedia.org/ontology/leaderName> <http://dbpedia.org/resource/Raymond_Johansen>  . }	null	null	NNP
+190	Which researchers received fellowship from Royal Society?	SELECT DISTINCT ?uri WHERE {?uri <http://dbpedia.org/ontology/award> <http://dbpedia.org/resource/Royal_Society>  . ?uri <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://dbpedia.org/ontology/Scientist>}	null	null	NNP
+197	To whom was Tessa Dahl born to?	SELECT DISTINCT ?uri WHERE { <http://dbpedia.org/resource/Tessa_Dahl> <http://dbpedia.org/ontology/parent> ?uri }	null	null	NNP
+206	God Defend New Zealand is the national anthem of which country?	SELECT DISTINCT ?uri WHERE {?uri <http://dbpedia.org/property/nationalAnthem> <http://dbpedia.org/resource/God_Defend_New_Zealand> }	null	null	NNP

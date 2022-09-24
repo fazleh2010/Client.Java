@@ -34,7 +34,10 @@ import java.util.logging.Logger;
 import java.io.File;  
 import java.io.FileInputStream;  
 import java.io.IOException;  
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import static java.lang.System.exit;
+import java.util.TreeSet;
  
 
 /**
@@ -68,6 +71,7 @@ public class CsvFile implements CsvConstants {
     }
 
     public void writeToCSV(List<String[]> csvData) {
+        System.out.print(csvData.size());
         if (csvData.isEmpty()) {
             System.err.println("writing csv file failed!!!");
             return;
@@ -175,6 +179,31 @@ public class CsvFile implements CsvConstants {
         } catch (CsvException ex) {
             Logger.getLogger(CsvFile.class.getName()).log(Level.SEVERE, null, ex);
             LOGGER.log(Level.SEVERE, "CSV problems:!!!" + ex.getMessage());
+        }
+
+        return rows;
+    }
+    
+    public List<String[]> getRowsTab(File qaldFile) {
+        List<String[]> rows = new ArrayList<String[]>();
+        BufferedReader reader;
+        InputStream is;
+        try {
+            reader = new BufferedReader(new FileReader(qaldFile));
+            String line = reader.readLine();
+            while (line != null) {
+                line = reader.readLine();
+                if (line != null) {
+                    line = line.strip().trim();
+                    if (line.contains("\t")) {
+                        String[] info = line.split("\t");
+                        rows.add(info);
+                    }
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         return rows;

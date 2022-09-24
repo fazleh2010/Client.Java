@@ -51,12 +51,18 @@ public class QALDImporter {
         LcQuad lcQuad=new LcQuad(file);
         return  new QALD(lcQuad.getDatasetName(),lcQuad.getLcQuadElements());
     }
-
+    
     public void writeToCSV(List<String[]> dataLines, String fileName) throws IOException {
-        CSVWriter writer = new CSVWriter(new FileWriter(fileName), '\t', '"', '"', "\n");
+        CSVWriter writer = new CSVWriter(new FileWriter(fileName));
         dataLines.forEach(writer::writeNext);
         writer.close();
     }
+
+    /*public void writeToCSV(List<String[]> dataLines, String fileName) throws IOException {
+        CSVWriter writer = new CSVWriter(new FileWriter(fileName), '\t', '"', '"', "\n");
+        dataLines.forEach(writer::writeNext);
+        writer.close();
+    }*/
 
     private List<String[]> qaldJsonToCSVTemplate(QALD qaldFile, String languageCode) {
         List<String[]> list = new ArrayList<>();
@@ -91,6 +97,11 @@ public class QALDImporter {
     public static String getQaldSparqlQuery(QALD.QALDQuestions qaldQuestions) {
         if(qaldQuestions.query!=null)
            return  qaldQuestions.query.sparql;
+        return null;
+    }
+      public static String getQaldId(QALD.QALDQuestions qaldQuestions) {
+        if(qaldQuestions.id!=null)
+           return  qaldQuestions.id;
         return null;
     }
 

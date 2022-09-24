@@ -28,11 +28,12 @@ public class StringSimilarity {
 
     
     
-     public QueGGinfomation getMostSimilarMatch(Map<String, QueGGinfomation> grammarEntities) throws Exception {
+    public QueGGinfomation getMostSimilarMatch(Map<String, QueGGinfomation> grammarEntities) throws Exception {
         HashMap<String, Double> map = new HashMap<String, Double>();
         for (String question : grammarEntities.keySet()) {
             QueGGinfomation queGGinfomation = grammarEntities.get(question);
             map.put(question, queGGinfomation.getValue());
+            System.out.println(question + " " + queGGinfomation);
         }
         ValueComparator bvc = new ValueComparator(map);
         TreeMap<String, Double> sorted_map = new TreeMap<String, Double>(bvc);
@@ -40,7 +41,7 @@ public class StringSimilarity {
         //System.out.println("sorted_map: " + sorted_map);
         String key = sorted_map.firstKey();
         Double value = sorted_map.get(key);
-   
+
         QueGGinfomation queGGinfomation = grammarEntities.get(key);
         return queGGinfomation;
 
