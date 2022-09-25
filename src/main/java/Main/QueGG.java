@@ -1,5 +1,6 @@
 package Main;
 
+import util.io.Calculation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import evaluation.EvaluateAgainstQALD;
 import static evaluation.EvaluateAgainstQALD.REAL_QUESTION;
@@ -9,6 +10,8 @@ import org.apache.logging.log4j.Logger;
 import java.util.*;
 import java.io.*;
 import static java.lang.System.exit;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import util.io.*;
 
 @NoArgsConstructor
@@ -27,7 +30,7 @@ public class QueGG implements Constants {
         //menu.add(FIND_QALD_ANSWER);
         //menu.add(FIND_SIMILARITY);
         //menu.add(FIND_QALD_QUEGG_ANSWER);
-         menu.add(EVALUTE_QALD_QUEGG);
+        // menu.add(EVALUTE_QALD_QUEGG);
 
         try {
             InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));
@@ -35,6 +38,10 @@ public class QueGG implements Constants {
             inputCofiguration.setLinkedData(dataSetConfFile);
             Boolean online = inputCofiguration.getOnline();
 
+            if(inputCofiguration.isCalculation()){
+                System.out.println("calculation");
+                Calculation.numberQuestions(inputCofiguration);
+            }
             if (inputCofiguration.isEvalution()) {
                 queGG.evalution(inputCofiguration);
             }
@@ -130,35 +137,34 @@ public class QueGG implements Constants {
         //temporary code for qald entity creation...
         //System.out.println(entityLabelDir+File.separator+"qaldEntities.txt");
         //FileUtils.stringToFile(string, entityLabelDir+File.separator+"qaldEntities.txt");
-        
-            Map<String, String[]> queGGQuestions = new HashMap<String, String[]>();
-            List<String[]> rows = new ArrayList<String[]>();
-            String[] files = new File(outputDir).list();
-            System.out.println("outputDir:::"+outputDir);
-            for (String fileName : files) {
-                if (fileName.contains("lock.")) {
-                    continue;
-                }
-                if (fileName.contains(questionsFile) && fileName.contains(".csv")) {
-                    System.out.println(fileName);
-                    File file = new File(outputDir + File.separator + fileName);
-                    CsvFile csvFile = new CsvFile(file);
-                    //rows = csvFile.getRowsTab(file);
-                     rows = csvFile.getRows(file);
-                    for (String[] row : rows) {
-                        String question = row[1];
-                        String cleanQuestion = question.toLowerCase().trim().strip().stripLeading().stripTrailing();
-                        queGGQuestions.put(cleanQuestion, row);
-                    }
+        Map<String, String[]> queGGQuestions = new HashMap<String, String[]>();
+        List<String[]> rows = new ArrayList<String[]>();
+        String[] files = new File(outputDir).list();
+        System.out.println("outputDir:::" + outputDir);
+        for (String fileName : files) {
+            if (fileName.contains("lock.")) {
+                continue;
+            }
+            if (fileName.contains(questionsFile) && fileName.contains(".csv")) {
+                System.out.println(fileName);
+                File file = new File(outputDir + File.separator + fileName);
+                CsvFile csvFile = new CsvFile(file);
+                //rows = csvFile.getRowsTab(file);
+                rows = csvFile.getRows(file);
+                for (String[] row : rows) {
+                    String question = row[1];
+                    String cleanQuestion = question.toLowerCase().trim().strip().stripLeading().stripTrailing();
+                    queGGQuestions.put(cleanQuestion, row);
                 }
             }
-            if (queGGQuestions.isEmpty()) {
-                throw new Exception("no question found in QueGG!!!");
-            }
+        }
+        if (queGGQuestions.isEmpty()) {
+            throw new Exception("no question found in QueGG!!!");
+        }
+        else {
             EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint, menu, FIND_SIMILARITY_OUTPUT, comparisonFile, qaldAnswerFile, qaldQueGGAnswerFile, online);
             evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile, qaldRaw, languageCode, similarityMeasure);
-
-       
+        }
 
     }
 

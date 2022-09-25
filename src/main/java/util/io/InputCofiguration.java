@@ -50,6 +50,8 @@ public class InputCofiguration {
     private String dataset;
     @JsonProperty("online")
     private Boolean online;
+    @JsonProperty("calculation")
+    private Boolean calculation;
     
      
     private LinkedData linkedData = null;
@@ -145,6 +147,10 @@ public class InputCofiguration {
 
     public Boolean getOnline() {
         return online;
+    }
+
+    public Boolean isCalculation() {
+        return calculation;
     }
     
     @Override

@@ -37,6 +37,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import static java.lang.System.exit;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.TreeSet;
  
 
@@ -350,8 +354,75 @@ public class CsvFile implements CsvConstants {
         return false;
 
     }
-
     
+     public static Integer mergeFilesAll(String inputDir, String outputFile) throws IOException {
+        File folder = new File(inputDir);
+        File[] listOfFiles = folder.listFiles();
+        List<Path> paths = new ArrayList<Path>();
+        Integer sum=0;
+        for (File file : listOfFiles) {
+            System.out.println(file.getName());
+            if (file.getName().contains("questions")) {
+                paths.add(Paths.get(inputDir + file.getName()));
+            }
+        }
+        
+        for (Path p : paths) {
+            List<String> lines = Files.readAllLines(p, Charset.forName("UTF-8"));
+            if (!lines.isEmpty()) {
+               sum+=lines.size();
+            }
+        }
+        return sum;
+    }
+    
+     public static Integer mergeFiles(String inputDir, String outputFile) throws IOException {
+        File folder = new File(inputDir);
+        File[] listOfFiles = folder.listFiles();
+        List<Path> paths = new ArrayList<Path>();
+        for (File file : listOfFiles) {
+            System.out.println(file.getName());
+            if (file.getName().contains("questions")) {
+                paths.add(Paths.get(inputDir + file.getName()));
+            }
+        }
+        List<String> mergedLines = getMergedLines(paths);
+        Path target = Paths.get(outputFile);
+        Files.write(target, mergedLines, Charset.forName("UTF-8"));
+        return mergedLines.size();
+    }
+
+    public static Integer mergeFilesT(String inputDir, String outputFile) throws IOException {
+        File folder = new File(inputDir);
+        File[] listOfFiles = folder.listFiles();
+        List<Path> paths = new ArrayList<Path>();
+        for (File file : listOfFiles) {
+            System.out.println(file.getName());
+            if (file.getName().contains("questions")) {
+                paths.add(Paths.get(inputDir + file.getName()));
+            }
+        }
+        List<String> mergedLines = getMergedLines(paths);
+        Path target = Paths.get(outputFile);
+        Files.write(target, mergedLines, Charset.forName("UTF-8"));
+        return mergedLines.size();
+    }
+
+    private static List<String> getMergedLines(List<Path> paths) throws IOException {
+        List<String> mergedLines = new ArrayList<>();
+        for (Path p : paths) {
+            List<String> lines = Files.readAllLines(p, Charset.forName("UTF-8"));
+            if (!lines.isEmpty()) {
+                if (mergedLines.isEmpty()) {
+                    mergedLines.add(lines.get(0)); //add header only once
+                }
+                mergedLines.addAll(lines.subList(1, lines.size()));
+            }
+        }
+        return mergedLines;
+    }
+
+
    
 
 }
