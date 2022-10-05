@@ -52,6 +52,8 @@ public class InputCofiguration {
     private Boolean online;
     @JsonProperty("calculation")
     private Boolean calculation;
+    @JsonProperty("fileType")
+    private String fileType;
     
      
     private LinkedData linkedData = null;
@@ -152,6 +154,16 @@ public class InputCofiguration {
     public Boolean isCalculation() {
         return calculation;
     }
+
+    public Boolean getCalculation() {
+        return calculation;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+  
     
     @Override
     public String toString() {

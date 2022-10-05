@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
+import util.io.CsvFile;
 import util.io.LcQuad;
 import util.io.LcQuadElement;
 
@@ -53,9 +54,17 @@ public class QALDImporter {
     }
     
     public void writeToCSV(List<String[]> dataLines, String fileName) throws IOException {
-        CSVWriter writer = new CSVWriter(new FileWriter(fileName));
+        /*CSVWriter writer = new CSVWriter(new FileWriter(fileName));
         dataLines.forEach(writer::writeNext);
-        writer.close();
+        writer.close();*/
+        CsvFile csvFile=new CsvFile(new File(fileName));
+        csvFile.writeToCSV(dataLines);
+        /*for (String[] cols : dataLines) {
+            System.out.println();
+            for (String col : cols) {
+                System.out.print(col);
+            }
+        }*/
     }
 
     /*public void writeToCSV(List<String[]> dataLines, String fileName) throws IOException {

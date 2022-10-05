@@ -159,7 +159,6 @@ public class CsvFile implements CsvConstants {
             //System.out.println("..........." + qaldFile.getName());
             return rows;
         }*/
-        Stack<String> stack = new Stack<String>();
         CSVReader reader;
         try {
             /*if (!FileFolderUtils.isFileBig(qaldFile, 100.0)) {
@@ -168,6 +167,7 @@ public class CsvFile implements CsvConstants {
             } else*/ {
                 reader = new CSVReader(new FileReader(qaldFile));
                 rows = reader.readAll();
+                System.out.println(qaldFile.getName()+"  rows.size()::"+rows.size());
                 /*for(String []row:rows){
                    System.out.println(row[0]) ; 
                    System.out.println(row[1]) ; 

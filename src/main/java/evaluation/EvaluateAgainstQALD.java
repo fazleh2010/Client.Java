@@ -79,8 +79,8 @@ public class EvaluateAgainstQALD implements Constants{
                 System.out.println("FIND_QALD_ANSWER completed!!");
             } else  if (menu.contains(FIND_QALD_ANSWER)) {
                 entryComparisons = getGoldAnswer(qaldModified, languageCode, online,new TreeSet<Integer>());
-                result = doEvaluation(entryComparisons);
-                Writer.writeResult(qaldImporter, qaldOriginal, result, this.QALD_ANSWER_FILE, languageCode, FIND_QALD_ANSWER);
+                //result = doEvaluation(entryComparisons);
+                //Writer.writeResult(qaldImporter, qaldOriginal, result, this.QALD_ANSWER_FILE, languageCode, FIND_QALD_ANSWER);
                 System.out.println("FIND_QALD_ANSWER completed!!");
             }
         
@@ -102,14 +102,83 @@ public class EvaluateAgainstQALD implements Constants{
         EvaluationResult evaluationResult = new EvaluationResult();
         Integer index = 0;
         for (EntryComparison entryComparison : entryComparisons) {
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!Start!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            realQuestionComparision(entryComparison, flag);
+            evaluationResult.getEntryComparisons().add(entryComparison);
+            LOG.info("tp: {}, fp: {}, fn: {}", entryComparison.getTp(), entryComparison.getFp(), entryComparison.getFn());
+            float Tp = evaluationResult.getTp_global() + entryComparison.getTp();
+            float Fp = evaluationResult.getFp_global() + entryComparison.getFp();
+            float Fn = evaluationResult.getFn_global() + entryComparison.getFn();
+            evaluationResult.setTp_global(evaluationResult.getTp_global() + entryComparison.getTp());
+            evaluationResult.setFp_global(evaluationResult.getFp_global() + entryComparison.getFp());
+            evaluationResult.setFn_global(evaluationResult.getFn_global() + entryComparison.getFn());
+
+            /*System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!Start!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             System.out.println("qald id: " + entryComparison.getQaldEntry().getId());
             System.out.println((index) + "  QaldEntry::::" + entryComparison.getQaldEntry().getQuestions() + " " + "QaldEntry::::" + entryComparison.getQaldEntry().getSparql());
             System.out.println((index) + "   QueGGEntry::::" + entryComparison.getQueGGEntry().getQuestions() + " " + entryComparison.getQueGGEntry().getSparql());
             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!End!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            realQuestionComparision(entryComparison, flag);
+             */
+            System.out.println("   Tp::" + Tp + " Fp::" + Fp + " Fn::" + Fn);
+
+        }
+
+        evaluationResult.setPrecision_global(calculateMeasure(
+                evaluationResult.getTp_global(),
+                evaluationResult.getTp_global(),
+                evaluationResult
+                        .getFp_global()
+        ));
+        evaluationResult.setRecall_global(calculateMeasure(
+                evaluationResult.getTp_global(),
+                evaluationResult.getTp_global(),
+                evaluationResult
+                        .getFn_global()
+        ));
+        evaluationResult.setF_measure_global(
+                (2
+                * (calculateMeasure(
+                        evaluationResult.getPrecision_global() * evaluationResult.getRecall_global(),
+                        evaluationResult.getPrecision_global(),
+                        evaluationResult.getRecall_global()
+                )))
+        );
+
+        LOG.info("-".repeat(50));
+        LOG.info(
+                "TP_GLOBAL: {}, FP_GLOBAL: {}, FN_GLOBAL: {}",
+                evaluationResult.getTp_global(),
+                evaluationResult.getFp_global(),
+                evaluationResult.getFn_global()
+        );
+        LOG.info(
+                "PRECISION_GLOBAL: {}, RECALL_GLOBAL: {}, F_MEASURE_GLOBAL: {}",
+                evaluationResult.getPrecision_global(),
+                evaluationResult.getRecall_global(),
+                evaluationResult.getF_measure_global()
+        );
+       
+        /*System.out.println("getTp_global::" + evaluationResult.getTp_global());
+        System.out.println("evaluationResult::" + evaluationResult.getFp_global());
+        System.out.println("evaluationResult::" + evaluationResult.getFn_global());
+        System.out.println("getPrecision_global()::" + evaluationResult.getPrecision_global());
+        System.out.println("getRecall_global()()::" + evaluationResult.getRecall_global());
+        System.out.println("getRecall_global()()::" + evaluationResult.getF_measure_global());*/
+        return evaluationResult;
+    }
+
+    
+    private EvaluationResult doEvaluation( List<EntryComparison> entryComparisons) {
+        EvaluationResult evaluationResult = new EvaluationResult();
+        Integer index = 0;
+        for (EntryComparison entryComparison : entryComparisons) {
+             /*System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!Start!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+             System.out.println("qald id: "+entryComparison.getQaldEntry().getId());
+             System.out.println((index)+"  QaldEntry::::"+entryComparison.getQaldEntry().getQuestions()+" "+"QaldEntry::::"+entryComparison.getQaldEntry().getSparql());
+             System.out.println((index)+"   QueGGEntry::::"+entryComparison.getQueGGEntry().getQuestions()+" "+entryComparison.getQueGGEntry().getSparql());
+             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!End!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            */
+      
             evaluationResult.getEntryComparisons().add(entryComparison);
-            LOG.info("tp: {}, fp: {}, fn: {}", entryComparison.getTp(), entryComparison.getFp(), entryComparison.getFn());
             evaluationResult.setTp_global(evaluationResult.getTp_global() + entryComparison.getTp());
             evaluationResult.setFp_global(evaluationResult.getFp_global() + entryComparison.getFp());
             evaluationResult.setFn_global(evaluationResult.getFn_global() + entryComparison.getFn());
@@ -158,67 +227,6 @@ public class EvaluateAgainstQALD implements Constants{
         return evaluationResult;
     }
 
-    
-    private EvaluationResult doEvaluation( List<EntryComparison> entryComparisons) {
-        EvaluationResult evaluationResult = new EvaluationResult();
-        Integer index = 0;
-        for (EntryComparison entryComparison : entryComparisons) {
-             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!Start!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-             System.out.println("qald id: "+entryComparison.getQaldEntry().getId());
-             System.out.println((index)+"  QaldEntry::::"+entryComparison.getQaldEntry().getQuestions()+" "+"QaldEntry::::"+entryComparison.getQaldEntry().getSparql());
-             System.out.println((index)+"   QueGGEntry::::"+entryComparison.getQueGGEntry().getQuestions()+" "+entryComparison.getQueGGEntry().getSparql());
-             System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!End!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
-      
-            evaluationResult.getEntryComparisons().add(entryComparison);
-            evaluationResult.setTp_global(evaluationResult.getTp_global() + entryComparison.getTp());
-            evaluationResult.setFp_global(evaluationResult.getFp_global() + entryComparison.getFp());
-            evaluationResult.setFn_global(evaluationResult.getFn_global() + entryComparison.getFn());
-        }
-
-        evaluationResult.setPrecision_global(calculateMeasure(
-                evaluationResult.getTp_global(),
-                evaluationResult.getTp_global(),
-                evaluationResult
-                        .getFp_global()
-        ));
-        evaluationResult.setRecall_global(calculateMeasure(
-                evaluationResult.getTp_global(),
-                evaluationResult.getTp_global(),
-                evaluationResult
-                        .getFn_global()
-        ));
-        evaluationResult.setF_measure_global(
-                (2
-                * (calculateMeasure(
-                        evaluationResult.getPrecision_global() * evaluationResult.getRecall_global(),
-                        evaluationResult.getPrecision_global(),
-                        evaluationResult.getRecall_global()
-                )))
-        );
-
-        LOG.info("-".repeat(50));
-        LOG.info(
-                "TP_GLOBAL: {}, FP_GLOBAL: {}, FN_GLOBAL: {}",
-                evaluationResult.getTp_global(),
-                evaluationResult.getFp_global(),
-                evaluationResult.getFn_global()
-        );
-        LOG.info(
-                "PRECISION_GLOBAL: {}, RECALL_GLOBAL: {}, F_MEASURE_GLOBAL: {}",
-                evaluationResult.getPrecision_global(),
-                evaluationResult.getRecall_global(),
-                evaluationResult.getF_measure_global()
-        );
-        System.out.println("getTp_global::" + evaluationResult.getTp_global());
-        System.out.println("evaluationResult::" + evaluationResult.getFp_global());
-        System.out.println("evaluationResult::" + evaluationResult.getFn_global());
-        System.out.println("getPrecision_global()::" + evaluationResult.getPrecision_global());
-        System.out.println("getRecall_global()()::" + evaluationResult.getRecall_global());
-        System.out.println("getRecall_global()()::" + evaluationResult.getF_measure_global());
-        return evaluationResult;
-    }
-
 
     private List<EntryComparison> getAllSentenceMatchesCsv(QALD qaldFile, Map<String, String[]> questions, String languageCode, String questionType, double similarityPercentage) throws Exception {
         List<String> qaldSentences
@@ -255,9 +263,9 @@ public class EvaluateAgainstQALD implements Constants{
         entryComparison.setQaldResults(uriResultListQALD);
 
         if (queGGSparql != null) {
-            queGGSparql = queGGSparql.replace("{", "\n" + "{" + "\n");
+            /*queGGSparql = queGGSparql.replace("{", "\n" + "{" + "\n");
             queGGSparql = queGGSparql.replace("}", "\n" + "}");
-            queGGSparql = queGGSparql.replace("\"", "");
+            queGGSparql = queGGSparql.replace("\"", "");*/
             uriResultListQueGG = this.getSparqlQuery(queGGSparql, flag, entryComparison.getQueGGEntry().getResultList());
             entryComparison.getQueGGEntry().setSparql(queGGSparql);
             entryComparison.setQueGGResults(uriResultListQueGG);
@@ -270,6 +278,7 @@ public class EvaluateAgainstQALD implements Constants{
             System.out.println("queGGQu::" + queGGQuestion);
             System.out.println("queGGSparql::" + queGGSparql);
             System.out.println("resultQueGG::" + uriResultListQueGG);*/
+            
         }
 
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -296,14 +305,16 @@ public class EvaluateAgainstQALD implements Constants{
             entryComparison.addFp(0);
             entryComparison.setFn(0);
         } else {
-            entryComparison.setTp(uriResultListQueGG.stream().filter(uriResultListQALD::contains).count());
-            entryComparison.addFp(uriResultListQueGG.stream()
-                    .filter(resultQueGG -> !uriResultListQALD.contains(resultQueGG))
-                    .count());
-
-            entryComparison.setFn(uriResultListQALD.stream()
-                    .filter(resultQald -> !finalUriResultListQueGG.contains(resultQald))
-                    .count());
+            float tp=uriResultListQueGG.stream().filter(uriResultListQALD::contains).count();
+            float fp=uriResultListQueGG.stream().filter(resultQueGG -> !uriResultListQALD.contains(resultQueGG)).count();
+            float fn=uriResultListQALD.stream().filter(resultQald -> !finalUriResultListQueGG.contains(resultQald)).count();
+            entryComparison.setTp(tp);
+            entryComparison.addFp(fp);
+            entryComparison.setFn(fn);
+            System.out.println("tp::"+tp);
+            System.out.println("fp::"+fp);
+            System.out.println("fn::"+fn);
+           
         }
 
         // Add Precision, Recall, F-measure
@@ -338,6 +349,7 @@ public class EvaluateAgainstQALD implements Constants{
                 entryComparison.getRecall(),
                 entryComparison.getF_measure()
         );
+         
 
     }
 
@@ -451,8 +463,8 @@ public class EvaluateAgainstQALD implements Constants{
                 System.out.println(" id::" + id + " total::" + total + " id::" + qaldEntry.getId() + " sparql::" + qaldSparqlQuery + " qualResults::" + qualResults.size());
                 qualResults = this.getSparqlQuery(qaldSparqlQuery, true, qualResults);
             }
-            System.out.println();
             qaldEntry.setResultList(qualResults);
+            System.out.println("qualResults:::::"+qualResults);
             entryComparison.setQaldEntry(qaldEntry);
             entryComparison.setQueGGEntry(queGGEntry);
             entryComparisons.add(entryComparison);
@@ -561,17 +573,19 @@ public class EvaluateAgainstQALD implements Constants{
         return false;
     }
     
-    private List<EntryComparison> getMatchedSentences(String matchFile, String qaldAnswerFile, String qaldqueGGAnswerFile) {
+    private List<EntryComparison> getMatchedSentences(String QALDQueGGMatch, String QALDAnswer, String QaldQueggAnswer) {
         List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
         List<String[]> qaldAnswerData = new ArrayList<String[]>();
         Integer index = 0;
         CsvFile csvFile = new CsvFile();
-        List<String[]> rows = csvFile.getRows(new File(matchFile));
-        List<String[]> qaldAnswerRows = csvFile.getRowsTab(new File(qaldAnswerFile));
-        Map<String, String> qaldInfo = this.getQaldOffLineAnswer(qaldAnswerRows);
+        List<String[]> rows = csvFile.getRows(new File(QALDQueGGMatch));
+        //for tab seperated 
+        //List<String[]> qaldAnswerRows = csvFile.getRowsTab(new File(QALDAnswer));
+        // for command seperated
+        List<String[]> qaldAnswerRows = csvFile.getRows(new File(QALDAnswer));
+        Map<String, List<String>> qaldInfo = this.getQaldOffLineAnswer(qaldAnswerRows);
         
-
-        for (String[] firstRow : rows) {
+        for (String[] row : rows) {
             Boolean matchedFlag = false;
             Entry queGG = new Entry();
             Entry qald = new Entry();
@@ -583,6 +597,8 @@ public class EvaluateAgainstQALD implements Constants{
                 continue;
             } else if (index == 214) {
                 break;
+            }else if(row[0].isEmpty()){
+               continue; 
             }
 
             index = index + 1;
@@ -590,18 +606,18 @@ public class EvaluateAgainstQALD implements Constants{
             String[] newRow = new String[8];
 
             Double similarityScore = 0.0;
-            String id = firstRow[0];
-            similarityScore = Double.parseDouble(firstRow[1]);
-            String qaldQuestion = firstRow[2];
-            String queGGQuestion = firstRow[3];
-            String qaldSparql = firstRow[4];
-            String queGGSparql = firstRow[5];
+            String id = row[0];
+            similarityScore = Double.parseDouble(row[1]);
+            String qaldQuestion = row[2];
+            String queGGQuestion = row[3];
+            String qaldSparql = row[4];
+            String queGGSparql = row[5];
 
             qald.setId(id);
             qald.setQuestions(qaldQuestion);
             qald.setSparql(qaldSparql);
             if (qaldInfo.containsKey(id)) {
-                qaldResults.add(qaldInfo.get(id));
+                qaldResults=qaldInfo.get(id);
             }
             qald.setResultList(qaldResults);
 
@@ -616,7 +632,6 @@ public class EvaluateAgainstQALD implements Constants{
                 ; else {
                 queGGResults = this.getSparqlQuery(queGGSparql, true, queGGResults);
             }
-            System.out.println("queGGResults:" + queGGResults);
 
             queGG.setId(id);
             queGG.setQuestions(queGGQuestion);
@@ -624,7 +639,7 @@ public class EvaluateAgainstQALD implements Constants{
             queGG.setResultList(queGGResults);
 
             newRow[0] = id;
-            newRow[1] = firstRow[1];
+            newRow[1] = row[1];
             newRow[2] = qaldQuestion;
             newRow[3] = queGGQuestion;
             newRow[4] = qaldSparql;
@@ -641,12 +656,162 @@ public class EvaluateAgainstQALD implements Constants{
             //System.out.println(EntryComparison);
             //exit(1);
         }
-        csvFile.writeToCSV(new File(qaldqueGGAnswerFile), qaldAnswerData);
+        csvFile.writeToCSV(new File(QaldQueggAnswer), qaldAnswerData);
         return entryComparisons;
     }
 
 
-    private List<EntryComparison> getMatchedSentencesOld(String matchFile, String qaldAnswerFile, String qaldqueGGAnswerFile) {
+   
+
+    private List<EntryComparison> getMakeComaprisions(String resultMatchFile) {
+        List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
+        CsvFile csvFile = new CsvFile();
+        List<String[]> rows = csvFile.getRows(new File(resultMatchFile));
+
+        Integer index = 0;
+        List<String[]> qaldAnswerData = new ArrayList<String[]>();
+
+        for (String[] row : rows) {
+            Boolean matchedFlag = false;
+            Entry queGG = new Entry();
+            Entry qald = new Entry();
+            List<String> queGGResults = new ArrayList<String>();
+            List<String> qaldResults = new ArrayList<String>();
+
+            if (index == 0) {
+                index = index + 1;
+                continue;
+            }
+            index = index + 1;
+
+            Double similarityScore = 0.0;
+            String id = row[0];
+            similarityScore = Double.parseDouble(row[1]);
+            String qaldQuestion = row[2];
+            String queGGQuestion = row[3];
+            String qaldSparql = row[4].replace("\n", "");
+            String queGGSparql = row[5].replace("\n", "");
+            qaldResults = this.makeList(row[6]);
+            queGGResults = this.makeList(row[7]);
+            //System.out.println("qaldResults::"+qaldResults+ "  queGGResults::"+queGGResults);
+
+            qald.setId(id);
+            qald.setQuestions(qaldQuestion);
+            qald.setSparql(qaldSparql);
+            qald.setResultList(qaldResults);
+
+            queGG.setId(id);
+            queGG.setQuestions(queGGQuestion);
+            queGG.setSparql(queGGSparql);
+            queGG.setResultList(queGGResults);
+
+            /*System.out.println(id);
+            System.out.println(queGGQuestion);
+            System.out.println(queGGQuestion);
+            System.out.println(qaldSparql);
+            System.out.println(queGGSparql);
+            System.out.println("qaldResults:" + qaldResults);
+            System.out.println("queGGResults:" + queGGResults);*/
+            if (similarityScore > 0.0) {
+                matchedFlag = Boolean.TRUE;
+            }
+            EntryComparison EntryComparison = new EntryComparison(qald, queGG, matchedFlag, qaldResults, queGGResults, similarityScore);
+            entryComparisons.add(EntryComparison);
+        }
+
+        return entryComparisons;
+    }
+
+    /*private List<String> makeList(String data) {
+        List<String> list = new ArrayList<String>();
+
+        data = data.replace("[", "").replace("]", "");
+
+        if (data.contains(",")) {
+            List<String> newlist = new ArrayList<String>();
+            list = Arrays.asList(data.split(","));
+
+            for (String element : list) {
+                element = element.strip().stripLeading().stripTrailing().trim();
+                if (element.contains("http")) {
+                    element = element.replace(" ", "");
+                }
+                newlist.add(element);
+            }
+            return newlist;
+        } else {
+            data = data.strip().stripLeading().stripTrailing().trim();
+            if (data.contains("http")) {
+                data = data.replace(" ", "");
+            }
+            list.add(data);
+
+            return list;
+        }
+
+    }*/
+    
+     private List<String> makeList(String data) {
+        List<String> list = new ArrayList<String>();
+
+        data = data.replace("[", "").replace("]", "");
+        data = data.replace("(", "").replace(")", "");
+
+        if (data.contains(",")) {
+            List<String> newlist = new ArrayList<String>();
+            list = Arrays.asList(data.split(","));
+
+            for (String element : list) {
+                element = element.strip().stripLeading().stripTrailing().trim();
+                if (element.contains("http")) {
+                    element = element.replace(" ", "");
+                }
+                newlist.add(element);
+            }
+            return newlist;
+        } else {
+            data = data.strip().stripLeading().stripTrailing().trim();
+            if (data.contains("http")) {
+                data = data.replace(" ", "");
+            }
+            list.add(data);
+
+            return list;
+        }
+
+    }
+
+    private Map<String, List<String>> getQaldOffLineAnswer(List<String[]> qaldAnswerRows) {
+        Map<String, List<String>> map = new TreeMap<String, List<String>>();
+
+        Integer index = 0;
+        for (String[] row : qaldAnswerRows) {
+            index = index + 1;
+            if (index == 1) {
+                continue;
+            }
+            //String[] info = row[0].replace("\n", "").split("\t");
+            String id=row[0];
+            List<String> answers = getList(row[3]);
+            map.put(id, answers);
+        }
+        
+        return map;
+    }
+    
+    private List<String> getList(String string) {
+        List<String> elemetns = new ArrayList<String>();
+        string = string.replace( "[","").replace("[", "");
+        string = string.replace("(","").replace(")", "");
+        String[] info = string.split(",");
+        for (String text : info) {
+            text = text.trim().strip();
+            elemetns.add(text);
+        }
+        return elemetns;
+    }
+    
+     /*private List<EntryComparison> getMatchedSentencesOld(String matchFile, String qaldAnswerFile, String qaldqueGGAnswerFile) {
         List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
         List<String[]> qaldAnswerData = new ArrayList<String[]>();
         Integer index = 0;
@@ -690,12 +855,7 @@ public class EvaluateAgainstQALD implements Constants{
             }
             qald.setResultList(qaldResults);
 
-            /*System.out.println("id::" + id);
-            System.out.println("qaldQuestion::" + qaldQuestion);
-            System.out.println("queGGQuestion::" + queGGQuestion);
-            System.out.println("qaldSparql::" + qaldSparql);
-            System.out.println("queGGSparql::" + queGGSparql);*/
-
+          
             if (similarityScore == 0)
                 ; else if (qaldSparql.contains("ASK"))
                 ; else {
@@ -728,111 +888,7 @@ public class EvaluateAgainstQALD implements Constants{
         }
         csvFile.writeToCSV(new File(qaldqueGGAnswerFile), qaldAnswerData);
         return entryComparisons;
-    }
-
-    private List<EntryComparison> getMakeComaprisions(String resultMatchFile) {
-        List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
-        CsvFile csvFile = new CsvFile();
-        List<String[]> rows = csvFile.getRows(new File(resultMatchFile));
-
-        Integer index = 0;
-        List<String[]> qaldAnswerData = new ArrayList<String[]>();
-
-        for (String[] row : rows) {
-            Boolean matchedFlag = false;
-            Entry queGG = new Entry();
-            Entry qald = new Entry();
-            List<String> queGGResults = new ArrayList<String>();
-            List<String> qaldResults = new ArrayList<String>();
-
-            if (index == 0) {
-                index = index + 1;
-                continue;
-            }
-            index = index + 1;
-
-            Double similarityScore = 0.0;
-            String id = row[0];
-            similarityScore = Double.parseDouble(row[1]);
-            String qaldQuestion = row[2];
-            String queGGQuestion = row[3];
-            String qaldSparql = row[4];
-            String queGGSparql = row[5];
-            qaldResults = this.makeList(row[6]);
-            queGGResults = this.makeList(row[7]);
-
-            qald.setId(id);
-            qald.setQuestions(qaldQuestion);
-            qald.setSparql(qaldSparql);
-            qald.setResultList(qaldResults);
-
-            queGG.setId(id);
-            queGG.setQuestions(queGGQuestion);
-            queGG.setSparql(queGGSparql);
-            queGG.setResultList(queGGResults);
-
-            // System.out.println(id);
-            // System.out.println(queGGQuestion);
-            //System.out.println(queGGQuestion);
-            //System.out.println(qaldSparql);
-            //System.out.println(queGGSparql);
-            // System.out.println("qaldResults:" + qaldResults);
-            //System.out.println("queGGResults:" + queGGResults);
-            if (similarityScore > 0.0) {
-                matchedFlag = Boolean.TRUE;
-            }
-            EntryComparison EntryComparison = new EntryComparison(qald, queGG, matchedFlag, qaldResults, queGGResults, similarityScore);
-            entryComparisons.add(EntryComparison);
-        }
-
-        return entryComparisons;
-    }
-
-    private List<String> makeList(String data) {
-        List<String> list = new ArrayList<String>();
-
-        data = data.replace("[", "").replace("]", "");
-
-        if (data.contains(",")) {
-            List<String> newlist = new ArrayList<String>();
-            list = Arrays.asList(data.split(","));
-
-            for (String element : list) {
-                element = element.strip().stripLeading().stripTrailing().trim();
-                if (element.contains("http")) {
-                    element = element.replace(" ", "");
-                }
-                newlist.add(element);
-            }
-            return newlist;
-        } else {
-            data = data.strip().stripLeading().stripTrailing().trim();
-            if (data.contains("http")) {
-                data = data.replace(" ", "");
-            }
-            list.add(data);
-
-            return list;
-        }
-
-    }
-
-    private Map<String, String> getQaldOffLineAnswer(List<String[]> qaldAnswerRows) {
-        Map<String, String> map = new TreeMap<String, String>();
-
-        Integer index = 0;
-        for (String[] row : qaldAnswerRows) {
-            index = index + 1;
-            if (index == 1) {
-                continue;
-            }
-            //String[] info = row[0].replace("\n", "").split("\t");
-            String id=row[0];
-            String answer = row[3];
-            map.put(id, answer);
-        }
-        return map;
-    }
+    }*/
 
    
 

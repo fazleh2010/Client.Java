@@ -3,15 +3,12 @@ package Main;
 import util.io.Calculation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import evaluation.EvaluateAgainstQALD;
-import static evaluation.EvaluateAgainstQALD.REAL_QUESTION;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.*;
 import java.io.*;
 import static java.lang.System.exit;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import util.io.*;
 
 @NoArgsConstructor
@@ -30,7 +27,7 @@ public class QueGG implements Constants {
         //menu.add(FIND_QALD_ANSWER);
         //menu.add(FIND_SIMILARITY);
         //menu.add(FIND_QALD_QUEGG_ANSWER);
-        // menu.add(EVALUTE_QALD_QUEGG);
+        menu.add(EVALUTE_QALD_QUEGG);
 
         try {
             InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));
@@ -50,6 +47,7 @@ public class QueGG implements Constants {
             e.printStackTrace();
             System.err.printf("%s: %s%n", e.getClass().getSimpleName(), e.getMessage());
         }
+        //this exit is necessary.
         exit(1);
 
     }
@@ -114,25 +112,31 @@ public class QueGG implements Constants {
         Double similarityMeasure = inputCofiguration.getSimilarityThresold();
         String languageCode = inputCofiguration.getLanguageCode();
         String dataset = inputCofiguration.getDataset();
+        String fileType=inputCofiguration.getFileType();
 
-        String FIND_SIMILARITY_OUTPUT = outputDir + File.separator + dataset + "-QueGG-Match_" + languageCode + ".csv";
-        String comparisonFile = outputDir + File.separator + dataset + "-QueGG-Comparison_" + languageCode + ".csv";
-        String qaldAnswerFile = outputDir + File.separator + dataset + "-answer_" + languageCode + ".csv";
-        String qaldQueGGAnswerFile = outputDir + File.separator + dataset + "-QueGG-answer_" + languageCode + ".csv";
-        String qaldRaw = outputDir + File.separator + dataset + "-dataset-raw.csv";
+        String FIND_SIMILARITY_OUTPUT = outputDir + File.separator + dataset + "-QueGG-Match_" + languageCode +"_"+fileType+ ".csv";
+        String comparisonFile = outputDir + File.separator + dataset + "-QueGG-Comparison_" + languageCode +"_"+fileType+ ".csv";
+        String qaldAnswerFile = outputDir + File.separator + dataset +"-answer_" + languageCode +"_"+fileType+ ".csv";
+        String qaldQueGGAnswerFile = outputDir + File.separator + dataset + "-QueGG-answer_" + languageCode +"_"+fileType+ ".csv";
+        String qaldRaw = outputDir + File.separator + dataset +"_"+fileType+ "-dataset-raw.csv";
         //EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint,menu,resultMatchFile);
 
         for (String fileName : new File(qaldDir).list()) {
-            if (fileName.contains("qald")) {
-                if (fileName.contains("train-multilingual_modified.json")) {
+            if (fileName.contains(inputCofiguration.getFileType())) {
+                if (fileName.contains("modified")) {
                     qaldModifiedFile = qaldDir + File.separator + fileName;
-                } else if (fileName.contains("train-multilingual.json")) {
+                } else {
                     qaldFile = qaldDir + File.separator + fileName;
                 }
             } else if (fileName.contains("lcquad")) {
                 qaldFile = qaldModifiedFile = qaldDir + File.separator + fileName;
             }
         }
+        
+        /*System.out.println("qaldModifiedFile::"+qaldModifiedFile);
+        System.out.println("qaldFile::"+qaldFile);
+        System.out.println("qaldAnswerFile::"+qaldAnswerFile);
+        exit(1);*/
 
         //temporary code for qald entity creation...
         //System.out.println(entityLabelDir+File.separator+"qaldEntities.txt");
@@ -140,7 +144,6 @@ public class QueGG implements Constants {
         Map<String, String[]> queGGQuestions = new HashMap<String, String[]>();
         List<String[]> rows = new ArrayList<String[]>();
         String[] files = new File(outputDir).list();
-        System.out.println("outputDir:::" + outputDir);
         for (String fileName : files) {
             if (fileName.contains("lock.")) {
                 continue;
