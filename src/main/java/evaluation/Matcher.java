@@ -5,8 +5,12 @@
  */
 package evaluation;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import static java.util.Objects.isNull;
+import java.util.Set;
 import org.apache.jena.query.Query;
 import org.apache.jena.sparql.core.TriplePath;
 import org.apache.jena.sparql.syntax.ElementPathBlock;
@@ -80,6 +84,6 @@ public class Matcher {
                 .orElseThrow();
     }
     
-    
+   
     
 }

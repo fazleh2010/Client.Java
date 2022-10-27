@@ -1,1 +1,0 @@
-"""http://localhost:8080#high_1"""",""""How high is the lighthouse in Colombo?"""",""""SELECT DISTINCT ?num WHERE { <http://dbpedia.org/resource/Colombo_Lighthouse> <http://dbpedia.org/ontology/height> ?num . }"""",""""29.0""^^xsd:double"""",""""29.0"""",""""GradAdj"""

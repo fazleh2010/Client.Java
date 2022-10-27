@@ -66,7 +66,7 @@ public class EvaluateAgainstQALD implements Constants{
         
         if (menu.contains(FIND_SIMILARITY)) {
             entryComparisons = getAllSentenceMatchesCsv(qaldOriginal, questions, languageCode, BOG, similarityMeasure);
-            result = doEvaluation(qaldModified, entryComparisons, languageCode, false);
+            result = doEvaluationDummy(qaldModified, entryComparisons, languageCode, false);
             Writer.writeResult(qaldImporter, qaldOriginal, result, this.FIND_SIMILARITY_RESULT, languageCode,FIND_SIMILARITY);
             System.out.println("FIND_SIMILARITY completed!!");
         }
@@ -101,47 +101,60 @@ public class EvaluateAgainstQALD implements Constants{
     private EvaluationResult doEvaluation(QALD qaldFile, List<EntryComparison> entryComparisons, String languageCode, Boolean flag) {
         EvaluationResult evaluationResult = new EvaluationResult();
         Integer index = 0;
+        float globalTp = 0, globalFp = 0, globalFn = 0, global_p=0, global_r=0, global_f=0;
         for (EntryComparison entryComparison : entryComparisons) {
-            realQuestionComparision(entryComparison, flag);
+            index=index+1;
+            //ignore for now..
+            //realQuestionComparision(entryComparison, flag);
+            FscoreCalculation fscore = new FscoreCalculation(entryComparison.getQaldResults(), entryComparison.getQueGGResults());
+
+            // Add TP, FP, FN
+            if (entryComparison.getQaldResults().isEmpty() && entryComparison.getQueGGResults().isEmpty()) {
+                entryComparison.setTp(0);
+                entryComparison.addFp(0);
+                entryComparison.setFn(0);
+            } else {
+                entryComparison.setTp(fscore.getTp());
+                entryComparison.setFp(fscore.getFp());
+                entryComparison.setFn(fscore.getFn());
+   
+            }
+
+            // Add Precision, Recall, F-measure
+            if ((entryComparison.getTp() + entryComparison.getFp()) > 0) {
+                entryComparison.setPrecision(fscore.getPrecision());
+            }
+            if ((entryComparison.getTp() + entryComparison.getFn()) > 0) {
+                entryComparison.setRecall(fscore.getRecall());
+            }
+            if ((entryComparison.getPrecision() + entryComparison.getRecall()) > 0) {
+                entryComparison.setF_measure(fscore.getFscore());
+            }
+            
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! START  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            System.out.println("getQaldResults().size()::" + entryComparison.getQaldResults().size()+" getQueGGResults().size()::" + entryComparison.getQueGGResults().size());
+            System.out.println("getQaldResults()::" + entryComparison.getQaldResults()+" getQueGGResults()::" + entryComparison.getQueGGResults());
+            System.out.println("tp::" + entryComparison.getTp()+" fp::" + entryComparison.getFp()+" fn::" + entryComparison.getFn());
+            System.out.println("preision::" + entryComparison.getPrecision()+" reall::" + entryComparison.getRecall()+" f-sore::" + entryComparison.getF_measure());
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! END  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
             evaluationResult.getEntryComparisons().add(entryComparison);
-            LOG.info("tp: {}, fp: {}, fn: {}", entryComparison.getTp(), entryComparison.getFp(), entryComparison.getFn());
-            float Tp = evaluationResult.getTp_global() + entryComparison.getTp();
-            float Fp = evaluationResult.getFp_global() + entryComparison.getFp();
-            float Fn = evaluationResult.getFn_global() + entryComparison.getFn();
-            evaluationResult.setTp_global(evaluationResult.getTp_global() + entryComparison.getTp());
-            evaluationResult.setFp_global(evaluationResult.getFp_global() + entryComparison.getFp());
-            evaluationResult.setFn_global(evaluationResult.getFn_global() + entryComparison.getFn());
-
-            /*System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!Start!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            System.out.println("qald id: " + entryComparison.getQaldEntry().getId());
-            System.out.println((index) + "  QaldEntry::::" + entryComparison.getQaldEntry().getQuestions() + " " + "QaldEntry::::" + entryComparison.getQaldEntry().getSparql());
-            System.out.println((index) + "   QueGGEntry::::" + entryComparison.getQueGGEntry().getQuestions() + " " + entryComparison.getQueGGEntry().getSparql());
-            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!End!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-             */
-            System.out.println("   Tp::" + Tp + " Fp::" + Fp + " Fn::" + Fn);
-
+            
+            globalTp+=fscore.getTp();
+            globalFp+=fscore.getFp();
+            globalFn+=fscore.getFn();
+            //global_p+=fscore.getPrecision();
+            //global_r+=fscore.getRecall();
+            //global_f+=fscore.getFscore();
         }
+        FscoreCalculation fscore_global=new FscoreCalculation(globalTp,globalFp,globalFn);
+        FscoreCalculation fscore_av=new FscoreCalculation(globalTp,globalFp,globalFn);
+        
 
-        evaluationResult.setPrecision_global(calculateMeasure(
-                evaluationResult.getTp_global(),
-                evaluationResult.getTp_global(),
-                evaluationResult
-                        .getFp_global()
-        ));
-        evaluationResult.setRecall_global(calculateMeasure(
-                evaluationResult.getTp_global(),
-                evaluationResult.getTp_global(),
-                evaluationResult
-                        .getFn_global()
-        ));
-        evaluationResult.setF_measure_global(
-                (2
-                * (calculateMeasure(
-                        evaluationResult.getPrecision_global() * evaluationResult.getRecall_global(),
-                        evaluationResult.getPrecision_global(),
-                        evaluationResult.getRecall_global()
-                )))
-        );
+        evaluationResult.setPrecision_global(fscore_global.getPrecision());
+        evaluationResult.setRecall_global(fscore_global.getRecall());
+        evaluationResult.setF_measure_global(fscore_global.getFscore());
+        
 
         LOG.info("-".repeat(50));
         LOG.info(
@@ -162,9 +175,30 @@ public class EvaluateAgainstQALD implements Constants{
         System.out.println("evaluationResult::" + evaluationResult.getFn_global());
         System.out.println("getPrecision_global()::" + evaluationResult.getPrecision_global());
         System.out.println("getRecall_global()()::" + evaluationResult.getRecall_global());
-        System.out.println("getRecall_global()()::" + evaluationResult.getF_measure_global());*/
+        System.out.println("getRecall_global()()::" + evaluationResult.getF_measure_global());
+        System.out.println("Intersection::" + fscore.getIntersection() + " Tp::" + fscore.getTp());
+        System.out.println("ExistQueGGNotQald::" + fscore.getExistQueGGNotQald() + " Fp::" + fscore.getFp());
+        System.out.println("ExistQaldNotQueGG::" + fscore.getExistQaldNotQueGG() + " Fn::" + fscore.getFn());
+        System.out.println("precision::" + fscore.getPrecision() + " recall::" + fscore.getRecall() + " Fscore::" + fscore.getFscore());*/
         return evaluationResult;
     }
+    
+    private EvaluationResult doEvaluationDummy(QALD qaldFile, List<EntryComparison> entryComparisons, String languageCode, Boolean flag) {
+        EvaluationResult evaluationResult = new EvaluationResult();
+        for (EntryComparison entryComparison : entryComparisons) {
+            realQuestionComparision(entryComparison, flag);
+            evaluationResult.getEntryComparisons().add(entryComparison);
+            System.out.println("QALD: " + entryComparison.getQaldResults());
+            System.out.println("QueGG: " + entryComparison.getQueGGResults());
+        }
+
+        evaluationResult.setPrecision_global(0);
+        evaluationResult.setRecall_global(0);
+        evaluationResult.setF_measure_global(0);
+
+        return evaluationResult;
+    }
+
 
     
     private EvaluationResult doEvaluation( List<EntryComparison> entryComparisons) {
@@ -553,14 +587,23 @@ public class EvaluateAgainstQALD implements Constants{
 
         if (menu.contains(FIND_QALD_QUEGG_ANSWER) || menu.contains(FIND_QALD_ANSWER)||menu.contains(ANSWER_SELECTED)) {
             try{
+                
+                sparql = sparql.replace("\"", "");
+
+
+            System.out.println("sparql:::"+sparql);
             LinkedDataFragmentSpql main = new LinkedDataFragmentSpql(model, endpoint, sparql);
             uriResultList = main.sparqlObjectAsVariable(sparql);
-            uriResultList = main.parseResultList(uriResultList);      
+            uriResultList = main.parseResultList(uriResultList);   
+                    System.out.println("uriResultList:::"+uriResultList);
             }catch(QueryParseException ex){
+                                    System.out.println("error:::"+ex.getMessage());
+
                 return new ArrayList<String>(); 
             }
           
         }
+        
 
         return uriResultList;
     }
@@ -889,6 +932,9 @@ public class EvaluateAgainstQALD implements Constants{
         csvFile.writeToCSV(new File(qaldqueGGAnswerFile), qaldAnswerData);
         return entryComparisons;
     }*/
+
+    
+   
 
    
 
