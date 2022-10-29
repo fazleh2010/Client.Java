@@ -16,6 +16,7 @@ import java.util.stream.Collectors;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import static java.util.Objects.isNull;
 import java.util.Set;
@@ -29,6 +30,8 @@ import org.linkeddatafragments.client.LinkedDataFragmentSpql;
 import org.linkeddatafragments.model.LinkedDataFragmentGraph;
 import util.io.CsvFile;
 import util.io.FileUtils;
+import util.io.JsonAccess;
+import util.io.Summary;
 
 public class EvaluateAgainstQALD implements Constants{
 
@@ -42,49 +45,52 @@ public class EvaluateAgainstQALD implements Constants{
     private String QALD_QUEGG_ANSWER_FILE = null;
     private String QALD_ANSWER_FILE = null;
     private Boolean online = false;
+    private  static Map<String,List<String>> answers=new TreeMap<String,List<String>>();
+    private   List< String[]> result = new ArrayList<String[]>();
 
-    public EvaluateAgainstQALD(String language, String endpoint, Set<String> menu, String FIND_SIMILARITY_RESULT, String resultComparisonFile, String qaldAnswerFile, String qaldQueGGAnswerFile,Boolean online) {
+    public EvaluateAgainstQALD(String language, String endpoint, Set<String> menu, String FIND_SIMILARITY_RESULT, String resultComparisonFile, String qaldAnswerFile, String qaldQueGGAnswerFile,Boolean online,Integer startRange) {
         this.language = language;
         this.endpoint = endpoint;
         this.menu = menu;
-        this.FIND_SIMILARITY_RESULT = FIND_SIMILARITY_RESULT;
-        this.evalutionFile = resultComparisonFile;
-        this.QALD_QUEGG_ANSWER_FILE = qaldQueGGAnswerFile;
+        this.FIND_SIMILARITY_RESULT = FIND_SIMILARITY_RESULT.replace(".csv",startRange.toString()+".csv");
+        this.evalutionFile = resultComparisonFile.replace(".csv",startRange.toString()+".csv");
+        this.QALD_QUEGG_ANSWER_FILE = qaldQueGGAnswerFile.replace(".csv",startRange.toString()+".csv");
         this.QALD_ANSWER_FILE = qaldAnswerFile;
         this.online=online;
     }
+    
+    public static void setOfflineAnswerList(Map<String,List<String>> answersT){
+        answers=answersT;
+    }
 
-    public void evaluateAndOutput(Map<String, String[]> questions, String qaldOriginalFile, String qaldModifiedFile, String qaldRaw, String languageCode, Double similarityMeasure) throws IOException, Exception {
+    public void evaluateAndOutput(Map<String, String[]> queggQuestions, String qaldOriginalFile, String qaldModifiedFile, String qaldRaw, String languageCode, Double similarityMeasure) throws IOException, Exception {
         QALDImporter qaldImporter = new QALDImporter();
         EvaluationResult result = null;
         List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
         qaldImporter.qaldToCSV(qaldOriginalFile, qaldRaw, languageCode);
         QALD qaldModified = qaldImporter.readQald(qaldModifiedFile);
         QALD qaldOriginal = qaldImporter.readQald(qaldOriginalFile);
-        
-     
-        
+
         if (menu.contains(FIND_SIMILARITY)) {
-            entryComparisons = getAllSentenceMatchesCsv(qaldOriginal, questions, languageCode, BOG, similarityMeasure);
+            entryComparisons = getAllSentenceMatchesCsv(qaldOriginal, queggQuestions, languageCode, BOG, similarityMeasure);
             result = doEvaluationDummy(qaldModified, entryComparisons, languageCode, false);
-            Writer.writeResult(qaldImporter, qaldOriginal, result, this.FIND_SIMILARITY_RESULT, languageCode,FIND_SIMILARITY);
+            Writer.writeResult(qaldImporter, qaldOriginal, result, this.FIND_SIMILARITY_RESULT, languageCode, FIND_SIMILARITY);
             System.out.println("FIND_SIMILARITY completed!!");
         }
-            if (menu.contains(ANSWER_SELECTED)) {
-                Set<Integer> ids=new TreeSet<Integer>();
-                ids=FileUtils.fileToSet(singleTripeFile);
-                entryComparisons = getGoldAnswer(qaldModified, languageCode, online,ids);
-                result = doEvaluation(entryComparisons);
-                Writer.writeResult(qaldImporter, qaldOriginal, result, this.QALD_ANSWER_FILE, languageCode, FIND_QALD_ANSWER);
-                System.out.println("FIND_QALD_ANSWER completed!!");
-            } else  if (menu.contains(FIND_QALD_ANSWER)) {
-                entryComparisons = getGoldAnswer(qaldModified, languageCode, online,new TreeSet<Integer>());
-                //result = doEvaluation(entryComparisons);
-                //Writer.writeResult(qaldImporter, qaldOriginal, result, this.QALD_ANSWER_FILE, languageCode, FIND_QALD_ANSWER);
-                System.out.println("FIND_QALD_ANSWER completed!!");
-            }
-        
-       
+        if (menu.contains(ANSWER_SELECTED)) {
+            Set<Integer> ids = new TreeSet<Integer>();
+            ids = FileUtils.fileToSet(singleTripeFile);
+            entryComparisons = getGoldAnswer(qaldModified, languageCode, online, ids);
+            result = doEvaluation(entryComparisons);
+            Writer.writeResult(qaldImporter, qaldOriginal, result, this.QALD_ANSWER_FILE, languageCode, FIND_QALD_ANSWER);
+            System.out.println("FIND_QALD_ANSWER completed!!");
+        } else if (menu.contains(FIND_QALD_ANSWER)) {
+            entryComparisons = getGoldAnswer(qaldModified, languageCode, online, new TreeSet<Integer>());
+            //result = doEvaluation(entryComparisons);
+            //Writer.writeResult(qaldImporter, qaldOriginal, result, this.QALD_ANSWER_FILE, languageCode, FIND_QALD_ANSWER);
+            System.out.println("FIND_QALD_ANSWER completed!!");
+        }
+
         if (menu.contains(FIND_QALD_QUEGG_ANSWER)) {
             entryComparisons = getMatchedSentences(this.FIND_SIMILARITY_RESULT, this.QALD_ANSWER_FILE, this.QALD_QUEGG_ANSWER_FILE);
             System.out.println("FIND_QALD_QUEGG_ANSWER completed!!");
@@ -93,17 +99,17 @@ public class EvaluateAgainstQALD implements Constants{
         if (menu.contains(EVALUTE_QALD_QUEGG)) {
             entryComparisons = getMakeComaprisions(this.QALD_QUEGG_ANSWER_FILE);
             result = doEvaluation(qaldModified, entryComparisons, languageCode, false);
-            Writer.writeResult(qaldImporter, qaldOriginal, result, this.evalutionFile, languageCode,EVALUTE_QALD_QUEGG);
+            Writer.writeResult(qaldImporter, qaldOriginal, result, this.evalutionFile, languageCode, EVALUTE_QALD_QUEGG);
         }
 
     }
 
     private EvaluationResult doEvaluation(QALD qaldFile, List<EntryComparison> entryComparisons, String languageCode, Boolean flag) {
         EvaluationResult evaluationResult = new EvaluationResult();
-        Integer index = 0;
-        float globalTp = 0, globalFp = 0, globalFn = 0, global_p=0, global_r=0, global_f=0;
+        Integer numberOfElement = 0;
+        float globalTp = 0, globalFp = 0, globalFn = 0, totalPreision=0, totalRecall=0, totalF_measure=0;
         for (EntryComparison entryComparison : entryComparisons) {
-            index=index+1;
+            numberOfElement=numberOfElement+1;
             //ignore for now..
             //realQuestionComparision(entryComparison, flag);
             FscoreCalculation fscore = new FscoreCalculation(entryComparison.getQaldResults(), entryComparison.getQueGGResults());
@@ -143,17 +149,31 @@ public class EvaluateAgainstQALD implements Constants{
             globalTp+=fscore.getTp();
             globalFp+=fscore.getFp();
             globalFn+=fscore.getFn();
-            //global_p+=fscore.getPrecision();
-            //global_r+=fscore.getRecall();
-            //global_f+=fscore.getFscore();
-        }
-        FscoreCalculation fscore_global=new FscoreCalculation(globalTp,globalFp,globalFn);
-        FscoreCalculation fscore_av=new FscoreCalculation(globalTp,globalFp,globalFn);
-        
+            FscoreCalculation fscoreInd=new FscoreCalculation(fscore.getTp(),fscore.getFp(),fscore.getFn());
+            totalPreision+=fscoreInd.getPrecision();
+            totalRecall+=fscoreInd.getRecall();
+            totalF_measure+=fscoreInd.getFscore();
 
+        }
+        
+        FscoreCalculation fscore_global=new FscoreCalculation(globalTp,globalFp,globalFn);
+       
+
+        evaluationResult.setTp_global(globalTp);
+        evaluationResult.setFp_global(globalFp);
+        evaluationResult.setFn_global(globalFn);
         evaluationResult.setPrecision_global(fscore_global.getPrecision());
         evaluationResult.setRecall_global(fscore_global.getRecall());
         evaluationResult.setF_measure_global(fscore_global.getFscore());
+        
+      
+        evaluationResult.setPrecision_average(totalPreision/numberOfElement);
+        evaluationResult.setRecall_average(totalRecall/numberOfElement);
+        evaluationResult.setF_measure_average(totalF_measure/numberOfElement);
+        
+     
+        this.result.add(Summary.setKomparsionResult(evalutionFile,evaluationResult));
+        
         
 
         LOG.info("-".repeat(50));
@@ -262,7 +282,7 @@ public class EvaluateAgainstQALD implements Constants{
     }
 
 
-    private List<EntryComparison> getAllSentenceMatchesCsv(QALD qaldFile, Map<String, String[]> questions, String languageCode, String questionType, double similarityPercentage) throws Exception {
+    private List<EntryComparison> getAllSentenceMatchesCsv(QALD qaldFile, Map<String, String[]> queggQuestions, String languageCode, String questionType, double similarityPercentage) throws Exception {
         List<String> qaldSentences
                 = qaldFile.questions
                         .stream().parallel()
@@ -272,7 +292,7 @@ public class EvaluateAgainstQALD implements Constants{
                                 .filter(qaldQuestion -> qaldQuestion.language.equals(languageCode))
                                 .map(qaldQuestion -> qaldQuestion.string))
                         .collect(Collectors.toList());
-        return this.getMatchRealQuestion(qaldFile, questions, languageCode, similarityPercentage);
+        return this.getMatchRealQuestion(qaldFile, queggQuestions, languageCode, similarityPercentage);
     }
 
     private void realQuestionComparision(EntryComparison entryComparison, Boolean flag) {
@@ -420,6 +440,7 @@ public class EvaluateAgainstQALD implements Constants{
     private List<EntryComparison> getMatchRealQuestion(QALD qaldFile, Map<String, String[]> realQuestions, String languageCode, double similarityPercentage) throws Exception {
         List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
         Integer index = 0;
+        
         for (QALD.QALDQuestions qaldQuestions : qaldFile.questions) {
             String qaldQuestion = QALDImporter.getQaldQuestionString(qaldQuestions, languageCode);
             String qaldSparqlQuery = QALDImporter.getQaldSparqlQuery(qaldQuestions);
@@ -663,18 +684,33 @@ public class EvaluateAgainstQALD implements Constants{
                 qaldResults=qaldInfo.get(id);
             }
             qald.setResultList(qaldResults);
+            
 
             /*System.out.println("id::" + id);
             System.out.println("qaldQuestion::" + qaldQuestion);
             System.out.println("queGGQuestion::" + queGGQuestion);
             System.out.println("qaldSparql::" + qaldSparql);
             System.out.println("queGGSparql::" + queGGSparql);*/
-
+           
             if (similarityScore == 0)
                 ; else if (qaldSparql.contains("ASK"))
                 ; else {
-                queGGResults = this.getSparqlQuery(queGGSparql, true, queGGResults);
+                List<String> answersT = this.exisitngQuestion(answers, queGGQuestion);
+
+                
+                if (!answersT.isEmpty()) {
+                    queGGResults = new ArrayList<String>(answersT);
+                    //System.out.println("queGGQuestion::" + queGGQuestion+" queGGResults::"+queGGResults);
+                    
+                } else {
+                    queGGResults = this.getSparqlQuery(queGGSparql, true, queGGResults);
+                    answers.put(queGGQuestion, queGGResults);
+                    //System.out.println("queGGQuestion::" + queGGQuestion+" queGGResults::"+queGGResults);
+                    
+
+                }
             }
+
 
             queGG.setId(id);
             queGG.setQuestions(queGGQuestion);
@@ -699,7 +735,8 @@ public class EvaluateAgainstQALD implements Constants{
             //System.out.println(EntryComparison);
             //exit(1);
         }
-        csvFile.writeToCSV(new File(QaldQueggAnswer), qaldAnswerData);
+        File qaldQueggAnswerFile=new File(QaldQueggAnswer);
+        csvFile.writeToCSV(qaldQueggAnswerFile, qaldAnswerData);
         return entryComparisons;
     }
 
@@ -933,9 +970,39 @@ public class EvaluateAgainstQALD implements Constants{
         return entryComparisons;
     }*/
 
+    private List<String> exisitngQuestion(Map<String, List<String>> answers, String givenQueGGQuestion) {
+        for (String question : answers.keySet()) {
+            if (answers.containsKey(givenQueGGQuestion)) {
+                return filterAnswer(answers.get(question));                
+            }
+        }
+        return new ArrayList<String>();
+
+    }
     
-   
+    private List<String> filterAnswer(List<String> answers) {
+        List<String> results = new ArrayList<String>();
+
+        for (String answerT : answers) {
+            answerT = answerT.replace("(", "");
+            answerT = answerT.replace(")", "");
+            answerT = answerT.replace(" ", "");
+            answerT = answerT.strip().stripLeading().stripTrailing().trim();
+            results.add(answerT);
+        }
+        return results;
+
+    }
+
+    public static Map<String, List<String>> getAnswers() {
+        return answers;
+    }
+
+
+
+    public List<String[]> getResult() {
+        return result;
+    }
 
    
-
 }
