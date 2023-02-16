@@ -68,9 +68,9 @@ public class FindAnswer implements Constants {
             if (index == 0) {
                 index = index + 1;
                 continue;
-            } else if (index == 214) {
+            } /*else if (index == 214) {
                 break;
-            } else if (row[0].isEmpty()) {
+            }*/ else if (row[0].isEmpty()) {
                 continue;
             }
 
