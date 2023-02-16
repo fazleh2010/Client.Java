@@ -8,17 +8,25 @@ package evaluation;
 import com.google.gdata.util.common.base.Pair;
 import info.debatty.java.stringsimilarity.Cosine;
 import info.debatty.java.stringsimilarity.RatcliffObershelp;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import org.apache.commons.lang3.StringUtils;
+import util.io.JaccardSimilarity;
 
 /**
  *
  * @author elahi
  */
 public class StringSimilarity {
+
+  
     
     private boolean singleSparql=false;
     private boolean multipleSparql=false;
@@ -274,7 +282,7 @@ public class StringSimilarity {
 
 
 
-   public static void main(String[] args) {
+   public static void mainLast(String[] args) {
         HashMap<String, Double> map = new HashMap<String, Double>();
         ValueComparator bvc = new ValueComparator(map);
         TreeMap<String, Double> sorted_map = new TreeMap<String, Double>(bvc);
@@ -287,7 +295,90 @@ public class StringSimilarity {
         System.out.println("unsorted map: " + map);
         sorted_map.putAll(map);
         System.out.println("results: " + sorted_map);
+        
+        CharSequence charSequenceLeft = new StringBuffer("baeldung");
+        CharSequence charSequenceRight = new StringBuffer("baeldung");
+
+
+        
     }
+
+    public static void main(String[] args) {
+        JaccardSimilarity jaccardSimilarity = new JaccardSimilarity();
+        String s1 = "What is the ingredient of a Chocolate chip cookie?";
+        String s2 = "What is in a chocolate chip cookie?";
+        String s3 = "Who wrote Hotel California?";
+        String s4 = "Who wrote the song Hotel California?";
+        String s5 = "In which time zone is Rome?";
+        String s6 = "What is the time zone of Rome?";
+        String s7 = "Give me the currency of China.";
+        String s8 = "Give me all currencies of China.";
+        String s9="What is the location of the Houses of Parliament?";
+        String s10="What is the location of the Palace of Westminster?";
+        String s11="What is the country of Sitecore?";
+        String s12="What country is Sitecore from?";
+        String s13="In which time zone is Rome?";
+        String s14="what is the time zone of Rome?";
+        String s15="In what city is the Heineken brewery?";
+        String s16="In what city is the Heineken located?";
+        String s17="What is the timezone in San Pedro de Atacama?";
+        String s18="What is the time zone of San Pedro de Atacama?";
+        
+        String s19="Which books by Kerouac were published by Viking Press?";
+        String s20="Which books of Kerouac were published by Viking Press?";
+        
+        String test2="List all episodes of the first season of the HBO television series The Sopranos!";
+        String test3="List all episodes of the television series The Sopranos.";
+        
+        test3="List all episodes of the first season of the television series The Sopranos.";
+        
+        
+        
+        
+        /*CharSequence left = new StringBuffer(s1);
+        CharSequence right= new StringBuffer(s2);
+        Double result=jaccardSimilarity.calculateJaccardSimilarity( left,  right);
+        System.out.println("Hellow World!!"+result);*/
+        System.out.println("s1 and s2:::" + jaccardSimilarityManual(s1, s2));
+        System.out.println("s3 and s4:::" + jaccardSimilarityManual(s3, s4));
+        System.out.println("s5 and s6:::" + jaccardSimilarityManual(s5, s6));
+        System.out.println("s7 and s8:::" + jaccardSimilarityManual(s7, s8));
+        System.out.println("s9 and s10:::" + jaccardSimilarityManual(s9, s10));
+        System.out.println("s11 and s12:::" + jaccardSimilarityManual(s11, s12));
+        System.out.println("s13 and s14:::" + jaccardSimilarityManual(test2, test3));
+        System.out.println("s13 and s14:::" + jaccardSimilarityManual("How many companies were founded in the same year as Google?", 
+                                                                      "How many companies were founded by Google?"));
+
+
+
+
+    }
+
+    public static double jaccardSimilarityManual(String string1, String string2) {
+        string1 = process(string1).toLowerCase();
+        string2 = process(string2).toLowerCase();
+        String stringOne[] = string1.split(" ");
+        String stringTwo[] = string2.split(" ");
+        List<String> test1 = new ArrayList<String>();
+        Set<String> setOne = new LinkedHashSet<String>(Arrays.asList(stringOne));
+        Set<String> settwo = new LinkedHashSet<String>(Arrays.asList(stringTwo));
+
+        Set<String> intersection = new LinkedHashSet<String>(Arrays.asList(stringOne));
+        intersection.retainAll(settwo);
+
+        setOne.addAll(settwo);
+        //System.out.println(intersection + " " + setOne);
+        int inter = intersection.size();
+        int union = setOne.size();
+        //System.out.println(inter + " " + union);
+        return (double) (inter) / (double) (union);
+    }
+
+    public static String process(String string) {
+        string = string.replace("?", " ?");
+        return string = string.replace(".", " .");
+    }
+
 }
 
 class ValueComparator implements Comparator<String> {
@@ -307,7 +398,10 @@ class ValueComparator implements Comparator<String> {
             return 1;
         } // returning 0 would merge keys
     }
-
+    
+  
+    
+    
 }
 
   

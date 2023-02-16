@@ -59,12 +59,7 @@ public class QALDImporter {
         writer.close();*/
         CsvFile csvFile=new CsvFile(new File(fileName));
         csvFile.writeToCSV(dataLines);
-        /*for (String[] cols : dataLines) {
-            System.out.println();
-            for (String col : cols) {
-                System.out.print(col);
-            }
-        }*/
+        
     }
 
     /*public void writeToCSV(List<String[]> dataLines, String fileName) throws IOException {

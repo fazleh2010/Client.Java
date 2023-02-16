@@ -6,6 +6,7 @@
 package evaluation;
 
 import Main.Constants;
+import java.io.File;
 import java.io.IOException;
 import static java.lang.System.exit;
 import java.time.Duration;
@@ -15,6 +16,7 @@ import java.util.List;
 import static java.util.Objects.isNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import util.io.CsvFile;
 
 /**
  *
@@ -30,7 +32,7 @@ public class Writer implements Constants{
         long duration = Duration.between(before, after).toSeconds();
         List<String[]> dataLines = new ArrayList<String[]>();
         if (type.contains(Constants.FIND_SIMILARITY)) {
-            dataLines = qaldQueGGMatch(result, qaldOriginal, languageCode);
+            dataLines = qaldQueGGMatch(result, qaldOriginal,languageCode);
         } else if (type.contains(Constants.FIND_QALD_ANSWER)) {
             dataLines = qaldAnswer(result, qaldOriginal, languageCode);
         } else if (type.contains(Constants.FIND_QALD_QUEGG_ANSWER)) {
@@ -66,13 +68,6 @@ public class Writer implements Constants{
             String qaldQuestion = entryComparison.getQaldEntry().getQuestions();
             String qaldSparql = entryComparison.getQaldEntry().getSparql();
 
-            /*if (entryComparison.getMatchedFlag()) {
-                System.out.println("qaldQuestion::::" + qaldQuestion);
-                System.out.println("getQueGGEntry().getQuestions()::::" + entryComparison.getQueGGEntry().getQuestions());
-                System.out.println("qaldQuestion::::" + qaldQuestion);
-                System.out.println("qaldQuestion::::" + entryComparison.getQueGGEntry().getSparql());
-            }*/
-            //System.out.println("qaldSparql::::"+qaldSparql);
             list.add(
                     new String[]{
                         entryComparison.getQaldEntry().getId(),
@@ -121,6 +116,34 @@ public class Writer implements Constants{
         return list;
     }
     
+    /*public static void qaldQueGGMatch(EvaluationResult result, QALD qaldOriginal, String fileName) throws IOException {
+        List<String[]> dataLines = new ArrayList<>();
+        dataLines.add(new String[]{"QALD id", "match status", "QALD question", "QueGG question", "QALD SPARQL query", "QueGG SPARQL query"});
+        int numberOfQueGGMatches = 0;
+        for (EntryComparison entryComparison : result.getEntryComparisons()) {
+            QALD.QALDQuestions QALDQuestions = Matcher.getMatchingOriginalQaldQuestions(qaldOriginal, entryComparison);
+            String qaldQuestion = entryComparison.getQaldEntry().getQuestions();
+            String qaldSparql = entryComparison.getQaldEntry().getSparql().replace("\n", "");
+            String id = entryComparison.getQaldEntry().getId();
+            String value = entryComparison.getSimilarityCsore().toString();
+            String queGGQuestion = "", queGGSparqlQuery = "";
+
+            if (!isNull(entryComparison.getQueGGEntry().getQuestions())) {
+                queGGQuestion = entryComparison.getQueGGEntry().getQuestions().replace("\n", "");
+            }
+            if (!isNull(entryComparison.getQueGGEntry().getSparql())) {
+                queGGSparqlQuery = entryComparison.getQueGGEntry().getSparql().replace("\n", "");
+            }
+            
+            dataLines.add(new String[]{id, value, qaldQuestion, queGGQuestion, qaldSparql, queGGSparqlQuery});
+
+          
+        }
+        CsvFile csvFile=new CsvFile(new File(fileName));
+        csvFile.writeToCSV(dataLines);
+    }*/
+
+    
         public static List<String[]> qaldQueGGMatch(EvaluationResult result, QALD qaldOriginal, String languageCode) {
         List<String[]> list = new ArrayList<>();
         list.add(new String[]{
@@ -137,20 +160,14 @@ public class Writer implements Constants{
             String qaldQuestion = entryComparison.getQaldEntry().getQuestions();
             String qaldSparql = entryComparison.getQaldEntry().getSparql();
 
-            /*if (entryComparison.getMatchedFlag()) {
-                System.out.println("qaldQuestion::::" + qaldQuestion);
-                System.out.println("getQueGGEntry().getQuestions()::::" + entryComparison.getQueGGEntry().getQuestions());
-                System.out.println("qaldQuestion::::" + qaldQuestion);
-                System.out.println("qaldQuestion::::" + entryComparison.getQueGGEntry().getSparql());
-            }*/
-            //System.out.println("qaldSparql::::"+qaldSparql);
+            
             list.add(
                     new String[]{
                         entryComparison.getQaldEntry().getId(),
                         entryComparison.getSimilarityCsore().toString(),
                         qaldQuestion,
                         entryComparison.getQueGGEntry().getQuestions(),
-                        qaldSparql,
+                        qaldSparql.replace("\n",""),
                         !isNull(entryComparison.getQueGGEntry())
                         ? entryComparison.getQueGGEntry().getSparql()
                         : "" // entryComparison.getQueGGEntries().stream().filter(entry -> entry.).getSentences().stream().reduce((x, y) -> x + "\n" + y).orElse(""),
@@ -182,7 +199,7 @@ public class Writer implements Constants{
                 "QALD coverage: %.2f%%",
                 (float) (numberOfQueGGMatches) / (float) qaldOriginal.questions.size() * 100
         ));
-
+        
         return list;
     }
 
@@ -198,13 +215,7 @@ public class Writer implements Constants{
         for (EntryComparison entryComparison : result.getEntryComparisons()) {
             QALD.QALDQuestions QALDQuestions = Matcher.getMatchingOriginalQaldQuestions(qaldOriginal, entryComparison);
 
-            /*if (entryComparison.getMatchedFlag()) {
-                System.out.println("qaldQuestion::::" + qaldQuestion);
-                System.out.println("getQueGGEntry().getQuestions()::::" + entryComparison.getQueGGEntry().getQuestions());
-                System.out.println("qaldQuestion::::" + qaldQuestion);
-                System.out.println("qaldQuestion::::" + entryComparison.getQueGGEntry().getSparql());
-            }*/
-            //System.out.println("qaldSparql::::"+qaldSparql);
+            
             list.add(
                     new String[]{
                         entryComparison.getQaldEntry().getId(),

@@ -9,8 +9,10 @@ package util.io;
  *
  * @author elahi
  */
+import com.opencsv.exceptions.CsvException;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -86,7 +88,7 @@ public class Calculation {
         csvFile.writeToCSV(rows);
     }*/
 
-    public static void countLineOfCsvFileL(String fileName) {
+    public static void countLineOfCsvFileL(String fileName) throws IOException, FileNotFoundException, CsvException {
         File file = new File(fileName);
         CsvFile csvFile = new CsvFile(file);
         List<String[]> rows = csvFile.getRows(file);
@@ -111,7 +113,7 @@ public class Calculation {
         }
     }
     
-     public static Integer countLineOfCsvFile(String fileName) {
+     public static Integer countLineOfCsvFile(String fileName) throws IOException, FileNotFoundException, CsvException {
         File file = new File(fileName);
         CsvFile csvFile = new CsvFile(file);
         List<String[]> rows = csvFile.getRows(file);
@@ -148,7 +150,7 @@ public class Calculation {
         return id;
     }
 
-    public static void folderDuplicateRemover(Map<String, Set<String>> selectedFiles, String questionDir, String frameType) {
+    public static void folderDuplicateRemover(Map<String, Set<String>> selectedFiles, String questionDir, String frameType) throws IOException, FileNotFoundException, CsvException {
         Map<String, String[]> allQuestions = new TreeMap<String, String[]>();
         String note = null;
         if (frameType.contains("-IPP-")) {

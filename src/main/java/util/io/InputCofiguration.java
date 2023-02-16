@@ -54,8 +54,9 @@ public class InputCofiguration {
     private Boolean calculation;
     @JsonProperty("fileType")
     private String fileType;
-    
-     
+    @JsonProperty("numberOfQuestion")
+    private Boolean numberOfQuestion;
+
     private LinkedData linkedData = null;
 
     public InputCofiguration() {
@@ -163,8 +164,12 @@ public class InputCofiguration {
         return fileType;
     }
 
-  
-    
+    public Boolean isNumberOfQuestion() {
+        return numberOfQuestion;
+    }
+
+   
+
     @Override
     public String toString() {
         return "InputCofiguration{" + "language=" + languageCode + ", inputDir=" + getInputDir() + ", outputDir=" + getOutputDir() + ", numberOfEntities=" + numberOfEntities + ", similarityThresold=" + similarityThresold + ", csvToTurtle=" + csvToTurtle + ", turtleToProtoType=" + turtleToProtoType + ", protoTypeToQuestion=" + protoTypeToQuestion + ", evalution=" + evalution + '}';

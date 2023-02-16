@@ -5,16 +5,17 @@
   "online" : "true",
   "qaldDir" : "QALD/7",
   "dataset" : "QALD",
-  "fileType" : "test",
+  "fileType" : "train",
   "numberOfEntities" : 100,
-  "similarityThresold" : 0.7,
+  "similarityThresold" : 0.51,
   "csvToTurtle" : false,
   "turtleToProtoType" : false,
   "single": false,
   "composite": false,
   "protoTypeToQuestion" : false,
   "evalution" : true,
-  "calculation" : false
+  "calculation" : false,
+  "numberOfQuestion":false
 }
 
 

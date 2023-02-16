@@ -1,0 +1,5 @@
+select  ?label {     
+ <http://dbpedia.org/resource/South_Africa> rdfs:label ?label .
+  filter langMatches(lang(?label),"de")
+}
+

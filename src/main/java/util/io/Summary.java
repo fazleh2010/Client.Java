@@ -29,18 +29,19 @@ public class Summary {
         return row;
     }
 
-    public static String[] setKomparsionResult(String fileName, EvaluationResult evaluationResult) {
-        String[] row = new String[10];
+    public static String[] setKomparsionResult(String fileName, String lexialEntry,EvaluationResult evaluationResult) {
+        String[] row = new String[11];
         row[0] = new File(fileName).getName();
-        row[1] = Float.toString(evaluationResult.getTp_global());
-        row[2] = Float.toString(evaluationResult.getFp_global());
-        row[3] = Float.toString(evaluationResult.getFn_global());
-        row[4] = Float.toString(evaluationResult.getPrecision_global());
-        row[5] = Float.toString(evaluationResult.getRecall_global());
-        row[6] = Float.toString(evaluationResult.getF_measure_global());
-        row[7] = Float.toString(evaluationResult.getPrecision_average());
-        row[8] = Float.toString(evaluationResult.getRecall_average());
-        row[9] = Float.toString(evaluationResult.getF_measure_average());
+        row[1] = lexialEntry.replace("http://localhost:8080#", "");
+        row[2] = String.format("%.02f", evaluationResult.getTp_global());
+        row[3] = String.format("%.02f", evaluationResult.getFp_global());
+        row[4] = String.format("%.02f", evaluationResult.getFn_global());
+        row[5] = String.format("%.02f", evaluationResult.getPrecision_global());
+        row[6] = String.format("%.02f", evaluationResult.getRecall_global());
+        row[7] = String.format("%.02f", evaluationResult.getF_measure_global());
+        row[8] = String.format("%.02f", evaluationResult.getPrecision_average());
+        row[9] = String.format("%.02f", evaluationResult.getRecall_average());
+        row[10] = String.format("%.02f", evaluationResult.getF_measure_average());
         return row;
     }
 

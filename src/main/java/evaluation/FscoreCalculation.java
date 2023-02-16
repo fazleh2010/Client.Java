@@ -31,6 +31,7 @@ public class FscoreCalculation {
         this.precision = getPrecision(Tp, Fp, Fn);
         this.recall = getRecall(Tp, Fp, Fn);
         this.fscore = getFscore(Tp, Fp, Fn);
+
      }
      
      public FscoreCalculation(float Tp, float Fp, float Fn,boolean flag) {
@@ -44,13 +45,15 @@ public class FscoreCalculation {
          tp=this.getTp(qaldResults, queGGResults);
          fp=this.getFp(qaldResults, queGGResults);
          fn=this.getFn(qaldResults, queGGResults);
-        //if (qaldResults.toString().contains("Gamma Ray")) {
-            /*System.out.println("!!!!!!!!!!!!!!!!!!!!!!!::" );
+        if (qaldResults.toString().contains("Gamma Ray")) {
+            System.out.println("!!!!!!!!!!!!!!!!!!!!!!!::" );
+            System.out.println("qaldResults::" + qaldResults);
+            System.out.println("queGGResults::" + queGGResults);
             System.out.println("Tp::" + tp);
             System.out.println("Fp::" + fp);
-            System.out.println("Fn::" + fn);*/
-            //exit(1);
-        //}
+            System.out.println("Fn::" + fn);
+            exit(1);
+        }
 
         this.precision = getPrecision(tp, fp, fn);
         this.recall = getRecall(tp, fp, fn);
@@ -65,6 +68,8 @@ public class FscoreCalculation {
      */
     private Integer getTp(List<String> qaldResults, List<String> queGGResults) {
         Set<String> existBothQaldQueGG = new HashSet<String>();
+        qaldResults=this.validList(qaldResults);
+        queGGResults=this.validList(queGGResults);
         existBothQaldQueGG = new HashSet<String>(qaldResults);
         existBothQaldQueGG.retainAll(queGGResults);
         if(existBothQaldQueGG.isEmpty())
@@ -79,6 +84,8 @@ public class FscoreCalculation {
      */
     private Integer getFp(List<String> qaldResults, List<String> queGGResults) {
         Integer fp=0;
+        qaldResults=this.validList(qaldResults);
+        queGGResults=this.validList(queGGResults);
         
         for (String queGGElement : queGGResults) {
             if(queGGElement.isEmpty()){
@@ -103,6 +110,8 @@ public class FscoreCalculation {
      */
     private Integer getFn(List<String> qaldResults, List<String> queGGResults) {
         Integer fn=0;
+        qaldResults=this.validList(qaldResults);
+        queGGResults=this.validList(queGGResults);
               
         for (String qaldElement : qaldResults) {
             if (queGGResults.contains(qaldElement)) {
@@ -256,6 +265,18 @@ public class FscoreCalculation {
          test4(); //passed
          
 
+    }
+
+    private List<String> validList(List<String> list) {
+        List<String> result = new ArrayList<String>();
+        for (String element : list) {
+            if (element.isEmpty()) {
+                continue;
+            } else {
+                result.add(element);
+            }
+        }
+        return result;
     }
 
 }

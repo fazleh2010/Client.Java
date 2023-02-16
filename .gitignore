@@ -1,6 +1,9 @@
 logs
 project/project
 project/target
+output/
+QALD/
+qald7Original/
 target
 tmp
 .history

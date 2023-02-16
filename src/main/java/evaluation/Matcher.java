@@ -84,6 +84,27 @@ public class Matcher {
                 .orElseThrow();
     }
     
+    public static String filterLexEntry2(String key) {
+        key = key.replace("0", "");
+        key = key.replace("1", "");
+        key = key.replace("2", "");
+        key = key.replace("3", "");
+        key = key.replace("4", "");
+        key = key.replace("5", "");
+        key = key.replace("6", "");
+        key = key.replace("7", "");
+        key = key.replace("8", "");
+        key = key.replace("9", "");
+        key = key.replace("__", "_");
+
+        if(key.contains("_")){
+           key=key.substring(0, key.length());
+           System.out.println("key::"+key);
+        }
+        return key;
+    }
+
+    
    
     
 }

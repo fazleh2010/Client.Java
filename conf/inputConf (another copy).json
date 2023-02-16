@@ -1,0 +1,21 @@
+{
+  "languageCode" : "en",
+  "inputDir" : "lexicon",
+  "outputDir" : "output/",
+  "online" : "true",
+  "qaldDir" : "QALD/6",
+  "dataset" : "QALD",
+  "fileType" : "test",
+  "numberOfEntities" : 100,
+  "similarityThresold" : 0.7,
+  "csvToTurtle" : false,
+  "turtleToProtoType" : false,
+  "single": false,
+  "composite": false,
+  "protoTypeToQuestion" : false,
+  "evalution" : true,
+  "calculation" : false,
+  "numberOfQuestion":false
+}
+
+

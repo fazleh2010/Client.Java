@@ -25,6 +25,7 @@ public interface Constants {
     public static final String ANSWER_SELECTED = "ANSWER_SELECTED";
     public static final String FIND_SIMILARITY = "FIND_SIMILARITY";
     public static final String FIND_QALD_QUEGG_ANSWER = "FIND_QALD_QeeGG_ANSWER";
+    public static final String FIND_NUMBER_OF_QUESTION = "FIND_NUMBER_OF_QUESTION";
     public static final String EVALUTE_QALD_QUEGG = "EVALUTE_QALD_QUEGG";
     public static final String ORIGINAL = "ORIGINAL";
     public static final String BOG = "BOG";

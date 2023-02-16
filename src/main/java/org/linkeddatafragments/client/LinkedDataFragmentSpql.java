@@ -27,6 +27,7 @@ import org.apache.jena.rdf.model.ModelFactory;
 import static org.fest.assertions.Assertions.assertThat;
 import org.linkeddatafragments.model.LinkedDataFragmentGraph;
 import util.io.FileUtils;
+import util.io.Manual;
 
 /**
  *
@@ -94,7 +95,6 @@ public class LinkedDataFragmentSpql {
     
      public List<String> sparqlObjectAsVariable(String queryString,String className) {
         List<String> results = new ArrayList<String>();
-        System.out.println("queryString::" + queryString);
         Query qry = QueryFactory.create(queryString);
         QueryExecution qe = QueryExecutionFactory.create(qry, model);
         ResultSet rs = qe.execSelect();
@@ -112,22 +112,22 @@ public class LinkedDataFragmentSpql {
      
     public List<String> sparqlObjectAsVariable(String qaldSparql) {
         List<String> results = new ArrayList<String>();
+
+
         Query qry = QueryFactory.create(qaldSparql);
         QueryExecution qe = QueryExecutionFactory.create(qry, model);
         try {
             ResultSet rs = qe.execSelect();
             Integer index = 0;
-            //System.out.println("qaldSparql::"+qaldSparql);
+
             while (rs.hasNext()) {
                 String result = rs.nextSolution().toString();
                 index = index + 1;
                 results.add(result);
-                System.out.println(index + " " + result);
             }
-        }catch(Exception ex){
-            return new ArrayList<String>();
+        } catch (Exception ex) {
+            return  new ArrayList<String>(); 
         }
-        
         return results;
     }
 
@@ -219,6 +219,8 @@ public class LinkedDataFragmentSpql {
         System.out.println(answers.size());
         
     }
+
+    
 
   
 }
