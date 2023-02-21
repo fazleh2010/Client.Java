@@ -5,15 +5,15 @@
  */
 package evaluation;
 
-import Main.Constants;
-import static Main.Constants.ANSWER_SELECTED;
-import static Main.Constants.BOG;
-import static Main.Constants.EVALUTE_QALD_QUEGG;
-import static Main.Constants.FIND_QALD_ANSWER;
-import static Main.Constants.FIND_QALD_QUEGG_ANSWER;
-import static Main.Constants.FIND_SIMILARITY;
-import static Main.Constants.model;
-import static Main.Constants.singleTripeFile;
+import main.Constants;
+import static main.Constants.ANSWER_SELECTED;
+import static main.Constants.BOG;
+import static main.Constants.EVALUTE_QALD_QUEGG;
+import static main.Constants.FIND_QALD_ANSWER;
+import static main.Constants.FIND_QALD_QUEGG_ANSWER;
+import static main.Constants.FIND_SIMILARITY;
+import static main.Constants.model;
+import static main.Constants.singleTripeFile;
 import com.opencsv.exceptions.CsvException;
 import java.io.File;
 import java.io.FileNotFoundException;

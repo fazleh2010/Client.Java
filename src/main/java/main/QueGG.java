@@ -1,4 +1,4 @@
-package Main;
+package main;
 
 import util.io.Calculation;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,8 +26,9 @@ public class QueGG implements Constants {
 
         QueGG queGG = new QueGG();
         // FIND_SIMILARITY has to run alone. for unknown reasons all menu does not work
-         //menu.add(FIND_SIMILARITY);
-         menu.add(FIND_QALD_QUEGG_ANSWER);
+        menu.add(FIND_QALD_ANSWER);
+        //menu.add(FIND_SIMILARITY);
+        // menu.add(FIND_QALD_QUEGG_ANSWER);
          //menu.add(EVALUTE_QALD_QUEGG);
 
         try {

@@ -5,7 +5,7 @@
  */
 package util.io;
 
-import static Main.Constants.questionsFile;
+import static main.Constants.questionsFile;
 import com.opencsv.exceptions.CsvException;
 import java.io.File;
 import java.io.FileNotFoundException;

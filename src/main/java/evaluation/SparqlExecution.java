@@ -5,10 +5,10 @@
  */
 package evaluation;
 
-import static Main.Constants.ANSWER_SELECTED;
-import static Main.Constants.FIND_QALD_ANSWER;
-import static Main.Constants.FIND_QALD_QUEGG_ANSWER;
-import static Main.Constants.model;
+import static main.Constants.ANSWER_SELECTED;
+import static main.Constants.FIND_QALD_ANSWER;
+import static main.Constants.FIND_QALD_QUEGG_ANSWER;
+import static main.Constants.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;

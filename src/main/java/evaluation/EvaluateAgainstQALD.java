@@ -1,6 +1,6 @@
 package evaluation;
 
-import Main.Constants;
+import main.Constants;
 import com.opencsv.exceptions.CsvException;
 import java.io.File;
 import java.io.FileNotFoundException;

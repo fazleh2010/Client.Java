@@ -5,7 +5,7 @@
  */
 package evaluation;
 
-import Main.Constants;
+import main.Constants;
 import java.io.File;
 import java.io.IOException;
 import static java.lang.System.exit;
