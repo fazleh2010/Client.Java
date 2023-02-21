@@ -19,6 +19,8 @@ public interface Constants {
 
     public static final String questionsFile = "questions";
     public static final String summaryFile = "summary";
+    public static final String MAKE_PROPERTY_FILE = "MAKE_PROPERTY_FILE";
+
     public static final String FIND_QALD_ANSWER = "FIND_QALD_ANSWER";
     public static final String FIND_NUMBER_QUESTIONS = "FIND_NUMBER_QUESTIONS";
 

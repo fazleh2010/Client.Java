@@ -105,7 +105,7 @@ public class LinkedDataFragmentSpql {
             index=index+1;
             result=parseLine(result, className);
             results.add(result);
-            System.out.println(index+" "+result);
+            //System.out.println(index+" "+result);
         }
         return results;
     }
@@ -124,6 +124,7 @@ public class LinkedDataFragmentSpql {
                 String result = rs.nextSolution().toString();
                 index = index + 1;
                 results.add(result);
+                System.out.println(result);
             }
         } catch (Exception ex) {
             return  new ArrayList<String>(); 

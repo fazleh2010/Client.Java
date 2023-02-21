@@ -26,7 +26,8 @@ public class QueGG implements Constants {
 
         QueGG queGG = new QueGG();
         // FIND_SIMILARITY has to run alone. for unknown reasons all menu does not work
-        menu.add(FIND_QALD_ANSWER);
+         menu.add(MAKE_PROPERTY_FILE);
+        //menu.add(FIND_QALD_ANSWER);
         //menu.add(FIND_SIMILARITY);
         // menu.add(FIND_QALD_QUEGG_ANSWER);
          //menu.add(EVALUTE_QALD_QUEGG);
@@ -156,6 +157,7 @@ public class QueGG implements Constants {
 
     public void evalutionTest(InputCofiguration inputCofiguration) throws IOException, Exception {
         String queGGJson = null, queGGJsonCombined = null, qaldFile = null, qaldModifiedFile = null;
+        //initialization......
         ObjectMapper objectMapper = new ObjectMapper();
         String qaldDir = inputCofiguration.getQaldDir();
         String outputDir = inputCofiguration.getOutputDir();
@@ -176,8 +178,7 @@ public class QueGG implements Constants {
         String summaryFile = outputDir + File.separator + dataset + "_" + "summary" + ".csv";
         
     
-
-        //EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint,menu,resultMatchFile);
+        // get the file name
         for (String fileName : new File(qaldDir).list()) {
             if (fileName.contains(inputCofiguration.getFileType())) {
                 if (fileName.contains("modified")) {
@@ -196,15 +197,12 @@ public class QueGG implements Constants {
         //italian 11 to 17
         
         String[] files = new File(outputDir).list();
-        Integer endRange = 35;
-        Integer index = 0;
-        String filterFileName = "filter";
-        EvaluateAgainstQALD.getAnswers();
+        Integer endRange = 35,index = 0; String filterFileName = "filter";
+        //EvaluateAgainstQALD.getAnswers();
         QueGGAnswers queGGAnswers = JsonAccess.readObjectJson(qaldQueGGAnswerJsonFile);
         EvaluateAgainstQALD.setOfflineAnswerList(queGGAnswers.getAnswers());
         List<String[]> results = new ArrayList<String[]>();
         results.add(Summary.setStart());
-        Map<String,String>lexialFiles=new LinkedHashMap<String,String>();
 
         for (Integer startRange = 1; startRange < endRange; startRange++) {
             if(startRange<12)
