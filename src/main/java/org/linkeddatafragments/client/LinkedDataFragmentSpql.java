@@ -131,9 +131,48 @@ public class LinkedDataFragmentSpql {
         }
         return results;
     }
-
-
+    
     public List<String> parseResultList(List<String> results) {
+
+        List<String> parsedResult = new ArrayList<String>();
+        for (String result : results) {
+            result=StringUtils.substringBetween(result, "( ",  " )");
+            if (result.contains(",")) {
+                String[] info = result.split(",\\s*"); // split on commas
+                for (String value : info) {
+                    if (value.contains("=")) {
+                        String[] info1 = value.split("=");
+                        value = info1[1];
+                        if (value.contains("<")) {
+                            value = value.replace("<", "");
+                            value = value.replace(">", "");
+                        }
+                        value = "(" + value.strip().trim();
+                        parsedResult.add(value);
+                    }
+                }
+            } else {
+                String value = result;
+                if (value.contains("=")) {
+                    String[] info1 = value.split("=");
+                    value = info1[1];
+                    /*if (value.contains("<")) {
+                        value = value.replace("<", "");
+                        value = value.replace(">", "");
+                    }*/
+                    parsedResult.add(value);
+
+                }
+
+            }
+        }
+
+        return parsedResult;
+    }
+    
+
+
+    public List<String> parseResultListT(List<String> results) {
 
         List<String> parsedResult = new ArrayList<String>();
         for (String result : results) {
