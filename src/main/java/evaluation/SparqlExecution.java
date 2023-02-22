@@ -19,6 +19,7 @@ import static main.Constants.EVALUTE_QALD_QUEGG;
 import static main.Constants.FIND_QALD_ANSWER;
 import static main.Constants.FIND_QALD_QUEGG_ANSWER;
 import static main.Constants.model;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.jena.query.QueryParseException;
 import org.linkeddatafragments.client.LinkedDataFragmentSpql;
 
@@ -208,6 +209,48 @@ public class SparqlExecution {
         }
 
         return uriResultList;
+    }
+     
+    public static String getSparqlQuery(String menu, String endpoint, String sparql) {
+        List<String> uriResultList = new ArrayList<String>();
+        String result=null;
+
+        if (sparql != null)
+            ; else {
+            return result;
+        }
+        
+        if(sparql.contains("ASK")||sparql.contains("ORDER BY")||sparql.contains("UNION")
+                 ||sparql.contains("RecordLabel")){
+            return result; 
+         }
+        if (sparql.contains("ORDER BY") || sparql.contains("UNION")
+                || sparql.contains("RecordLabel")) {
+            return result;
+        }
+
+
+       
+        try {
+
+
+            LinkedDataFragmentSpql main = new LinkedDataFragmentSpql(model, endpoint, sparql);
+
+            uriResultList = main.sparqlObjectAsVariable(sparql);
+            uriResultList = main.parseResultList(uriResultList);
+            if(!uriResultList.isEmpty()){
+                return result=uriResultList.iterator().next();
+            }
+
+            System.out.println("sparql:::" + sparql);
+            System.out.println(" uriResultList:" + uriResultList.size());
+
+        } catch (QueryParseException ex) {
+            System.out.println("error:::" + ex.getMessage());
+            return null;
+        }
+
+        return result;
     }
      
       public static List<String> findDummyAnswer(String id, List<String> qaldResults) {

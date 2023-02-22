@@ -18,19 +18,17 @@ public class QueGG implements Constants {
     private static final Logger LOG = LogManager.getLogger(QueGG.class);
     private static LinkedHashSet<String> menu = new LinkedHashSet<String>();
     private static Boolean online = false;
-    private static List<String[]> results=new ArrayList<String[]>();
-
+    private static List<String[]> results = new ArrayList<String[]>();
 
     public static void main(String[] args) throws Exception {
 
-
         QueGG queGG = new QueGG();
         // FIND_SIMILARITY has to run alone. for unknown reasons all menu does not work
-         menu.add(MAKE_PROPERTY_FILE);
+        menu.add(MAKE_PROPERTY_FILE);
         //menu.add(FIND_QALD_ANSWER);
         //menu.add(FIND_SIMILARITY);
         // menu.add(FIND_QALD_QUEGG_ANSWER);
-         //menu.add(EVALUTE_QALD_QUEGG);
+        //menu.add(EVALUTE_QALD_QUEGG);
 
         try {
             InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));
@@ -62,7 +60,7 @@ public class QueGG implements Constants {
         exit(1);
 
     }
-    
+
     public void evalutionTrain(InputCofiguration inputCofiguration) throws IOException, Exception {
         String queGGJson = null, queGGJsonCombined = null, qaldFile = null, qaldModifiedFile = null;
         ObjectMapper objectMapper = new ObjectMapper();
@@ -83,7 +81,6 @@ public class QueGG implements Constants {
         String qaldRaw = outputDir + File.separator + dataset + "_" + fileType + "-dataset-raw.csv";
         String qaldQueGGAnswerJsonFile = outputDir + File.separator + "QueGG-Answer" + ".json";
         String summaryFile = outputDir + File.separator + dataset + "_" + "summary" + ".csv";
-        
 
         //EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint,menu,resultMatchFile);
         for (String fileName : new File(qaldDir).list()) {
@@ -101,10 +98,8 @@ public class QueGG implements Constants {
         //temporary code for qald entity creation...
         //FileUtils.stringToFile(string, entityLabelDir+File.separator+"qaldEntities.txt");
         //english 1 to 43
-        
-        String questionDir=inputCofiguration.getOutputDir()+"/questions/"+"lexicalEntry/";
-       
-        
+        String questionDir = inputCofiguration.getOutputDir() + "/questions/" + "lexicalEntry/";
+
         String[] files = new File(questionDir).list();
         Integer endRange = 102;
         Integer index = 0;
@@ -113,29 +108,28 @@ public class QueGG implements Constants {
         EvaluateAgainstQALD.setOfflineAnswerList(queGGAnswers.getAnswers());
         List<String[]> results = new ArrayList<String[]>();
         results.add(Summary.setStart());
-        
-        Map<String,String>lexialFiles=new LinkedHashMap<String,String>();
-        Integer startRange=0;
-        String lexialEntry=null;
-        String dir=inputCofiguration.getOutputDir()+"/questions/"+"lexicalEntry/";
-        Map<String, String[]> queGGQuestions =new TreeMap<String, String[]>();
 
-        for (String fileName:files) {
-            startRange=startRange+1;
-            FilterRows filterRows=new FilterRows(dir,fileName);
+        Map<String, String> lexialFiles = new LinkedHashMap<String, String>();
+        Integer startRange = 0;
+        String lexialEntry = null;
+        String dir = inputCofiguration.getOutputDir() + "/questions/" + "lexicalEntry/";
+        Map<String, String[]> queGGQuestions = new TreeMap<String, String[]>();
+
+        for (String fileName : files) {
+            startRange = startRange + 1;
+            FilterRows filterRows = new FilterRows(dir, fileName);
             queGGQuestions.putAll(filterRows.getQueGGQuestions());
-             lexialEntry="_"+fileName.replace(".csv", "").replace("questions_", "")+"_"+startRange.toString();
-             if(endRange==-1)
-                 ;
-             else if(startRange>endRange){
-                 break;
-             }
-            
+            lexialEntry = "_" + fileName.replace(".csv", "").replace("questions_", "") + "_" + startRange.toString();
+            if (endRange == -1)
+                 ; else if (startRange > endRange) {
+                break;
+            }
+
             if (queGGQuestions.isEmpty()) {
                 throw new Exception("no question found in QueGG!!!");
             } else {
                 EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint, menu, FIND_SIMILARITY_OUTPUT, comparisonFile, qaldAnswerFile, qaldQueGGAnswerFile, online, lexialEntry);
-                evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile, qaldRaw, languageCode, similarityMeasure,lexialEntry);
+                evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile, qaldRaw, languageCode, similarityMeasure, lexialEntry);
                 results.addAll(evaluateAgainstQALD.getResult());
             }
         }
@@ -153,7 +147,6 @@ public class QueGG implements Constants {
         }
         CsvFile.writeToCSV(results);
     }
-
 
     public void evalutionTest(InputCofiguration inputCofiguration) throws IOException, Exception {
         String queGGJson = null, queGGJsonCombined = null, qaldFile = null, qaldModifiedFile = null;
@@ -176,8 +169,7 @@ public class QueGG implements Constants {
         String qaldRaw = outputDir + File.separator + dataset + "_" + fileType + "-dataset-raw.csv";
         String qaldQueGGAnswerJsonFile = outputDir + File.separator + "QueGG-Answer" + ".json";
         String summaryFile = outputDir + File.separator + dataset + "_" + "summary" + ".csv";
-        
-    
+
         // get the file name
         for (String fileName : new File(qaldDir).list()) {
             if (fileName.contains(inputCofiguration.getFileType())) {
@@ -195,9 +187,9 @@ public class QueGG implements Constants {
         //FileUtils.stringToFile(string, entityLabelDir+File.separator+"qaldEntities.txt");
         //english 1 to 43
         //italian 11 to 17
-        
         String[] files = new File(outputDir).list();
-        Integer endRange = 35,index = 0; String filterFileName = "filter";
+        Integer endRange = 35, index = 0;
+        String filterFileName = "filter";
         //EvaluateAgainstQALD.getAnswers();
         QueGGAnswers queGGAnswers = JsonAccess.readObjectJson(qaldQueGGAnswerJsonFile);
         EvaluateAgainstQALD.setOfflineAnswerList(queGGAnswers.getAnswers());
@@ -205,18 +197,19 @@ public class QueGG implements Constants {
         results.add(Summary.setStart());
 
         for (Integer startRange = 1; startRange < endRange; startRange++) {
-            if(startRange<12)
+            if (startRange < 12) {
                 continue;
-            
-            FilterRows filterRows=new FilterRows(outputDir, files, filterFileName, startRange);
+            }
+
+            FilterRows filterRows = new FilterRows(outputDir, files, filterFileName, startRange);
             Map<String, String[]> queGGQuestions = filterRows.getQueGGQuestions();
-            String lexialEntry=filterRows.getLexialEntry().get(filterRows.getLexialEntry().size()-1);
-            
+            String lexialEntry = filterRows.getLexialEntry().get(filterRows.getLexialEntry().size() - 1);
+
             if (queGGQuestions.isEmpty()) {
                 throw new Exception("no question found in QueGG!!!");
             } else {
                 EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint, menu, FIND_SIMILARITY_OUTPUT, comparisonFile, qaldAnswerFile, qaldQueGGAnswerFile, online, startRange.toString());
-                evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile, qaldRaw, languageCode, similarityMeasure,lexialEntry);
+                evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile, qaldRaw, languageCode, similarityMeasure, lexialEntry);
                 results.addAll(evaluateAgainstQALD.getResult());
             }
         }
@@ -235,8 +228,7 @@ public class QueGG implements Constants {
         CsvFile.writeToCSV(results);
     }
 
-    
-        private static void calculateSum() {
+    private static void calculateSum() {
         Double english = 189.01;
         Double remove_born_in = english - 1815098;
         Double add_death_date = english + (556491 * 4);
@@ -284,6 +276,5 @@ public class QueGG implements Constants {
         System.out.println(189.01 - 163.14);
         System.out.println(191.24 - 189.01);
     }
-
 
 }
