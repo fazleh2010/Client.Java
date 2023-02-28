@@ -39,10 +39,9 @@ public class FilterRows {
 
         List<String[]> rows;
         File file = new File(outputDir + File.separator + fileName);
-        CsvFile csvFile = new CsvFile(file);
+        CsvFile csvFile = new CsvFile();
         rows = csvFile.getRows(file);
         for (String[] row : rows) {
-            System.out.println(row[0]);
             String question = row[1];
             String cleanQuestion = question.toLowerCase().trim().strip().stripLeading().stripTrailing();
             queGGQuestions.put(cleanQuestion, row);

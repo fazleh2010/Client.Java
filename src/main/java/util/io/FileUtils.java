@@ -20,6 +20,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.StringReader;
 import static java.lang.System.exit;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.io.IOUtils;
 
 /**
  *
@@ -45,29 +47,28 @@ public class FileUtils {
         writer.close();
 
     }
-    
-     public static void stringToFile(String content, String fileName)
+
+    public static void stringToFile(String content, String fileName)
             throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
         writer.write(content);
         writer.close();
 
     }
-    
-    public static void mapToFile(Map<String,Integer> map, String fileName) throws IOException {
-        String str="";
-        for(String key:map.keySet()){
-            String value=map.get(key).toString();
-            String line=key+"="+value+"\n";
-            str+=line;
+
+    public static void mapToFile(Map<String, Integer> map, String fileName) throws IOException {
+        String str = "";
+        for (String key : map.keySet()) {
+            String value = map.get(key).toString();
+            String line = key + "=" + value + "\n";
+            str += line;
         }
-        stringToFile(str,fileName);
+        stringToFile(str, fileName);
     }
-    
-    
 
     public static String fileToString(String fileName) {
-        InputStream is;String fileAsString=null;
+        InputStream is;
+        String fileAsString = null;
         try {
             is = new FileInputStream(fileName);
             BufferedReader buf = new BufferedReader(new InputStreamReader(is));
@@ -84,9 +85,10 @@ public class FileUtils {
 
         return fileAsString;
     }
-    
+
     public static Set<Integer> fileToSet(String fileName) {
-         InputStream is; Set<Integer> ids=new TreeSet<Integer>();
+        InputStream is;
+        Set<Integer> ids = new TreeSet<Integer>();
         try {
             is = new FileInputStream(fileName);
             BufferedReader buf = new BufferedReader(new InputStreamReader(is));
@@ -94,7 +96,7 @@ public class FileUtils {
             StringBuilder sb = new StringBuilder();
             while (line != null) {
                 line = buf.readLine();
-                Integer id=Integer.parseInt(line);
+                Integer id = Integer.parseInt(line);
                 ids.add(id);
             }
         } catch (Exception ex) {
@@ -118,7 +120,7 @@ public class FileUtils {
 
     }
 
-    public static Map<String, String> fileToHashMapEqual(File classFile,String seperator,Integer key) {
+    public static Map<String, String> fileToHashMapEqual(File classFile, String seperator, Integer key) {
         Map<String, String> map = new TreeMap<String, String>();
         Set<String> set = new TreeSet<String>();
         BufferedReader reader;
@@ -132,10 +134,11 @@ public class FileUtils {
                     if (line.contains(seperator)) {
                         String uri = line.split(seperator)[0];
                         String label = line.split(seperator)[1];
-                        if(key==1)
-                          map.put(uri, label);
-                        else
-                          map.put(label, uri);
+                        if (key == 1) {
+                            map.put(uri, label);
+                        } else {
+                            map.put(label, uri);
+                        }
                     }
                 }
             }
@@ -145,7 +148,7 @@ public class FileUtils {
         }
         return map;
     }
-   
+
     public static void hashMaptoFile(Map<String, Set<String>> duplicateUris, String fileName) throws IOException {
         String str = "";
         for (String key : duplicateUris.keySet()) {
@@ -154,39 +157,36 @@ public class FileUtils {
                 line += value + " ";
 
             }
-            str += line+"\n";
+            str += line + "\n";
         }
         FileUtils.stringToFile(str, fileName);
     }
 
-
-   
-    public static Map<String, String[]> getDataFromFile(File file,Integer keyIndex, Integer classIndex,String  className) throws IOException, FileNotFoundException, CsvException {
+    public static Map<String, String[]> getDataFromFile(File file, Integer keyIndex, Integer classIndex, String className) throws IOException, FileNotFoundException, CsvException {
         Map<String, String[]> map = new TreeMap<String, String[]>();
-        String fileType=file.getName();
-         if (fileType.contains(".csv")) {
+        String fileType = file.getName();
+        if (fileType.contains(".csv")) {
             CsvFile csvFile = new CsvFile(file);
-             return csvFile.generateBindingMapL( keyIndex,classIndex,className);
+            return csvFile.generateBindingMapL(keyIndex, classIndex, className);
         }
         return new TreeMap<String, String[]>();
     }
-
-    
 
     public static LinkedData getLinkedDataConf(File file) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(file, LinkedData.class);
     }
+
     public static InputCofiguration getInputConfig(File file) throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(file, InputCofiguration.class);
     }
-    
-     public static void listToFiles(List<String> list, String fileName) {
+
+    public static void listToFiles(List<String> list, String fileName) {
         String str = "";
         for (String element : list) {
-                String line = element + "\n";
-                str += line;
+            String line = element + "\n";
+            str += line;
 
         }
         try {
@@ -198,32 +198,47 @@ public class FileUtils {
         }
 
     }
-    
+
+    public static void appendToFile(String fileName, String line) throws IOException {
+        File file = new File(fileName);
+        boolean b;
+        if (file.exists()) {
+            try {
+                BufferedWriter bw = new BufferedWriter(new FileWriter(file, true));
+                bw.append(System.getProperty("line.separator"));
+                bw.append(line);
+                bw.flush();
+                bw.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            stringToFile(line, fileName);
+        }
+    }
+
     public static void main(String[] args) {
-        String fileName="../resources/en/property/propertyInstane.txt";
-        File classFile=new File(fileName);
-        Map<String,String> map=new TreeMap<String,String>();
-        map=FileUtils.fileToHashMapEqual(classFile, " ",2);
-        
+        String fileName = "../resources/en/property/propertyInstane.txt";
+        File classFile = new File(fileName);
+        Map<String, String> map = new TreeMap<String, String>();
+        map = FileUtils.fileToHashMapEqual(classFile, " ", 2);
+
         for (String key : map.keySet()) {
             String value = map.get(key);
         }
-        
-        
-        
+
         //String dir = "../resources/en/questions/";
         //findNumberOfQuestion(dir);
         //String outputDir = "output/en/questions/";
         //seperateLexialEntry(outputDir,"numberOfQuestions.csv");
-        
     }
 
     private static String filterLexEntry(String key) {
-        String []info=key.split("_");
+        String[] info = key.split("_");
         return info[0].replace("\"", "");
         //replace("http://localhost:8080#", "");
     }
-    
+
     private static String filterLexEntry2(String key) {
         key = key.replace("0", "");
         key = key.replace("1", "");
@@ -237,8 +252,8 @@ public class FileUtils {
         key = key.replace("9", "");
         key = key.replace("__", "_");
 
-        if(key.contains("_")){
-           key=key.substring(0, key.length());
+        if (key.contains("_")) {
+            key = key.substring(0, key.length());
         }
         return key;
     }
@@ -281,22 +296,21 @@ public class FileUtils {
 
     }
 
-    public static void seperateLexialEntry(InputCofiguration inputCofiguration,String outputFileName) {
-        String dir=inputCofiguration.getOutputDir()+"/questions/";
+    public static void seperateLexialEntry(InputCofiguration inputCofiguration, String outputFileName) {
+        String dir = inputCofiguration.getOutputDir() + "/questions/";
 
         File[] files = new File(dir).listFiles();
         Map<String, List<String[]>> lexEntries = new TreeMap<String, List<String[]>>();
-        String summaryFile=dir+outputFileName;
-        List<String[]> summaryData =new ArrayList<String[]>();
+        String summaryFile = dir + outputFileName;
+        List<String[]> summaryData = new ArrayList<String[]>();
         CsvFile CsvSummaryFile = new CsvFile(new File(summaryFile));
 
-      
         Integer index = 0, totalLines = 0, fileNumber = 0;
         for (File file : files) {
-            if(file.getName().contains("questions")&&file.getName().contains(".csv"))
-                ;
-            else
-               continue;
+            if (file.getName().contains("questions") && file.getName().contains(".csv"))
+                ; else {
+                continue;
+            }
 
             CsvFile CsvFile = new CsvFile(file);
             List<String[]> rows = new ArrayList<String[]>();
@@ -312,10 +326,10 @@ public class FileUtils {
             for (String[] row : rows) {
                 index = index + 1;
                 String key = filterLexEntry2(row[0]);
-                List<String[]>temp  = new ArrayList<String[]>();
+                List<String[]> temp = new ArrayList<String[]>();
 
                 if (lexEntries.containsKey(key)) {
-                    temp  = lexEntries.get(key);
+                    temp = lexEntries.get(key);
                     temp.add(row);
                     lexEntries.put(key, temp);
                 } else {
@@ -328,25 +342,139 @@ public class FileUtils {
                 List<String[]> csvData = lexEntries.get(key);
                 if (key.contains("#")) {
                     String[] info = key.split("#");
-                    key=info[1];
-                    key=key.toLowerCase().replace("\"", "").replace("_", "").replace("-", "");
+                    key = info[1];
+                    key = key.toLowerCase().replace("\"", "").replace("_", "").replace("-", "");
                 }
-                File fileName = new File(dir +"lexicalEntry"+ "/"+"questions"+"_"+key + ".csv");
+                File fileName = new File(dir + "lexicalEntry" + "/" + "questions" + "_" + key + ".csv");
                 CsvFile CsvFile = new CsvFile(fileName);
                 CsvFile.writeToCSV(csvData);
-                Integer number=csvData.size();
-                summaryData.add(new String []{key,number.toString()});
+                Integer number = csvData.size();
+                summaryData.add(new String[]{key, number.toString()});
 
             }
         } catch (Exception ex) {
             Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
             ex.printStackTrace();
         }
-        
-          CsvSummaryFile.writeToCSV(summaryData);
+
+        CsvSummaryFile.writeToCSV(summaryData);
 
     }
 
+    public static List<File> getSpecificFiles(String fileDir, String extension) {
+        List<File> selectedFiles = new ArrayList<File>();
+        try {
+            String[] files = new File(fileDir).list();
+            for (String fileName : files) {
+                if (fileName.contains(extension)) {
+                    selectedFiles.add(new File(fileDir + fileName));
+                }
+            }
 
+        } catch (Exception exp) {
+            System.err.println("file not found!!");
+            return new ArrayList<File>();
+        }
+
+        return selectedFiles;
+    }
+
+    public static void stringToFiles(String str, String fileName) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            writer.write(str);
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+      public static String findParameterLexEntries(List<File> selectedFiles) throws IOException, FileNotFoundException, CsvException {
+        CsvFile csvFile = new CsvFile();
+        String str="";
+        for (File parameterFile : selectedFiles) {
+            List<String[]> rows = csvFile.getRows(parameterFile);
+            for (String[] row : rows) {
+                 String lexEntry=row[0].replace("\"", "").strip().stripLeading().stripTrailing().trim();
+                 String line=lexEntry+"="+ parameterFile.getName()+"\n";
+                 System.out.println(line);
+                 str+=line;
+            }
+        }
+        return str;
+    }
+
+
+    public static Map<String, String> FileToHashMap(String fileName) throws FileNotFoundException, IOException {
+        BufferedReader reader;
+        String line = "";
+        Map<String, String> map = new TreeMap<String, String>();
+        try {
+            reader = new BufferedReader(new FileReader(fileName));
+            while ((line = reader.readLine()) != null) {
+                if (line != null) {
+                    if (line.contains("=")) {
+                        String[] info = line.split("=");
+                        map.put(info[0], info[1]);
+                    }
+
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return map;
+    }
+    
+    public static Set<String> FileToSet(String fileName, String parameter) {
+         BufferedReader reader;
+        String line = "";
+        Set<String> set = new TreeSet<String>();
+        try {
+            reader = new BufferedReader(new FileReader(fileName));
+            while ((line = reader.readLine()) != null) {
+                if (line != null) {
+                    if (line.contains("=")) {
+                        String[] info = line.split("=");
+                        if(info[0].contains(parameter))
+                         set.add(info[0]);
+                    }
+
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return set;
+    }
+
+    
+    public static Set<String> FileToSet(String fileName) {
+        BufferedReader reader;
+        String line = "";
+        Set<String> set = new TreeSet<String>();
+        try {
+            reader = new BufferedReader(new FileReader(fileName));
+            while ((line = reader.readLine()) != null) {
+                if (line != null) {
+                    if (line.contains("=")) {
+                        String[] info = line.split("=");
+                        String parameter = info[0].replace("NounPPFrame", "");
+                        parameter = parameter.replace(".csv", "");
+                        set.add(parameter);
+                    }
+
+                }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return set;
+    }
+    
+        
 
 }

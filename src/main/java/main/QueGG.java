@@ -2,6 +2,7 @@ package main;
 
 import util.io.Calculation;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.opencsv.exceptions.CsvException;
 import evaluation.EvaluateAgainstQALD;
 import evaluation.QueGGAnswers;
 import lombok.NoArgsConstructor;
@@ -19,16 +20,23 @@ public class QueGG implements Constants {
     private static LinkedHashSet<String> menu = new LinkedHashSet<String>();
     private static Boolean online = false;
     private static List<String[]> results = new ArrayList<String[]>();
+    private static  Map<String, List<String>> ruleFiles=new TreeMap<String, List<String>>();
 
     public static void main(String[] args) throws Exception {
 
         QueGG queGG = new QueGG();
         // FIND_SIMILARITY has to run alone. for unknown reasons all menu does not work
-        menu.add(MAKE_PROPERTY_FILE);
+        //menu.add(MAKE_PROPERTY_FILE);
         //menu.add(FIND_QALD_ANSWER);
         //menu.add(FIND_SIMILARITY);
-        // menu.add(FIND_QALD_QUEGG_ANSWER);
-        //menu.add(EVALUTE_QALD_QUEGG);
+        //menu.add(FIND_QALD_QUEGG_ANSWER);
+        menu.add(EVALUTE_QALD_QUEGG);
+        String questionDir = "/media/elahi/Elements/A-project/resources/en/questions/";
+        String parameterFileName = "/media/elahi/Elements/A-project/resources/ldk/parameter/parameter.txt";
+
+        ruleFiles =findParamerFiles(questionDir,parameterFileName,0);
+        System.out.println(ruleFiles.keySet());
+        
 
         try {
             InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));
@@ -48,7 +56,10 @@ public class QueGG implements Constants {
                 if (type.contains("test")) {
                     queGG.evalutionTest(inputCofiguration);
                 } else if (type.contains("train")) {
-                    queGG.evalutionTrain(inputCofiguration);
+                    for(String parameter:ruleFiles.keySet()){
+                        List<String> files=ruleFiles.get(parameter);
+                        queGG.evalutionTrain(inputCofiguration,files);   
+                    }
                 }
             }
 
@@ -61,7 +72,30 @@ public class QueGG implements Constants {
 
     }
 
-    public void evalutionTrain(InputCofiguration inputCofiguration) throws IOException, Exception {
+    private static Map<String, List<String>> findParamerFiles(String questionDir, String parameterFileName,Integer parameterIndex) {
+
+        Set<String> parameters = FileUtils.FileToSet(parameterFileName);
+
+        String[] files = new File(questionDir).list();
+        Map<String, List<String>> ruleFiles = new TreeMap<String, List<String>>();
+        for (String paramter : parameters) {
+            List<String> parameterFiles = new ArrayList<String>();
+            for (String fileName : files) {
+                String[] info = fileName.split("~");
+                String fileParameter = info[parameterIndex];
+                                System.out.println("fileParameter::"+fileParameter);
+
+                if (fileParameter.contains(paramter)) {
+                    parameterFiles.add(fileName);
+                }
+            }
+            ruleFiles.put(paramter, parameterFiles);
+
+        }
+        return ruleFiles;
+    }
+
+    public void evalutionTrain(InputCofiguration inputCofiguration,List<String>files) throws IOException, Exception {
         String queGGJson = null, queGGJsonCombined = null, qaldFile = null, qaldModifiedFile = null;
         ObjectMapper objectMapper = new ObjectMapper();
         String qaldDir = inputCofiguration.getQaldDir();
@@ -98,9 +132,9 @@ public class QueGG implements Constants {
         //temporary code for qald entity creation...
         //FileUtils.stringToFile(string, entityLabelDir+File.separator+"qaldEntities.txt");
         //english 1 to 43
-        String questionDir = inputCofiguration.getOutputDir() + "/questions/" + "lexicalEntry/";
-
-        String[] files = new File(questionDir).list();
+        //test code temporarily block.....................
+        //String questionDir = inputCofiguration.getOutputDir() + "/questions/" + "lexicalEntry/";
+        
         Integer endRange = 102;
         Integer index = 0;
         EvaluateAgainstQALD.getAnswers();
@@ -109,16 +143,19 @@ public class QueGG implements Constants {
         List<String[]> results = new ArrayList<String[]>();
         results.add(Summary.setStart());
 
-        Map<String, String> lexialFiles = new LinkedHashMap<String, String>();
         Integer startRange = 0;
         String lexialEntry = null;
         String dir = inputCofiguration.getOutputDir() + "/questions/" + "lexicalEntry/";
+        //String dir = "/media/elahi/Elements/A-project/resources/en/questions/";
+        
         Map<String, String[]> queGGQuestions = new TreeMap<String, String[]>();
 
         for (String fileName : files) {
+            System.out.println(fileName);
             startRange = startRange + 1;
             FilterRows filterRows = new FilterRows(dir, fileName);
             queGGQuestions.putAll(filterRows.getQueGGQuestions());
+            System.out.println("filterRows.getQueGGQuestions()::"+filterRows.getQueGGQuestions());
             lexialEntry = "_" + fileName.replace(".csv", "").replace("questions_", "") + "_" + startRange.toString();
             if (endRange == -1)
                  ; else if (startRange > endRange) {
@@ -126,7 +163,8 @@ public class QueGG implements Constants {
             }
 
             if (queGGQuestions.isEmpty()) {
-                throw new Exception("no question found in QueGG!!!");
+                //throw new Exception("no question found in QueGG!!!");
+                continue;
             } else {
                 EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint, menu, FIND_SIMILARITY_OUTPUT, comparisonFile, qaldAnswerFile, qaldQueGGAnswerFile, online, lexialEntry);
                 evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile, qaldRaw, languageCode, similarityMeasure, lexialEntry);
@@ -147,6 +185,10 @@ public class QueGG implements Constants {
         }
         CsvFile.writeToCSV(results);
     }
+    
+   
+         
+    
 
     public void evalutionTest(InputCofiguration inputCofiguration) throws IOException, Exception {
         String queGGJson = null, queGGJsonCombined = null, qaldFile = null, qaldModifiedFile = null;

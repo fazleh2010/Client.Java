@@ -85,7 +85,7 @@ public class FindAnswer implements Constants {
             String queGGQuestion = row[3];
             String qaldSparql = row[4];
             String queGGSparql = this.filterSparqlQuery(row[5]);
-            
+           
 
             qald.setId(id);
             qald.setQuestions(qaldQuestion);

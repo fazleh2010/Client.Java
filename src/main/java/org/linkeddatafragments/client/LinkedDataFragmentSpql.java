@@ -113,7 +113,7 @@ public class LinkedDataFragmentSpql {
     public List<String> sparqlObjectAsVariable(String qaldSparql) {
         List<String> results = new ArrayList<String>();
 
-
+        System.out.println(qaldSparql);
         Query qry = QueryFactory.create(qaldSparql);
         QueryExecution qe = QueryExecutionFactory.create(qry, model);
         try {
@@ -147,7 +147,7 @@ public class LinkedDataFragmentSpql {
                             value = value.replace("<", "");
                             value = value.replace(">", "");
                         }
-                        value = "(" + value.strip().trim();
+                        value = value.strip().trim().trim().stripLeading().stripTrailing();
                         parsedResult.add(value);
                     }
                 }
@@ -155,7 +155,7 @@ public class LinkedDataFragmentSpql {
                 String value = result;
                 if (value.contains("=")) {
                     String[] info1 = value.split("=");
-                    value = info1[1];
+                    value = info1[1].strip().trim().stripLeading().stripTrailing();
                     /*if (value.contains("<")) {
                         value = value.replace("<", "");
                         value = value.replace(">", "");

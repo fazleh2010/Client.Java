@@ -509,6 +509,9 @@ public class EvaluateAgainstQALD implements Constants{
               continue;
             }*/
             
+             if(id.toString().contains("196"))
+                continue;
+            
             qaldEntry.setActualEntry(qaldQuestions);
             qaldEntry.setId(id.toString());
             qaldEntry.setQuestions(qaldQuestion);

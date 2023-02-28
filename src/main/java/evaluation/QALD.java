@@ -45,6 +45,7 @@ public class QALD {
         }
     
   }
+  
 
   public static class QALDQuestion {
     @JsonProperty
@@ -90,6 +91,30 @@ public class QALD {
         }
     
   }
+  
+   @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class QALDAnswer {
+
+        
+        @JsonProperty
+        public String results;
+
+        public QALDAnswer() {
+
+        }
+
+        public QALDAnswer(String results) {
+            this.results = results;
+        }
+
+        @Override
+        public String toString() {
+            return "QALDAnswer{" + "results=" + results + '}';
+        }
+
+        
+
+    }
 
     @JsonIgnoreProperties(ignoreUnknown = true)
     public static class QALDQuestions {
@@ -102,6 +127,8 @@ public class QALD {
         public List<QALDQuestion> question;
         @JsonProperty
         public QALDQuery query;
+       
+        
         
         public QALDQuestions(){
             
@@ -129,6 +156,8 @@ public class QALD {
             }
             return question;
         }
+        
+        
 
     }
 

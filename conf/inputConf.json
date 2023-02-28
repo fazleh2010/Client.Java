@@ -3,7 +3,7 @@
   "inputDir" : "lexicon",
   "outputDir" : "output/",
   "online" : "true",
-  "qaldDir" : "QALD/7",
+  "qaldDir" : "QALD/9",
   "dataset" : "QALD",
   "fileType" : "train",
   "numberOfEntities" : 100,

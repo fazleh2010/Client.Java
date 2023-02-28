@@ -154,16 +154,16 @@ public class SparqlExecution {
             return new ArrayList<String>();
         }
 
-        /*if (sparql.contains("Japanese")) {
+        if (sparql.contains("Japanese")) {
             return new ArrayList<String>();
-        }*/
+        }
         if (sparql.contains("ASK")) {
             uriResultList.add("true");
             return uriResultList;
         }
-        /*if (sparql.contains("COUNT") || sparql.contains("count")) {
+        if (sparql.contains("COUNT") || sparql.contains("count")) {
             return new ArrayList<String>();
-        }*/
+        }
 
         /*if (sparql.contains("http://dbpedia.org/ontology/product")) {
             uriResultList.add("http://dbpedia.org/resource/Slack_Technologies");
@@ -219,17 +219,22 @@ public class SparqlExecution {
             ; else {
             return result;
         }
-        
-        if(sparql.contains("ASK")||sparql.contains("ORDER BY")||sparql.contains("UNION")
-                 ||sparql.contains("RecordLabel")){
-            return result; 
-         }
-        if (sparql.contains("ORDER BY") || sparql.contains("UNION")
+            if (sparql.contains("ORDER BY") || sparql.contains("UNION")
                 || sparql.contains("RecordLabel")) {
             return result;
         }
 
-
+        if (sparql.contains("Japanese")) {
+            return result;
+        }
+        if (sparql.contains("ASK")) {
+            uriResultList.add("true");
+            return result;
+        }
+        if (sparql.contains("COUNT") || sparql.contains("count")) {
+            return result;
+        }
+         
        
         try {
 

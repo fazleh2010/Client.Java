@@ -97,6 +97,8 @@ public class QALDImporter {
                 .findFirst()
                 .orElseThrow().string;
     }
+    
+    
 
     public static String getQaldSparqlQuery(QALD.QALDQuestions qaldQuestions) {
         if(qaldQuestions.query!=null)

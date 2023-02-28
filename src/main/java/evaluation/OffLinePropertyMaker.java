@@ -39,14 +39,26 @@ public class OffLinePropertyMaker {
         for (QALD.QALDQuestions qaldQuestions : qaldFile.questions) {
             List<String> qualResults = new ArrayList<String>();
             String qaldQuestion = QALDImporter.getQaldQuestionString(qaldQuestions, languageCode);
-            //System.out.println(qaldQuestion);
+            /*for(QALD.QALDAnswer answer:answers){
+                System.out.println(qaldQuestion);
+                 System.out.println(answer);
+            }*/
+            
+            
 
             String qaldSparqlQuery = QALDImporter.getQaldSparqlQuery(qaldQuestions);
             index = index + 1;
             String id = qaldQuestions.id;
-            if (index==50) {
-                break;
+            /*if (index>190) {
+                ;
             }
+            else
+                 continue;
+            */
+            if (id.contains("196")) {
+                continue;
+            }
+          
             if (flag) {
                 qualResults = SparqlExecution.getSparqlQuery(menu, endpoint, id, qaldQuestion, qaldSparqlQuery, true);
                 System.out.println(id + " " + total);
