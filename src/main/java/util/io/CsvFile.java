@@ -86,6 +86,28 @@ public class CsvFile implements CsvConstants {
         }
     }
     
+    public Boolean makeMultipleFilesToSingle(String dir, String rulePattern) throws IOException, FileNotFoundException, CsvException {
+        File[] files = new File(dir).listFiles();
+        List<String[]> csvData = new ArrayList<String[]>();
+
+        for (File file : files) {
+            if (file.getName().contains(rulePattern)&&file.getName().contains("questions")) {
+                List<String[]> elemetns = this.getRows(file);
+                if(elemetns.size()!=0)
+                  System.out.println(file.getName()+"  elemetns size:::"+elemetns.size());
+                  csvData.addAll(elemetns);
+            }
+
+        }
+        if(!csvData.isEmpty()){
+           writeToCSV(csvData);
+           return true;
+        }
+        else{
+            return false;
+        }
+    }
+    
     public void writeToCSVManual(List<String[]> csvData) throws IOException {
         if (csvData.isEmpty()) {
             System.err.println("writing csv file failed!!!");
@@ -343,10 +365,7 @@ public class CsvFile implements CsvConstants {
 
     
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        String fileLocation = resources + xslDir + nounDir;
-
-    }
+    
 
     private boolean isClassMatched(String className, String givenClassName) {
         className = className.toLowerCase().trim().strip().stripLeading().stripTrailing().replace(" ", "_");
@@ -427,7 +446,14 @@ public class CsvFile implements CsvConstants {
         return mergedLines;
     }
 
-
+    public static void main(String[] args) throws FileNotFoundException, IOException, CsvException {
+        
+        String rulePattern="rules-predict_l_for_s_given_p-";
+        String dir="/media/elahi/Elements/A-project/resources/en/questions/";
+        String outputFile="/media/elahi/Elements/A-project/Client.Java/output/en/questions//lexicalEntry/"+rulePattern+".csv";
+        CsvFile CsvFile=new CsvFile(new File(outputFile));
+        CsvFile.makeMultipleFilesToSingle(dir,rulePattern);
+    }
    
 
 }

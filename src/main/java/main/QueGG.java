@@ -28,15 +28,30 @@ public class QueGG implements Constants {
         // FIND_SIMILARITY has to run alone. for unknown reasons all menu does not work
         //menu.add(MAKE_PROPERTY_FILE);
         //menu.add(FIND_QALD_ANSWER);
-        //menu.add(FIND_SIMILARITY);
+        menu.add(FIND_SIMILARITY);
         //menu.add(FIND_QALD_QUEGG_ANSWER);
-        menu.add(EVALUTE_QALD_QUEGG);
+        //menu.add(EVALUTE_QALD_QUEGG);
         String questionDir = "/media/elahi/Elements/A-project/resources/en/questions/";
-        String parameterFileName = "/media/elahi/Elements/A-project/resources/ldk/parameter/parameter.txt";
+        String parameterFileName = "/media/elahi/Elements/A-project/resources/ldk/lexicon/parameter.txt";
 
-        ruleFiles =findParamerFiles(questionDir,parameterFileName,0);
+        ruleFiles = findParamerFiles(questionDir, parameterFileName, 0);
         System.out.println(ruleFiles.keySet());
         
+        Map<String, List<String>> ruleSingleFile = new TreeMap<String, List<String>>();
+        for (String rulePattern : ruleFiles.keySet()) {
+            System.out.println(rulePattern);
+            List<String> files = new ArrayList<String>();
+            String dir = "/media/elahi/Elements/A-project/resources/en/questions/";
+            String outputFile = "/media/elahi/Elements/A-project/Client.Java/output/en/questions//lexicalEntry/" + rulePattern + ".csv";
+            CsvFile CsvFile = new CsvFile(new File(outputFile));
+            Boolean flag=CsvFile.makeMultipleFilesToSingle(dir, rulePattern);
+            if(flag){
+            files.add(new File(outputFile).getName());
+            ruleSingleFile.put(rulePattern, files);
+            }
+        }
+
+
 
         try {
             InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));
@@ -56,8 +71,8 @@ public class QueGG implements Constants {
                 if (type.contains("test")) {
                     queGG.evalutionTest(inputCofiguration);
                 } else if (type.contains("train")) {
-                    for(String parameter:ruleFiles.keySet()){
-                        List<String> files=ruleFiles.get(parameter);
+                    for(String parameter:ruleSingleFile.keySet()){
+                        List<String> files=ruleSingleFile.get(parameter);
                         queGG.evalutionTrain(inputCofiguration,files);   
                     }
                 }
@@ -83,7 +98,7 @@ public class QueGG implements Constants {
             for (String fileName : files) {
                 String[] info = fileName.split("~");
                 String fileParameter = info[parameterIndex];
-                                System.out.println("fileParameter::"+fileParameter);
+                //System.out.println("fileParameter::"+fileParameter);
 
                 if (fileParameter.contains(paramter)) {
                     parameterFiles.add(fileName);
@@ -115,7 +130,8 @@ public class QueGG implements Constants {
         String qaldRaw = outputDir + File.separator + dataset + "_" + fileType + "-dataset-raw.csv";
         String qaldQueGGAnswerJsonFile = outputDir + File.separator + "QueGG-Answer" + ".json";
         String summaryFile = outputDir + File.separator + dataset + "_" + "summary" + ".csv";
-
+        
+       
         //EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint,menu,resultMatchFile);
         for (String fileName : new File(qaldDir).list()) {
             if (fileName.contains(inputCofiguration.getFileType())) {
@@ -128,6 +144,8 @@ public class QueGG implements Constants {
                 qaldFile = qaldModifiedFile = qaldDir + File.separator + fileName;
             }
         }
+        
+        
 
         //temporary code for qald entity creation...
         //FileUtils.stringToFile(string, entityLabelDir+File.separator+"qaldEntities.txt");

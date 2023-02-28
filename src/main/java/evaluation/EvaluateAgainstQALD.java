@@ -436,11 +436,15 @@ public class EvaluateAgainstQALD implements Constants{
     private List<EntryComparison> getMatchRealQuestion(QALD qaldFile, Map<String, String[]> realQuestions, String languageCode, double similarityPercentage) throws Exception {
         List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
         Integer index = 0;
-        
+        System.out.println(qaldFile.dataset.toString());
         for (QALD.QALDQuestions qaldQuestions : qaldFile.questions) {
             String qaldQuestion = QALDImporter.getQaldQuestionString(qaldQuestions, languageCode);
             String qaldSparqlQuery = QALDImporter.getQaldSparqlQuery(qaldQuestions);
             String id = QALDImporter.getQaldId(qaldQuestions);
+            
+            /*System.out.println("qaldQuestion::"+qaldQuestion);
+            System.out.println("qaldSparqlQuery::"+qaldSparqlQuery);
+            exit(1);*/
  
             Map<String, QueGGinfomation> grammarEntities = this.matchedRealQuestions(id,qaldQuestion, qaldSparqlQuery, realQuestions, similarityPercentage, index);
             StringSimilarity stringSimilarity = new StringSimilarity();

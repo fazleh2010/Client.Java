@@ -388,22 +388,21 @@ public class FileUtils {
             Logger.getLogger(FileUtils.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-      public static String findParameterLexEntries(List<File> selectedFiles) throws IOException, FileNotFoundException, CsvException {
+
+    public static String findParameterLexEntries(List<File> selectedFiles) throws IOException, FileNotFoundException, CsvException {
         CsvFile csvFile = new CsvFile();
-        String str="";
+        String str = "";
         for (File parameterFile : selectedFiles) {
             List<String[]> rows = csvFile.getRows(parameterFile);
             for (String[] row : rows) {
-                 String lexEntry=row[0].replace("\"", "").strip().stripLeading().stripTrailing().trim();
-                 String line=lexEntry+"="+ parameterFile.getName()+"\n";
-                 System.out.println(line);
-                 str+=line;
+                String lexEntry = row[0].replace("\"", "").strip().stripLeading().stripTrailing().trim();
+                String line = lexEntry + "=" + parameterFile.getName() + "\n";
+                System.out.println(line);
+                str += line;
             }
         }
         return str;
     }
-
 
     public static Map<String, String> FileToHashMap(String fileName) throws FileNotFoundException, IOException {
         BufferedReader reader;
@@ -426,9 +425,9 @@ public class FileUtils {
         }
         return map;
     }
-    
+
     public static Set<String> FileToSet(String fileName, String parameter) {
-         BufferedReader reader;
+        BufferedReader reader;
         String line = "";
         Set<String> set = new TreeSet<String>();
         try {
@@ -437,8 +436,9 @@ public class FileUtils {
                 if (line != null) {
                     if (line.contains("=")) {
                         String[] info = line.split("=");
-                        if(info[0].contains(parameter))
-                         set.add(info[0]);
+                        if (info[0].contains(parameter)) {
+                            set.add(info[0]);
+                        }
                     }
 
                 }
@@ -450,7 +450,6 @@ public class FileUtils {
         return set;
     }
 
-    
     public static Set<String> FileToSet(String fileName) {
         BufferedReader reader;
         String line = "";
@@ -474,7 +473,7 @@ public class FileUtils {
         }
         return set;
     }
-    
-        
+
+   
 
 }

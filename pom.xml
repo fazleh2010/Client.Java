@@ -7,7 +7,7 @@
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Linked Data Fragments client</name>
+  <name>Linked Data Fragments client-T</name>
   <url>http://maven.apache.org</url>
 
   <properties>
