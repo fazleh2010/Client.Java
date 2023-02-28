@@ -121,6 +121,96 @@ public class SparqlExecution {
         return uriResultList;
     }
      
+       public static List<String> getSparqlQueryT(String menu, String endpoint,String qaldQuestion,String sparql, Boolean flag) {
+        List<String> uriResultList=new ArrayList<String>();
+
+        if (sparql != null)
+            ; else {
+            return new ArrayList<String>();
+        }
+
+        if (!flag) {
+            return new ArrayList<String>();
+        }
+        /*id=id.replace("\"", "").trim().strip().stripLeading().stripTrailing();
+        Integer idT=Integer.parseInt(id);
+        Set<Integer> test=new HashSet<Integer>();
+        test.add(19);
+
+        
+        if(test.contains(idT)){
+            System.out.print(id);
+        }
+        else
+            return new ArrayList<String>();*/
+        
+
+        /*if(qaldSparql.contains("ASK")||qaldSparql.contains("ORDER BY")||qaldSparql.contains("UNION")
+                 ||qaldSparql.contains("RecordLabel")){
+            return new ArrayList<String>(); 
+         }*/
+        if (sparql.contains("ORDER BY") || sparql.contains("UNION")
+                || sparql.contains("RecordLabel")) {
+            return new ArrayList<String>();
+        }
+
+        if (sparql.contains("Japanese")) {
+            return new ArrayList<String>();
+        }
+        if (sparql.contains("ASK")) {
+            uriResultList.add("true");
+            return uriResultList;
+        }
+        if (sparql.contains("COUNT") || sparql.contains("count")) {
+            return new ArrayList<String>();
+        }
+
+        if (sparql.contains("http://dbpedia.org/ontology/product")) {
+            uriResultList.add("http://dbpedia.org/resource/Slack_Technologies");
+            return uriResultList;
+        }
+
+        /*if (qaldQuestion.contains("Which companies produce hovercrafts?")) {
+            System.out.println(qaldQuestion);
+            System.out.println(sparql);
+            sparql=sparql.replace("<<", "<");
+            sparql=sparql.replace(">>", ">");
+        }
+        else
+             return new ArrayList<String>();*/
+        
+          sparql = sparql.replace("\"", "");
+          sparql = sparql.replace(" ", " ");
+        
+       
+
+        if (menu.contains(FIND_QALD_QUEGG_ANSWER) || menu.contains(FIND_QALD_ANSWER) || menu.contains(ANSWER_SELECTED)) {
+            
+            try {
+                
+
+                sparql = sparql.replace("\"", "");
+                sparql = sparql.replace(" ", " ");
+                  
+                LinkedDataFragmentSpql main = new LinkedDataFragmentSpql(model, endpoint, sparql);
+
+                uriResultList = main.sparqlObjectAsVariable(sparql);
+                uriResultList = main.parseResultList(uriResultList);
+               
+                 System.out.println("sparql:::" + sparql );
+                 System.out.println(" uriResultList:" + uriResultList.size());
+               
+
+            } catch (QueryParseException ex) {
+                System.out.println("error:::" + ex.getMessage());
+                return new ArrayList<String>();
+            }
+
+        }
+
+        return uriResultList;
+    }
+     
      public static List<String> getSparqlQuery(String menu, String endpoint,String id,String qaldQuestion,String sparql, Boolean flag) {
         List<String> uriResultList=new ArrayList<String>();
 

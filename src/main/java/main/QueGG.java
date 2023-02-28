@@ -28,9 +28,9 @@ public class QueGG implements Constants {
         // FIND_SIMILARITY has to run alone. for unknown reasons all menu does not work
         //menu.add(MAKE_PROPERTY_FILE);
         //menu.add(FIND_QALD_ANSWER);
-        menu.add(FIND_SIMILARITY);
+        //menu.add(FIND_SIMILARITY);
         //menu.add(FIND_QALD_QUEGG_ANSWER);
-        //menu.add(EVALUTE_QALD_QUEGG);
+        menu.add(EVALUTE_QALD_QUEGG);
         String questionDir = "/media/elahi/Elements/A-project/resources/en/questions/";
         String parameterFileName = "/media/elahi/Elements/A-project/resources/ldk/lexicon/parameter.txt";
 
@@ -50,6 +50,8 @@ public class QueGG implements Constants {
             ruleSingleFile.put(rulePattern, files);
             }
         }
+        
+        //exit(1);
 
 
 

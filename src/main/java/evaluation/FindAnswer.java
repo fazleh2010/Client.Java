@@ -94,6 +94,8 @@ public class FindAnswer implements Constants {
                 qaldResults = qaldInfo.get(id);
             }
             qald.setResultList(qaldResults);
+            
+            System.out.println("qaldResults::"+qaldResults);
 
             id = id.replace("/", "").strip().stripLeading().stripLeading().strip().trim();
             
@@ -107,9 +109,11 @@ public class FindAnswer implements Constants {
                     queGGResults = new ArrayList<String>(answersT);
 
                 } else {
-                    queGGResults = SparqlExecution.findDummyAnswer(id, qaldResults);
-                    if(queGGResults.isEmpty())
-                       queGGResults = SparqlExecution.getSparqlQuery(this.menu, this.endpoint,qaldQuestion,queGGSparql, true);
+                    //dummy answer klose for time being
+                    //queGGResults = SparqlExecution.findDummyAnswer(id, qaldResults);
+                    //if(queGGResults.isEmpty())
+                       //temporary 
+                       queGGResults = SparqlExecution.getSparqlQueryT(this.menu, this.endpoint,qaldQuestion,queGGSparql, true);
                     //
 
                 }
@@ -138,7 +142,10 @@ public class FindAnswer implements Constants {
             newRow[4] = qaldSparql;
             newRow[5] = queGGSparql;
             newRow[6] = qaldResults.toString();
+            System.out.println("qaldResults::"+qaldResults+" "+newRow[6]);
+
             newRow[7] = queGGResults.toString();
+            System.out.println(qaldResults+" "+queGGResults);
             qaldAnswerData.add(newRow);
 
             if (similarityScore > 0.0) {
@@ -270,6 +277,8 @@ public class FindAnswer implements Constants {
         CsvFile csvFile = new CsvFile();
         List<String[]> qaldAnswerRows = csvFile.getRows(new File(QALDAnswer));
         Map<String, List<String>> map = new TreeMap<String, List<String>>();
+        
+        System.out.println("QALDAnswer::"+QALDAnswer);
 
         Integer index = 0;
         for (String[] row : qaldAnswerRows) {
@@ -280,12 +289,14 @@ public class FindAnswer implements Constants {
             }
             //String[] info = row[0].replace("\n", "").split("\t");
             String id = row[0];
+            String answer=row[3];
             String str="";
-            if(id.contains("["))
-                str=StringUtils.substringBetween(id,"[", "]");
+            if(answer.contains("["))
+                str=StringUtils.substringBetween(answer,"[", "]");
             String[] info = id.split(",");
             //List<String> answers = getList(info[3]);
             List<String> answers = getList(str);
+            //System.out.println(answers);
             
             /*if(id.contains("204")){
                 System.out.println(answers);
