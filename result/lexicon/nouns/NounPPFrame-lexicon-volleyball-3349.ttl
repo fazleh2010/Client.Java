@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :volleyball-3349 ;
+  lemon:entry    :volleyball-3349_form_preposition .
+
+:volleyball-3349 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :volleyball-3349_form ;
+  lemon:otherForm  :volleyball-3349_singular ;
+  lemon:otherForm  :volleyball-3349_plural ;
+  lemon:sense          :volleyball-3349_sense_1 ;
+  lemon:synBehavior    :volleyball-3349_nounpp .
+
+:volleyball-3349_form a lemon:Form ;
+  lemon:writtenRep "volleyball"@en .
+
+:volleyball-3349_singular a    lemon:Form ;
+  lemon:writtenRep "volleyball"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:volleyball-3349_plural a   lemon:Form ;
+  lemon:writtenRep "volleyball"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:volleyball-3349_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:volleyball-3349_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :volleyball-3349_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/height> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :volleyball-3349_sense_1_condition .
+
+:volleyball-3349_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/BasketballPlayer> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#double> .
+
+:arg2 lemon:marker :volleyball-3349_form_preposition .
+## Prepositions ##
+:volleyball-3349_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

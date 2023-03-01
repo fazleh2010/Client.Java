@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :runs-6779 ;
+  lemon:entry    :runs-6779_form_preposition .
+
+:runs-6779 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :runs-6779_form ;
+  lemon:otherForm  :runs-6779_singular ;
+  lemon:otherForm  :runs-6779_plural ;
+  lemon:sense          :runs-6779_sense_1 ;
+  lemon:synBehavior    :runs-6779_nounpp .
+
+:runs-6779_form a lemon:Form ;
+  lemon:writtenRep "runs"@en .
+
+:runs-6779_singular a    lemon:Form ;
+  lemon:writtenRep "runs"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:runs-6779_plural a   lemon:Form ;
+  lemon:writtenRep "runs"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:runs-6779_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:runs-6779_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :runs-6779_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/routeStart> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :runs-6779_sense_1_condition .
+
+:runs-6779_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Road> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Road> .
+
+:arg2 lemon:marker :runs-6779_form_preposition .
+## Prepositions ##
+:runs-6779_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

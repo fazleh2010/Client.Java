@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Grand_Prix-22419 ;
+  lemon:entry    :Grand_Prix-22419_form_preposition .
+
+:Grand_Prix-22419 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Grand_Prix-22419_form ;
+  lemon:otherForm  :Grand_Prix-22419_singular ;
+  lemon:otherForm  :Grand_Prix-22419_plural ;
+  lemon:sense          :Grand_Prix-22419_sense_1 ;
+  lemon:synBehavior    :Grand_Prix-22419_nounpp .
+
+:Grand_Prix-22419_form a lemon:Form ;
+  lemon:writtenRep "Grand Prix"@en .
+
+:Grand_Prix-22419_singular a    lemon:Form ;
+  lemon:writtenRep "Grand Prix"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Grand_Prix-22419_plural a   lemon:Form ;
+  lemon:writtenRep "Grand Prix"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Grand_Prix-22419_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Grand_Prix-22419_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Grand_Prix-22419_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/date> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Grand_Prix-22419_sense_1_condition .
+
+:Grand_Prix-22419_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/MilitaryConflict> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :Grand_Prix-22419_form_preposition .
+## Prepositions ##
+:Grand_Prix-22419_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

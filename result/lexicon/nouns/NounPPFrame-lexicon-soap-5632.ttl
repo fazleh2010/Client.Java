@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :soap-5632 ;
+  lemon:entry    :soap-5632_form_preposition .
+
+:soap-5632 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :soap-5632_form ;
+  lemon:otherForm  :soap-5632_singular ;
+  lemon:otherForm  :soap-5632_plural ;
+  lemon:sense          :soap-5632_sense_1 ;
+  lemon:synBehavior    :soap-5632_nounpp .
+
+:soap-5632_form a lemon:Form ;
+  lemon:writtenRep "soap"@en .
+
+:soap-5632_singular a    lemon:Form ;
+  lemon:writtenRep "soap"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:soap-5632_plural a   lemon:Form ;
+  lemon:writtenRep "soap"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:soap-5632_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:soap-5632_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :soap-5632_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/parent> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :soap-5632_sense_1_condition .
+
+:soap-5632_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :soap-5632_form_preposition .
+## Prepositions ##
+:soap-5632_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

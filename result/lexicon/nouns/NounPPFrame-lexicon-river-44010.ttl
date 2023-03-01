@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :river-44010 ;
+  lemon:entry    :river-44010_form_preposition .
+
+:river-44010 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :river-44010_form ;
+  lemon:otherForm  :river-44010_singular ;
+  lemon:otherForm  :river-44010_plural ;
+  lemon:sense          :river-44010_sense_1 ;
+  lemon:synBehavior    :river-44010_nounpp .
+
+:river-44010_form a lemon:Form ;
+  lemon:writtenRep "river"@en .
+
+:river-44010_singular a    lemon:Form ;
+  lemon:writtenRep "river"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:river-44010_plural a   lemon:Form ;
+  lemon:writtenRep "river"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:river-44010_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:river-44010_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :river-44010_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/mouthLocation> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :river-44010_sense_1_condition .
+
+:river-44010_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/River> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Country> .
+
+:arg2 lemon:marker :river-44010_form_preposition .
+## Prepositions ##
+:river-44010_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

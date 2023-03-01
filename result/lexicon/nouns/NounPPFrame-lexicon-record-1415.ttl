@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :record-1415 ;
+  lemon:entry    :record-1415_form_preposition .
+
+:record-1415 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :record-1415_form ;
+  lemon:otherForm  :record-1415_singular ;
+  lemon:otherForm  :record-1415_plural ;
+  lemon:sense          :record-1415_sense_1 ;
+  lemon:synBehavior    :record-1415_nounpp .
+
+:record-1415_form a lemon:Form ;
+  lemon:writtenRep "record"@en .
+
+:record-1415_singular a    lemon:Form ;
+  lemon:writtenRep "record"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:record-1415_plural a   lemon:Form ;
+  lemon:writtenRep "record"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:record-1415_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:record-1415_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :record-1415_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/coach> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :record-1415_sense_1_condition .
+
+:record-1415_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/HockeyTeam> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :record-1415_form_preposition .
+## Prepositions ##
+:record-1415_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

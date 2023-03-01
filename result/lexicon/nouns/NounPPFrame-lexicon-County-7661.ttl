@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :County-7661 ;
+  lemon:entry    :County-7661_form_preposition .
+
+:County-7661 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :County-7661_form ;
+  lemon:otherForm  :County-7661_singular ;
+  lemon:otherForm  :County-7661_plural ;
+  lemon:sense          :County-7661_sense_1 ;
+  lemon:synBehavior    :County-7661_nounpp .
+
+:County-7661_form a lemon:Form ;
+  lemon:writtenRep "County"@en .
+
+:County-7661_singular a    lemon:Form ;
+  lemon:writtenRep "County"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:County-7661_plural a   lemon:Form ;
+  lemon:writtenRep "County"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:County-7661_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:County-7661_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :County-7661_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/timeZone> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :County-7661_sense_1_condition .
+
+:County-7661_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/City> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#string> .
+
+:arg2 lemon:marker :County-7661_form_preposition .
+## Prepositions ##
+:County-7661_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

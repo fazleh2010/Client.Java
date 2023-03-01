@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :part_of-4982 ;
+  lemon:entry    :part_of-4982_form_preposition .
+
+:part_of-4982 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :part_of-4982_form ;
+  lemon:otherForm  :part_of-4982_singular ;
+  lemon:otherForm  :part_of-4982_plural ;
+  lemon:sense          :part_of-4982_sense_1 ;
+  lemon:synBehavior    :part_of-4982_nounpp .
+
+:part_of-4982_form a lemon:Form ;
+  lemon:writtenRep "part of"@en .
+
+:part_of-4982_singular a    lemon:Form ;
+  lemon:writtenRep "part of"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:part_of-4982_plural a   lemon:Form ;
+  lemon:writtenRep "part of"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:part_of-4982_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:part_of-4982_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :part_of-4982_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/nationality> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :part_of-4982_sense_1_condition .
+
+:part_of-4982_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Country> .
+
+:arg2 lemon:marker :part_of-4982_form_preposition .
+## Prepositions ##
+:part_of-4982_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

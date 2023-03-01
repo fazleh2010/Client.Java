@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Month_for-7485 ;
+  lemon:entry    :Month_for-7485_form_preposition .
+
+:Month_for-7485 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Month_for-7485_form ;
+  lemon:otherForm  :Month_for-7485_singular ;
+  lemon:otherForm  :Month_for-7485_plural ;
+  lemon:sense          :Month_for-7485_sense_1 ;
+  lemon:synBehavior    :Month_for-7485_nounpp .
+
+:Month_for-7485_form a lemon:Form ;
+  lemon:writtenRep "Month for"@en .
+
+:Month_for-7485_singular a    lemon:Form ;
+  lemon:writtenRep "Month for"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Month_for-7485_plural a   lemon:Form ;
+  lemon:writtenRep "Month for"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Month_for-7485_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Month_for-7485_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Month_for-7485_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/successor> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Month_for-7485_sense_1_condition .
+
+:Month_for-7485_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Politician> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :Month_for-7485_form_preposition .
+## Prepositions ##
+:Month_for-7485_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

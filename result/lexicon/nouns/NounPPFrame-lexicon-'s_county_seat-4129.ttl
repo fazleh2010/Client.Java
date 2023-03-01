@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :'s_county_seat-4129 ;
+  lemon:entry    :'s_county_seat-4129_form_preposition .
+
+:'s_county_seat-4129 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :'s_county_seat-4129_form ;
+  lemon:otherForm  :'s_county_seat-4129_singular ;
+  lemon:otherForm  :'s_county_seat-4129_plural ;
+  lemon:sense          :'s_county_seat-4129_sense_1 ;
+  lemon:synBehavior    :'s_county_seat-4129_nounpp .
+
+:'s_county_seat-4129_form a lemon:Form ;
+  lemon:writtenRep "'s county seat"@en .
+
+:'s_county_seat-4129_singular a    lemon:Form ;
+  lemon:writtenRep "'s county seat"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:'s_county_seat-4129_plural a   lemon:Form ;
+  lemon:writtenRep "'s county seat"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:'s_county_seat-4129_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:'s_county_seat-4129_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :'s_county_seat-4129_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/largestCity> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :'s_county_seat-4129_sense_1_condition .
+
+:'s_county_seat-4129_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Country> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :'s_county_seat-4129_form_preposition .
+## Prepositions ##
+:'s_county_seat-4129_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

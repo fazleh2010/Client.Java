@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :country-2604 ;
+  lemon:entry    :country-2604_form_preposition .
+
+:country-2604 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :country-2604_form ;
+  lemon:otherForm  :country-2604_singular ;
+  lemon:otherForm  :country-2604_plural ;
+  lemon:sense          :country-2604_sense_1 ;
+  lemon:synBehavior    :country-2604_nounpp .
+
+:country-2604_form a lemon:Form ;
+  lemon:writtenRep "country"@en .
+
+:country-2604_singular a    lemon:Form ;
+  lemon:writtenRep "country"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:country-2604_plural a   lemon:Form ;
+  lemon:writtenRep "country"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:country-2604_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:country-2604_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :country-2604_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/ethnicGroup> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :country-2604_sense_1_condition .
+
+:country-2604_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/EthnicGroup> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Country> .
+
+:arg2 lemon:marker :country-2604_form_preposition .
+## Prepositions ##
+:country-2604_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

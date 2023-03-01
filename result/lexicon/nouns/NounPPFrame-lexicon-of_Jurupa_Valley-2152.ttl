@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :of_Jurupa_Valley-2152 ;
+  lemon:entry    :of_Jurupa_Valley-2152_form_preposition .
+
+:of_Jurupa_Valley-2152 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :of_Jurupa_Valley-2152_form ;
+  lemon:otherForm  :of_Jurupa_Valley-2152_singular ;
+  lemon:otherForm  :of_Jurupa_Valley-2152_plural ;
+  lemon:sense          :of_Jurupa_Valley-2152_sense_1 ;
+  lemon:synBehavior    :of_Jurupa_Valley-2152_nounpp .
+
+:of_Jurupa_Valley-2152_form a lemon:Form ;
+  lemon:writtenRep "of Jurupa Valley"@en .
+
+:of_Jurupa_Valley-2152_singular a    lemon:Form ;
+  lemon:writtenRep "of Jurupa Valley"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:of_Jurupa_Valley-2152_plural a   lemon:Form ;
+  lemon:writtenRep "of Jurupa Valley"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:of_Jurupa_Valley-2152_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:of_Jurupa_Valley-2152_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :of_Jurupa_Valley-2152_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/dissolutionDate> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :of_Jurupa_Valley-2152_sense_1_condition .
+
+:of_Jurupa_Valley-2152_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Place> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :of_Jurupa_Valley-2152_form_preposition .
+## Prepositions ##
+:of_Jurupa_Valley-2152_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

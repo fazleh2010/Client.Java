@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :role-playing_game-2016 ;
+  lemon:entry    :role-playing_game-2016_form_preposition .
+
+:role-playing_game-2016 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :role-playing_game-2016_form ;
+  lemon:otherForm  :role-playing_game-2016_singular ;
+  lemon:otherForm  :role-playing_game-2016_plural ;
+  lemon:sense          :role-playing_game-2016_sense_1 ;
+  lemon:synBehavior    :role-playing_game-2016_nounpp .
+
+:role-playing_game-2016_form a lemon:Form ;
+  lemon:writtenRep "role-playing game"@en .
+
+:role-playing_game-2016_singular a    lemon:Form ;
+  lemon:writtenRep "role-playing game"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:role-playing_game-2016_plural a   lemon:Form ;
+  lemon:writtenRep "XX"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:role-playing_game-2016_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:role-playing_game-2016_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :role-playing_game-2016_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/designer> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :role-playing_game-2016_sense_1_condition .
+
+:role-playing_game-2016_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Building> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :role-playing_game-2016_form_preposition .
+## Prepositions ##
+:role-playing_game-2016_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

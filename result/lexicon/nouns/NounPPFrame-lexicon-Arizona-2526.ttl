@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Arizona-2526 ;
+  lemon:entry    :Arizona-2526_form_preposition .
+
+:Arizona-2526 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Arizona-2526_form ;
+  lemon:otherForm  :Arizona-2526_singular ;
+  lemon:otherForm  :Arizona-2526_plural ;
+  lemon:sense          :Arizona-2526_sense_1 ;
+  lemon:synBehavior    :Arizona-2526_nounpp .
+
+:Arizona-2526_form a lemon:Form ;
+  lemon:writtenRep "Arizona"@en .
+
+:Arizona-2526_singular a    lemon:Form ;
+  lemon:writtenRep "Arizona"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Arizona-2526_plural a   lemon:Form ;
+  lemon:writtenRep "Arizona"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Arizona-2526_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Arizona-2526_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Arizona-2526_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/elevation> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Arizona-2526_sense_1_condition .
+
+:Arizona-2526_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Mountain> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#double> .
+
+:arg2 lemon:marker :Arizona-2526_form_preposition .
+## Prepositions ##
+:Arizona-2526_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

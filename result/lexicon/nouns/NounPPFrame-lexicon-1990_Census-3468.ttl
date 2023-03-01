@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :1990_Census-3468 ;
+  lemon:entry    :1990_Census-3468_form_preposition .
+
+:1990_Census-3468 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :1990_Census-3468_form ;
+  lemon:otherForm  :1990_Census-3468_singular ;
+  lemon:otherForm  :1990_Census-3468_plural ;
+  lemon:sense          :1990_Census-3468_sense_1 ;
+  lemon:synBehavior    :1990_Census-3468_nounpp .
+
+:1990_Census-3468_form a lemon:Form ;
+  lemon:writtenRep "1990 Census"@en .
+
+:1990_Census-3468_singular a    lemon:Form ;
+  lemon:writtenRep "1990 Census"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:1990_Census-3468_plural a   lemon:Form ;
+  lemon:writtenRep "1990 Census"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:1990_Census-3468_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:1990_Census-3468_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :1990_Census-3468_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/governmentType> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :1990_Census-3468_sense_1_condition .
+
+:1990_Census-3468_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Town> ;
+  lemon:propertyRange   <http://www.w3.org/2002/07/owl#Thing> .
+
+:arg2 lemon:marker :1990_Census-3468_form_preposition .
+## Prepositions ##
+:1990_Census-3468_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :studio_album-206 ;
+  lemon:entry    :studio_album-206_form_preposition .
+
+:studio_album-206 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :studio_album-206_form ;
+  lemon:otherForm  :studio_album-206_singular ;
+  lemon:otherForm  :studio_album-206_plural ;
+  lemon:sense          :studio_album-206_sense_1 ;
+  lemon:synBehavior    :studio_album-206_nounpp .
+
+:studio_album-206_form a lemon:Form ;
+  lemon:writtenRep "studio album"@en .
+
+:studio_album-206_singular a    lemon:Form ;
+  lemon:writtenRep "studio album"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:studio_album-206_plural a   lemon:Form ;
+  lemon:writtenRep "studio album"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:studio_album-206_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:studio_album-206_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :studio_album-206_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/album> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :studio_album-206_sense_1_condition .
+
+:studio_album-206_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Song> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Album> .
+
+:arg2 lemon:marker :studio_album-206_form_preposition .
+## Prepositions ##
+:studio_album-206_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

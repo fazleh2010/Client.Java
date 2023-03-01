@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716 ;
+  lemon:entry    :Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_form_preposition .
+
+:Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_form ;
+  lemon:otherForm  :Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_singular ;
+  lemon:otherForm  :Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_plural ;
+  lemon:sense          :Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_sense_1 ;
+  lemon:synBehavior    :Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_nounpp .
+
+:Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_form a lemon:Form ;
+  lemon:writtenRep "Ð¾ÌÐ±Ð»Ð°ÑÑÑ"@en .
+
+:Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_singular a    lemon:Form ;
+  lemon:writtenRep "Ð¾ÌÐ±Ð»Ð°ÑÑÑ"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_plural a   lemon:Form ;
+  lemon:writtenRep "Ð¾ÌÐ±Ð»Ð°ÑÑÑ"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/leaderName> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_sense_1_condition .
+
+:Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/City> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_form_preposition .
+## Prepositions ##
+:Ð¾ÌÐ±Ð»Ð°ÑÑÑ-4716_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

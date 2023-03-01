@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :census-designated_place_CDP-462 ;
+  lemon:entry    :census-designated_place_CDP-462_form_preposition .
+
+:census-designated_place_CDP-462 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :census-designated_place_CDP-462_form ;
+  lemon:otherForm  :census-designated_place_CDP-462_singular ;
+  lemon:otherForm  :census-designated_place_CDP-462_plural ;
+  lemon:sense          :census-designated_place_CDP-462_sense_1 ;
+  lemon:synBehavior    :census-designated_place_CDP-462_nounpp .
+
+:census-designated_place_CDP-462_form a lemon:Form ;
+  lemon:writtenRep "census-designated place CDP"@en .
+
+:census-designated_place_CDP-462_singular a    lemon:Form ;
+  lemon:writtenRep "census-designated place CDP"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:census-designated_place_CDP-462_plural a   lemon:Form ;
+  lemon:writtenRep "XX"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:census-designated_place_CDP-462_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:census-designated_place_CDP-462_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :census-designated_place_CDP-462_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/areaTotal> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :census-designated_place_CDP-462_sense_1_condition .
+
+:census-designated_place_CDP-462_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Country> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Country> .
+
+:arg2 lemon:marker :census-designated_place_CDP-462_form_preposition .
+## Prepositions ##
+:census-designated_place_CDP-462_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

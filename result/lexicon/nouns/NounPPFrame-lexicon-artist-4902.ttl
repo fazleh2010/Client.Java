@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :artist-4902 ;
+  lemon:entry    :artist-4902_form_preposition .
+
+:artist-4902 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :artist-4902_form ;
+  lemon:otherForm  :artist-4902_singular ;
+  lemon:otherForm  :artist-4902_plural ;
+  lemon:sense          :artist-4902_sense_1 ;
+  lemon:synBehavior    :artist-4902_nounpp .
+
+:artist-4902_form a lemon:Form ;
+  lemon:writtenRep "artist"@en .
+
+:artist-4902_singular a    lemon:Form ;
+  lemon:writtenRep "artist"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:artist-4902_plural a   lemon:Form ;
+  lemon:writtenRep "artist"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:artist-4902_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:artist-4902_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :artist-4902_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/museum> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :artist-4902_sense_1_condition .
+
+:artist-4902_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Artwork> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Museum> .
+
+:arg2 lemon:marker :artist-4902_form_preposition .
+## Prepositions ##
+:artist-4902_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

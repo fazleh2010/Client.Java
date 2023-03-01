@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Minister_of-74 ;
+  lemon:entry    :Minister_of-74_form_preposition .
+
+:Minister_of-74 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Minister_of-74_form ;
+  lemon:otherForm  :Minister_of-74_singular ;
+  lemon:otherForm  :Minister_of-74_plural ;
+  lemon:sense          :Minister_of-74_sense_1 ;
+  lemon:synBehavior    :Minister_of-74_nounpp .
+
+:Minister_of-74_form a lemon:Form ;
+  lemon:writtenRep "Minister of"@en .
+
+:Minister_of-74_singular a    lemon:Form ;
+  lemon:writtenRep "Minister of"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Minister_of-74_plural a   lemon:Form ;
+  lemon:writtenRep "Minister of"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Minister_of-74_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Minister_of-74_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Minister_of-74_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/activeYearsEndDate> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Minister_of-74_sense_1_condition .
+
+:Minister_of-74_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Athlete> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :Minister_of-74_form_preposition .
+## Prepositions ##
+:Minister_of-74_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

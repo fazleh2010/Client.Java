@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :National_Football_League-1419 ;
+  lemon:entry    :National_Football_League-1419_form_preposition .
+
+:National_Football_League-1419 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :National_Football_League-1419_form ;
+  lemon:otherForm  :National_Football_League-1419_singular ;
+  lemon:otherForm  :National_Football_League-1419_plural ;
+  lemon:sense          :National_Football_League-1419_sense_1 ;
+  lemon:synBehavior    :National_Football_League-1419_nounpp .
+
+:National_Football_League-1419_form a lemon:Form ;
+  lemon:writtenRep "National Football League"@en .
+
+:National_Football_League-1419_singular a    lemon:Form ;
+  lemon:writtenRep "National Football League"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:National_Football_League-1419_plural a   lemon:Form ;
+  lemon:writtenRep "National Football League"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:National_Football_League-1419_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:National_Football_League-1419_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :National_Football_League-1419_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/coach> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :National_Football_League-1419_sense_1_condition .
+
+:National_Football_League-1419_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/HockeyTeam> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :National_Football_League-1419_form_preposition .
+## Prepositions ##
+:National_Football_League-1419_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

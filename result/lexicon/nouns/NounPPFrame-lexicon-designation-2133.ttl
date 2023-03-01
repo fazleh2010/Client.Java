@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :designation-2133 ;
+  lemon:entry    :designation-2133_form_preposition .
+
+:designation-2133 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :designation-2133_form ;
+  lemon:otherForm  :designation-2133_singular ;
+  lemon:otherForm  :designation-2133_plural ;
+  lemon:sense          :designation-2133_sense_1 ;
+  lemon:synBehavior    :designation-2133_nounpp .
+
+:designation-2133_form a lemon:Form ;
+  lemon:writtenRep "designation"@en .
+
+:designation-2133_singular a    lemon:Form ;
+  lemon:writtenRep "designation"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:designation-2133_plural a   lemon:Form ;
+  lemon:writtenRep "designation"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:designation-2133_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:designation-2133_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :designation-2133_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/discoverer> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :designation-2133_sense_1_condition .
+
+:designation-2133_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Planet> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :designation-2133_form_preposition .
+## Prepositions ##
+:designation-2133_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

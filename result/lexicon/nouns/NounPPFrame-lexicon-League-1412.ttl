@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :League-1412 ;
+  lemon:entry    :League-1412_form_preposition .
+
+:League-1412 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :League-1412_form ;
+  lemon:otherForm  :League-1412_singular ;
+  lemon:otherForm  :League-1412_plural ;
+  lemon:sense          :League-1412_sense_1 ;
+  lemon:synBehavior    :League-1412_nounpp .
+
+:League-1412_form a lemon:Form ;
+  lemon:writtenRep "League"@en .
+
+:League-1412_singular a    lemon:Form ;
+  lemon:writtenRep "League"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:League-1412_plural a   lemon:Form ;
+  lemon:writtenRep "League"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:League-1412_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:League-1412_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :League-1412_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/coach> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :League-1412_sense_1_condition .
+
+:League-1412_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/HockeyTeam> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :League-1412_form_preposition .
+## Prepositions ##
+:League-1412_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

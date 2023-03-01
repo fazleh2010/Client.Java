@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :season_of-7044 ;
+  lemon:entry    :season_of-7044_form_preposition .
+
+:season_of-7044 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :season_of-7044_form ;
+  lemon:otherForm  :season_of-7044_singular ;
+  lemon:otherForm  :season_of-7044_plural ;
+  lemon:sense          :season_of-7044_sense_1 ;
+  lemon:synBehavior    :season_of-7044_nounpp .
+
+:season_of-7044_form a lemon:Form ;
+  lemon:writtenRep "season of"@en .
+
+:season_of-7044_singular a    lemon:Form ;
+  lemon:writtenRep "season of"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:season_of-7044_plural a   lemon:Form ;
+  lemon:writtenRep "season of"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:season_of-7044_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:season_of-7044_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :season_of-7044_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/series> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :season_of-7044_sense_1_condition .
+
+:season_of-7044_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Book> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/TelevisionShow> .
+
+:arg2 lemon:marker :season_of-7044_form_preposition .
+## Prepositions ##
+:season_of-7044_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

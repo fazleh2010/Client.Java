@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :American-1897 ;
+  lemon:entry    :American-1897_form_preposition .
+
+:American-1897 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :American-1897_form ;
+  lemon:otherForm  :American-1897_singular ;
+  lemon:otherForm  :American-1897_plural ;
+  lemon:sense          :American-1897_sense_1 ;
+  lemon:synBehavior    :American-1897_nounpp .
+
+:American-1897_form a lemon:Form ;
+  lemon:writtenRep "American"@en .
+
+:American-1897_singular a    lemon:Form ;
+  lemon:writtenRep "American"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:American-1897_plural a   lemon:Form ;
+  lemon:writtenRep "American"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:American-1897_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:American-1897_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :American-1897_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/deathDate> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :American-1897_sense_1_condition .
+
+:American-1897_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :American-1897_form_preposition .
+## Prepositions ##
+:American-1897_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :programming-3835 ;
+  lemon:entry    :programming-3835_form_preposition .
+
+:programming-3835 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :programming-3835_form ;
+  lemon:otherForm  :programming-3835_singular ;
+  lemon:otherForm  :programming-3835_plural ;
+  lemon:sense          :programming-3835_sense_1 ;
+  lemon:synBehavior    :programming-3835_nounpp .
+
+:programming-3835_form a lemon:Form ;
+  lemon:writtenRep "programming"@en .
+
+:programming-3835_singular a    lemon:Form ;
+  lemon:writtenRep "programming"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:programming-3835_plural a   lemon:Form ;
+  lemon:writtenRep "programming"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:programming-3835_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:programming-3835_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :programming-3835_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/influenced> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :programming-3835_sense_1_condition .
+
+:programming-3835_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :programming-3835_form_preposition .
+## Prepositions ##
+:programming-3835_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :subject_of-4714 ;
+  lemon:entry    :subject_of-4714_form_preposition .
+
+:subject_of-4714 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :subject_of-4714_form ;
+  lemon:otherForm  :subject_of-4714_singular ;
+  lemon:otherForm  :subject_of-4714_plural ;
+  lemon:sense          :subject_of-4714_sense_1 ;
+  lemon:synBehavior    :subject_of-4714_nounpp .
+
+:subject_of-4714_form a lemon:Form ;
+  lemon:writtenRep "subject of"@en .
+
+:subject_of-4714_singular a    lemon:Form ;
+  lemon:writtenRep "subject of"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:subject_of-4714_plural a   lemon:Form ;
+  lemon:writtenRep "subject of"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:subject_of-4714_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:subject_of-4714_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :subject_of-4714_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/leaderName> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :subject_of-4714_sense_1_condition .
+
+:subject_of-4714_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/City> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :subject_of-4714_form_preposition .
+## Prepositions ##
+:subject_of-4714_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

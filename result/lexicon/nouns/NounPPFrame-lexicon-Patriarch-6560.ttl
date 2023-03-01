@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Patriarch-6560 ;
+  lemon:entry    :Patriarch-6560_form_preposition .
+
+:Patriarch-6560 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Patriarch-6560_form ;
+  lemon:otherForm  :Patriarch-6560_singular ;
+  lemon:otherForm  :Patriarch-6560_plural ;
+  lemon:sense          :Patriarch-6560_sense_1 ;
+  lemon:synBehavior    :Patriarch-6560_nounpp .
+
+:Patriarch-6560_form a lemon:Form ;
+  lemon:writtenRep "Patriarch"@en .
+
+:Patriarch-6560_singular a    lemon:Form ;
+  lemon:writtenRep "Patriarch"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Patriarch-6560_plural a   lemon:Form ;
+  lemon:writtenRep "Patriarch"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Patriarch-6560_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Patriarch-6560_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Patriarch-6560_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/religion> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Patriarch-6560_sense_1_condition .
+
+:Patriarch-6560_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#string> .
+
+:arg2 lemon:marker :Patriarch-6560_form_preposition .
+## Prepositions ##
+:Patriarch-6560_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

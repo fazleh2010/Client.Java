@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :coaster-40841 ;
+  lemon:entry    :coaster-40841_form_preposition .
+
+:coaster-40841 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :coaster-40841_form ;
+  lemon:otherForm  :coaster-40841_singular ;
+  lemon:otherForm  :coaster-40841_plural ;
+  lemon:sense          :coaster-40841_sense_1 ;
+  lemon:synBehavior    :coaster-40841_nounpp .
+
+:coaster-40841_form a lemon:Form ;
+  lemon:writtenRep "coaster"@en .
+
+:coaster-40841_singular a    lemon:Form ;
+  lemon:writtenRep "coaster"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:coaster-40841_plural a   lemon:Form ;
+  lemon:writtenRep "coaster"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:coaster-40841_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:coaster-40841_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :coaster-40841_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/location> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :coaster-40841_sense_1_condition .
+
+:coaster-40841_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Location> .
+
+:arg2 lemon:marker :coaster-40841_form_preposition .
+## Prepositions ##
+:coaster-40841_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :in_Perth-5722 ;
+  lemon:entry    :in_Perth-5722_form_preposition .
+
+:in_Perth-5722 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :in_Perth-5722_form ;
+  lemon:otherForm  :in_Perth-5722_singular ;
+  lemon:otherForm  :in_Perth-5722_plural ;
+  lemon:sense          :in_Perth-5722_sense_1 ;
+  lemon:synBehavior    :in_Perth-5722_nounpp .
+
+:in_Perth-5722_form a lemon:Form ;
+  lemon:writtenRep "in Perth"@en .
+
+:in_Perth-5722_singular a    lemon:Form ;
+  lemon:writtenRep "in Perth"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:in_Perth-5722_plural a   lemon:Form ;
+  lemon:writtenRep "in Perth"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:in_Perth-5722_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:in_Perth-5722_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :in_Perth-5722_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/minimumTemperature> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :in_Perth-5722_sense_1_condition .
+
+:in_Perth-5722_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Planet> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#double> .
+
+:arg2 lemon:marker :in_Perth-5722_form_preposition .
+## Prepositions ##
+:in_Perth-5722_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

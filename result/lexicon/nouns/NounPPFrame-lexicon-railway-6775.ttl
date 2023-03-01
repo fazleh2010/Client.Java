@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :railway-6775 ;
+  lemon:entry    :railway-6775_form_preposition .
+
+:railway-6775 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :railway-6775_form ;
+  lemon:otherForm  :railway-6775_singular ;
+  lemon:otherForm  :railway-6775_plural ;
+  lemon:sense          :railway-6775_sense_1 ;
+  lemon:synBehavior    :railway-6775_nounpp .
+
+:railway-6775_form a lemon:Form ;
+  lemon:writtenRep "railway"@en .
+
+:railway-6775_singular a    lemon:Form ;
+  lemon:writtenRep "railway"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:railway-6775_plural a   lemon:Form ;
+  lemon:writtenRep "railway"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:railway-6775_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:railway-6775_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :railway-6775_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/routeStart> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :railway-6775_sense_1_condition .
+
+:railway-6775_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Road> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Road> .
+
+:arg2 lemon:marker :railway-6775_form_preposition .
+## Prepositions ##
+:railway-6775_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

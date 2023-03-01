@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :television-4930 ;
+  lemon:entry    :television-4930_form_preposition .
+
+:television-4930 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :television-4930_form ;
+  lemon:otherForm  :television-4930_singular ;
+  lemon:otherForm  :television-4930_plural ;
+  lemon:sense          :television-4930_sense_1 ;
+  lemon:synBehavior    :television-4930_nounpp .
+
+:television-4930_form a lemon:Form ;
+  lemon:writtenRep "television"@en .
+
+:television-4930_singular a    lemon:Form ;
+  lemon:writtenRep "television"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:television-4930_plural a   lemon:Form ;
+  lemon:writtenRep "television"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:television-4930_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:television-4930_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :television-4930_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/musicComposer> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :television-4930_sense_1_condition .
+
+:television-4930_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Film> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :television-4930_form_preposition .
+## Prepositions ##
+:television-4930_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

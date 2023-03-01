@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :place-2521 ;
+  lemon:entry    :place-2521_form_preposition .
+
+:place-2521 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :place-2521_form ;
+  lemon:otherForm  :place-2521_singular ;
+  lemon:otherForm  :place-2521_plural ;
+  lemon:sense          :place-2521_sense_1 ;
+  lemon:synBehavior    :place-2521_nounpp .
+
+:place-2521_form a lemon:Form ;
+  lemon:writtenRep "place"@en .
+
+:place-2521_singular a    lemon:Form ;
+  lemon:writtenRep "place"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:place-2521_plural a   lemon:Form ;
+  lemon:writtenRep "place"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:place-2521_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:place-2521_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :place-2521_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/elevation> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :place-2521_sense_1_condition .
+
+:place-2521_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Mountain> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#double> .
+
+:arg2 lemon:marker :place-2521_form_preposition .
+## Prepositions ##
+:place-2521_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

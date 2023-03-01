@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :guitarist-4987 ;
+  lemon:entry    :guitarist-4987_form_preposition .
+
+:guitarist-4987 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :guitarist-4987_form ;
+  lemon:otherForm  :guitarist-4987_singular ;
+  lemon:otherForm  :guitarist-4987_plural ;
+  lemon:sense          :guitarist-4987_sense_1 ;
+  lemon:synBehavior    :guitarist-4987_nounpp .
+
+:guitarist-4987_form a lemon:Form ;
+  lemon:writtenRep "guitarist"@en .
+
+:guitarist-4987_singular a    lemon:Form ;
+  lemon:writtenRep "guitarist"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:guitarist-4987_plural a   lemon:Form ;
+  lemon:writtenRep "guitarist"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:guitarist-4987_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:guitarist-4987_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :guitarist-4987_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/nationality> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :guitarist-4987_sense_1_condition .
+
+:guitarist-4987_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Country> .
+
+:arg2 lemon:marker :guitarist-4987_form_preposition .
+## Prepositions ##
+:guitarist-4987_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

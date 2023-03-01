@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :total_area-2154 ;
+  lemon:entry    :total_area-2154_form_preposition .
+
+:total_area-2154 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :total_area-2154_form ;
+  lemon:otherForm  :total_area-2154_singular ;
+  lemon:otherForm  :total_area-2154_plural ;
+  lemon:sense          :total_area-2154_sense_1 ;
+  lemon:synBehavior    :total_area-2154_nounpp .
+
+:total_area-2154_form a lemon:Form ;
+  lemon:writtenRep "total area"@en .
+
+:total_area-2154_singular a    lemon:Form ;
+  lemon:writtenRep "total area"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:total_area-2154_plural a   lemon:Form ;
+  lemon:writtenRep "total area"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:total_area-2154_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:total_area-2154_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :total_area-2154_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/dissolutionDate> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :total_area-2154_sense_1_condition .
+
+:total_area-2154_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Place> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :total_area-2154_form_preposition .
+## Prepositions ##
+:total_area-2154_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

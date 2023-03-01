@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :officially_Republic-2602 ;
+  lemon:entry    :officially_Republic-2602_form_preposition .
+
+:officially_Republic-2602 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :officially_Republic-2602_form ;
+  lemon:otherForm  :officially_Republic-2602_singular ;
+  lemon:otherForm  :officially_Republic-2602_plural ;
+  lemon:sense          :officially_Republic-2602_sense_1 ;
+  lemon:synBehavior    :officially_Republic-2602_nounpp .
+
+:officially_Republic-2602_form a lemon:Form ;
+  lemon:writtenRep "officially Republic"@en .
+
+:officially_Republic-2602_singular a    lemon:Form ;
+  lemon:writtenRep "officially Republic"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:officially_Republic-2602_plural a   lemon:Form ;
+  lemon:writtenRep "officially Republic"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:officially_Republic-2602_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:officially_Republic-2602_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :officially_Republic-2602_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/ethnicGroup> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :officially_Republic-2602_sense_1_condition .
+
+:officially_Republic-2602_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/EthnicGroup> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Country> .
+
+:arg2 lemon:marker :officially_Republic-2602_form_preposition .
+## Prepositions ##
+:officially_Republic-2602_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

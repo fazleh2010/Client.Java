@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :professional_basketball-573 ;
+  lemon:entry    :professional_basketball-573_form_preposition .
+
+:professional_basketball-573 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :professional_basketball-573_form ;
+  lemon:otherForm  :professional_basketball-573_singular ;
+  lemon:otherForm  :professional_basketball-573_plural ;
+  lemon:sense          :professional_basketball-573_sense_1 ;
+  lemon:synBehavior    :professional_basketball-573_nounpp .
+
+:professional_basketball-573_form a lemon:Form ;
+  lemon:writtenRep "professional basketball"@en .
+
+:professional_basketball-573_singular a    lemon:Form ;
+  lemon:writtenRep "professional basketball"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:professional_basketball-573_plural a   lemon:Form ;
+  lemon:writtenRep "professional basketball"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:professional_basketball-573_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:professional_basketball-573_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :professional_basketball-573_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/award> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :professional_basketball-573_sense_1_condition .
+
+:professional_basketball-573_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Scientist> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Award> .
+
+:arg2 lemon:marker :professional_basketball-573_form_preposition .
+## Prepositions ##
+:professional_basketball-573_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

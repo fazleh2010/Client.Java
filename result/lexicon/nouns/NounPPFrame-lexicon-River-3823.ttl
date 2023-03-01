@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :River-3823 ;
+  lemon:entry    :River-3823_form_preposition .
+
+:River-3823 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :River-3823_form ;
+  lemon:otherForm  :River-3823_singular ;
+  lemon:otherForm  :River-3823_plural ;
+  lemon:sense          :River-3823_sense_1 ;
+  lemon:synBehavior    :River-3823_nounpp .
+
+:River-3823_form a lemon:Form ;
+  lemon:writtenRep "River"@en .
+
+:River-3823_singular a    lemon:Form ;
+  lemon:writtenRep "River"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:River-3823_plural a   lemon:Form ;
+  lemon:writtenRep "River"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:River-3823_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:River-3823_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :River-3823_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/inflow> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :River-3823_sense_1_condition .
+
+:River-3823_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/River> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/River> .
+
+:arg2 lemon:marker :River-3823_form_preposition .
+## Prepositions ##
+:River-3823_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

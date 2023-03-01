@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :part-4981 ;
+  lemon:entry    :part-4981_form_preposition .
+
+:part-4981 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :part-4981_form ;
+  lemon:otherForm  :part-4981_singular ;
+  lemon:otherForm  :part-4981_plural ;
+  lemon:sense          :part-4981_sense_1 ;
+  lemon:synBehavior    :part-4981_nounpp .
+
+:part-4981_form a lemon:Form ;
+  lemon:writtenRep "part"@en .
+
+:part-4981_singular a    lemon:Form ;
+  lemon:writtenRep "part"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:part-4981_plural a   lemon:Form ;
+  lemon:writtenRep "part"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:part-4981_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:part-4981_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :part-4981_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/nationality> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :part-4981_sense_1_condition .
+
+:part-4981_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Country> .
+
+:arg2 lemon:marker :part-4981_form_preposition .
+## Prepositions ##
+:part-4981_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

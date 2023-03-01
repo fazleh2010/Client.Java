@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :School-114 ;
+  lemon:entry    :School-114_form_preposition .
+
+:School-114 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :School-114_form ;
+  lemon:otherForm  :School-114_singular ;
+  lemon:otherForm  :School-114_plural ;
+  lemon:sense          :School-114_sense_1 ;
+  lemon:synBehavior    :School-114_nounpp .
+
+:School-114_form a lemon:Form ;
+  lemon:writtenRep "School"@en .
+
+:School-114_singular a    lemon:Form ;
+  lemon:writtenRep "School"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:School-114_plural a   lemon:Form ;
+  lemon:writtenRep "School"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:School-114_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:School-114_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :School-114_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/address> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :School-114_sense_1_condition .
+
+:School-114_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#string> .
+
+:arg2 lemon:marker :School-114_form_preposition .
+## Prepositions ##
+:School-114_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :home-5453 ;
+  lemon:entry    :home-5453_form_preposition .
+
+:home-5453 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :home-5453_form ;
+  lemon:otherForm  :home-5453_singular ;
+  lemon:otherForm  :home-5453_plural ;
+  lemon:sense          :home-5453_sense_1 ;
+  lemon:synBehavior    :home-5453_nounpp .
+
+:home-5453_form a lemon:Form ;
+  lemon:writtenRep "home"@en .
+
+:home-5453_singular a    lemon:Form ;
+  lemon:writtenRep "home"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:home-5453_plural a   lemon:Form ;
+  lemon:writtenRep "home"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:home-5453_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:home-5453_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :home-5453_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/operator> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :home-5453_sense_1_condition .
+
+:home-5453_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/LaunchPad> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Organisation> .
+
+:arg2 lemon:marker :home-5453_form_preposition .
+## Prepositions ##
+:home-5453_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

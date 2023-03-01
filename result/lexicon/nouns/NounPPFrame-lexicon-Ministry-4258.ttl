@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Ministry-4258 ;
+  lemon:entry    :Ministry-4258_form_preposition .
+
+:Ministry-4258 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Ministry-4258_form ;
+  lemon:otherForm  :Ministry-4258_singular ;
+  lemon:otherForm  :Ministry-4258_plural ;
+  lemon:sense          :Ministry-4258_sense_1 ;
+  lemon:synBehavior    :Ministry-4258_nounpp .
+
+:Ministry-4258_form a lemon:Form ;
+  lemon:writtenRep "Ministry"@en .
+
+:Ministry-4258_singular a    lemon:Form ;
+  lemon:writtenRep "Ministry"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Ministry-4258_plural a   lemon:Form ;
+  lemon:writtenRep "Ministry"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Ministry-4258_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Ministry-4258_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Ministry-4258_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/leader> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Ministry-4258_sense_1_condition .
+
+:Ministry-4258_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Legislature> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :Ministry-4258_form_preposition .
+## Prepositions ##
+:Ministry-4258_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

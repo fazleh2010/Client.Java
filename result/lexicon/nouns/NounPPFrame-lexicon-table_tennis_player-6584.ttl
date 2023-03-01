@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :table_tennis_player-6584 ;
+  lemon:entry    :table_tennis_player-6584_form_preposition .
+
+:table_tennis_player-6584 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :table_tennis_player-6584_form ;
+  lemon:otherForm  :table_tennis_player-6584_singular ;
+  lemon:otherForm  :table_tennis_player-6584_plural ;
+  lemon:sense          :table_tennis_player-6584_sense_1 ;
+  lemon:synBehavior    :table_tennis_player-6584_nounpp .
+
+:table_tennis_player-6584_form a lemon:Form ;
+  lemon:writtenRep "table tennis player"@en .
+
+:table_tennis_player-6584_singular a    lemon:Form ;
+  lemon:writtenRep "table tennis player"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:table_tennis_player-6584_plural a   lemon:Form ;
+  lemon:writtenRep "table tennis player"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:table_tennis_player-6584_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:table_tennis_player-6584_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :table_tennis_player-6584_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/residence> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :table_tennis_player-6584_sense_1_condition .
+
+:table_tennis_player-6584_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Single> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :table_tennis_player-6584_form_preposition .
+## Prepositions ##
+:table_tennis_player-6584_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

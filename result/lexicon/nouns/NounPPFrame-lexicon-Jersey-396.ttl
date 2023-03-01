@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Jersey-396 ;
+  lemon:entry    :Jersey-396_form_preposition .
+
+:Jersey-396 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Jersey-396_form ;
+  lemon:otherForm  :Jersey-396_singular ;
+  lemon:otherForm  :Jersey-396_plural ;
+  lemon:sense          :Jersey-396_sense_1 ;
+  lemon:synBehavior    :Jersey-396_nounpp .
+
+:Jersey-396_form a lemon:Form ;
+  lemon:writtenRep "Jersey"@en .
+
+:Jersey-396_singular a    lemon:Form ;
+  lemon:writtenRep "Jersey"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Jersey-396_plural a   lemon:Form ;
+  lemon:writtenRep "Jersey"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Jersey-396_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Jersey-396_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Jersey-396_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/architect> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Jersey-396_sense_1_condition .
+
+:Jersey-396_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Architect> .
+
+:arg2 lemon:marker :Jersey-396_form_preposition .
+## Prepositions ##
+:Jersey-396_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

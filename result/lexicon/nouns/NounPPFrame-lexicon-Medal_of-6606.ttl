@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Medal_of-6606 ;
+  lemon:entry    :Medal_of-6606_form_preposition .
+
+:Medal_of-6606 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Medal_of-6606_form ;
+  lemon:otherForm  :Medal_of-6606_singular ;
+  lemon:otherForm  :Medal_of-6606_plural ;
+  lemon:sense          :Medal_of-6606_sense_1 ;
+  lemon:synBehavior    :Medal_of-6606_nounpp .
+
+:Medal_of-6606_form a lemon:Form ;
+  lemon:writtenRep "Medal of"@en .
+
+:Medal_of-6606_singular a    lemon:Form ;
+  lemon:writtenRep "Medal of"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Medal_of-6606_plural a   lemon:Form ;
+  lemon:writtenRep "Medal of"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Medal_of-6606_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Medal_of-6606_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Medal_of-6606_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/restingPlace> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Medal_of-6606_sense_1_condition .
+
+:Medal_of-6606_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :Medal_of-6606_form_preposition .
+## Prepositions ##
+:Medal_of-6606_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

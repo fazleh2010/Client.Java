@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :hockey-1275 ;
+  lemon:entry    :hockey-1275_form_preposition .
+
+:hockey-1275 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :hockey-1275_form ;
+  lemon:otherForm  :hockey-1275_singular ;
+  lemon:otherForm  :hockey-1275_plural ;
+  lemon:sense          :hockey-1275_sense_1 ;
+  lemon:synBehavior    :hockey-1275_nounpp .
+
+:hockey-1275_form a lemon:Form ;
+  lemon:writtenRep "hockey"@en .
+
+:hockey-1275_singular a    lemon:Form ;
+  lemon:writtenRep "hockey"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:hockey-1275_plural a   lemon:Form ;
+  lemon:writtenRep "hockey"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:hockey-1275_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:hockey-1275_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :hockey-1275_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/city> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :hockey-1275_sense_1_condition .
+
+:hockey-1275_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/River> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :hockey-1275_form_preposition .
+## Prepositions ##
+:hockey-1275_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

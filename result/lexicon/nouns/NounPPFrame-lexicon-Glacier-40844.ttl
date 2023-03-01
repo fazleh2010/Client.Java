@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Glacier-40844 ;
+  lemon:entry    :Glacier-40844_form_preposition .
+
+:Glacier-40844 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Glacier-40844_form ;
+  lemon:otherForm  :Glacier-40844_singular ;
+  lemon:otherForm  :Glacier-40844_plural ;
+  lemon:sense          :Glacier-40844_sense_1 ;
+  lemon:synBehavior    :Glacier-40844_nounpp .
+
+:Glacier-40844_form a lemon:Form ;
+  lemon:writtenRep "Glacier"@en .
+
+:Glacier-40844_singular a    lemon:Form ;
+  lemon:writtenRep "Glacier"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Glacier-40844_plural a   lemon:Form ;
+  lemon:writtenRep "Glacier"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Glacier-40844_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Glacier-40844_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Glacier-40844_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/location> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Glacier-40844_sense_1_condition .
+
+:Glacier-40844_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Location> .
+
+:arg2 lemon:marker :Glacier-40844_form_preposition .
+## Prepositions ##
+:Glacier-40844_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

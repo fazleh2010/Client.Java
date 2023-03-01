@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :region-8118 ;
+  lemon:entry    :region-8118_form_preposition .
+
+:region-8118 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :region-8118_form ;
+  lemon:otherForm  :region-8118_singular ;
+  lemon:otherForm  :region-8118_plural ;
+  lemon:sense          :region-8118_sense_1 ;
+  lemon:synBehavior    :region-8118_nounpp .
+
+:region-8118_form a lemon:Form ;
+  lemon:writtenRep "region"@en .
+
+:region-8118_singular a    lemon:Form ;
+  lemon:writtenRep "region"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:region-8118_plural a   lemon:Form ;
+  lemon:writtenRep "region"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:region-8118_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:region-8118_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :region-8118_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/wineRegion> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :region-8118_sense_1_condition .
+
+:region-8118_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Grape> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Place> .
+
+:arg2 lemon:marker :region-8118_form_preposition .
+## Prepositions ##
+:region-8118_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

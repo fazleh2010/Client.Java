@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :country_in-5392 ;
+  lemon:entry    :country_in-5392_form_preposition .
+
+:country_in-5392 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :country_in-5392_form ;
+  lemon:otherForm  :country_in-5392_singular ;
+  lemon:otherForm  :country_in-5392_plural ;
+  lemon:sense          :country_in-5392_sense_1 ;
+  lemon:synBehavior    :country_in-5392_nounpp .
+
+:country_in-5392_form a lemon:Form ;
+  lemon:writtenRep "country in"@en .
+
+:country_in-5392_singular a    lemon:Form ;
+  lemon:writtenRep "country in"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:country_in-5392_plural a   lemon:Form ;
+  lemon:writtenRep "country in"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:country_in-5392_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:country_in-5392_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :country_in-5392_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/officialLanguage> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :country_in-5392_sense_1_condition .
+
+:country_in-5392_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Country> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Language> .
+
+:arg2 lemon:marker :country_in-5392_form_preposition .
+## Prepositions ##
+:country_in-5392_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Columbus_Ohio-6598 ;
+  lemon:entry    :Columbus_Ohio-6598_form_preposition .
+
+:Columbus_Ohio-6598 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Columbus_Ohio-6598_form ;
+  lemon:otherForm  :Columbus_Ohio-6598_singular ;
+  lemon:otherForm  :Columbus_Ohio-6598_plural ;
+  lemon:sense          :Columbus_Ohio-6598_sense_1 ;
+  lemon:synBehavior    :Columbus_Ohio-6598_nounpp .
+
+:Columbus_Ohio-6598_form a lemon:Form ;
+  lemon:writtenRep "Columbus Ohio"@en .
+
+:Columbus_Ohio-6598_singular a    lemon:Form ;
+  lemon:writtenRep "Columbus Ohio"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Columbus_Ohio-6598_plural a   lemon:Form ;
+  lemon:writtenRep "Columbus Ohio"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Columbus_Ohio-6598_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Columbus_Ohio-6598_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Columbus_Ohio-6598_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/restingPlace> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Columbus_Ohio-6598_sense_1_condition .
+
+:Columbus_Ohio-6598_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :Columbus_Ohio-6598_form_preposition .
+## Prepositions ##
+:Columbus_Ohio-6598_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

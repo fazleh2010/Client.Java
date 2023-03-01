@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :play-7045 ;
+  lemon:entry    :play-7045_form_preposition .
+
+:play-7045 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :play-7045_form ;
+  lemon:otherForm  :play-7045_singular ;
+  lemon:otherForm  :play-7045_plural ;
+  lemon:sense          :play-7045_sense_1 ;
+  lemon:synBehavior    :play-7045_nounpp .
+
+:play-7045_form a lemon:Form ;
+  lemon:writtenRep "play"@en .
+
+:play-7045_singular a    lemon:Form ;
+  lemon:writtenRep "play"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:play-7045_plural a   lemon:Form ;
+  lemon:writtenRep "play"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:play-7045_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:play-7045_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :play-7045_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/series> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :play-7045_sense_1_condition .
+
+:play-7045_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Book> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/TelevisionShow> .
+
+:arg2 lemon:marker :play-7045_form_preposition .
+## Prepositions ##
+:play-7045_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

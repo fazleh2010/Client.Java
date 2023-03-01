@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :sumo-802 ;
+  lemon:entry    :sumo-802_form_preposition .
+
+:sumo-802 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :sumo-802_form ;
+  lemon:otherForm  :sumo-802_singular ;
+  lemon:otherForm  :sumo-802_plural ;
+  lemon:sense          :sumo-802_sense_1 ;
+  lemon:synBehavior    :sumo-802_nounpp .
+
+:sumo-802_form a lemon:Form ;
+  lemon:writtenRep "sumo"@en .
+
+:sumo-802_singular a    lemon:Form ;
+  lemon:writtenRep "sumo"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:sumo-802_plural a   lemon:Form ;
+  lemon:writtenRep "sumo"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:sumo-802_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:sumo-802_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :sumo-802_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/birthPlace> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :sumo-802_sense_1_condition .
+
+:sumo-802_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/resource/Surfing> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Country> .
+
+:arg2 lemon:marker :sumo-802_form_preposition .
+## Prepositions ##
+:sumo-802_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

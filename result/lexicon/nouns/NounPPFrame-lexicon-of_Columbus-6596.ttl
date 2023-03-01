@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :of_Columbus-6596 ;
+  lemon:entry    :of_Columbus-6596_form_preposition .
+
+:of_Columbus-6596 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :of_Columbus-6596_form ;
+  lemon:otherForm  :of_Columbus-6596_singular ;
+  lemon:otherForm  :of_Columbus-6596_plural ;
+  lemon:sense          :of_Columbus-6596_sense_1 ;
+  lemon:synBehavior    :of_Columbus-6596_nounpp .
+
+:of_Columbus-6596_form a lemon:Form ;
+  lemon:writtenRep "of Columbus"@en .
+
+:of_Columbus-6596_singular a    lemon:Form ;
+  lemon:writtenRep "of Columbus"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:of_Columbus-6596_plural a   lemon:Form ;
+  lemon:writtenRep "of Columbus"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:of_Columbus-6596_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:of_Columbus-6596_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :of_Columbus-6596_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/restingPlace> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :of_Columbus-6596_sense_1_condition .
+
+:of_Columbus-6596_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :of_Columbus-6596_form_preposition .
+## Prepositions ##
+:of_Columbus-6596_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

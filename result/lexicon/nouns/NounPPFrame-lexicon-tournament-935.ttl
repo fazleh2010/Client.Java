@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :tournament-935 ;
+  lemon:entry    :tournament-935_form_preposition .
+
+:tournament-935 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :tournament-935_form ;
+  lemon:otherForm  :tournament-935_singular ;
+  lemon:otherForm  :tournament-935_plural ;
+  lemon:sense          :tournament-935_sense_1 ;
+  lemon:synBehavior    :tournament-935_nounpp .
+
+:tournament-935_form a lemon:Form ;
+  lemon:writtenRep "tournament"@en .
+
+:tournament-935_singular a    lemon:Form ;
+  lemon:writtenRep "tournament"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:tournament-935_plural a   lemon:Form ;
+  lemon:writtenRep "tournament"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:tournament-935_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:tournament-935_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :tournament-935_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/budget> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :tournament-935_sense_1_condition .
+
+:tournament-935_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Film> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#double> .
+
+:arg2 lemon:marker :tournament-935_form_preposition .
+## Prepositions ##
+:tournament-935_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :State-6776 ;
+  lemon:entry    :State-6776_form_preposition .
+
+:State-6776 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :State-6776_form ;
+  lemon:otherForm  :State-6776_singular ;
+  lemon:otherForm  :State-6776_plural ;
+  lemon:sense          :State-6776_sense_1 ;
+  lemon:synBehavior    :State-6776_nounpp .
+
+:State-6776_form a lemon:Form ;
+  lemon:writtenRep "State"@en .
+
+:State-6776_singular a    lemon:Form ;
+  lemon:writtenRep "State"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:State-6776_plural a   lemon:Form ;
+  lemon:writtenRep "State"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:State-6776_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:State-6776_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :State-6776_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/routeStart> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :State-6776_sense_1_condition .
+
+:State-6776_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Road> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Road> .
+
+:arg2 lemon:marker :State-6776_form_preposition .
+## Prepositions ##
+:State-6776_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

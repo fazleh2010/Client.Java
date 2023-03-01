@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :of_38_districts-3037 ;
+  lemon:entry    :of_38_districts-3037_form_preposition .
+
+:of_38_districts-3037 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :of_38_districts-3037_form ;
+  lemon:otherForm  :of_38_districts-3037_singular ;
+  lemon:otherForm  :of_38_districts-3037_plural ;
+  lemon:sense          :of_38_districts-3037_sense_1 ;
+  lemon:synBehavior    :of_38_districts-3037_nounpp .
+
+:of_38_districts-3037_form a lemon:Form ;
+  lemon:writtenRep "of 38 districts"@en .
+
+:of_38_districts-3037_singular a    lemon:Form ;
+  lemon:writtenRep "of 38 districts"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:of_38_districts-3037_plural a   lemon:Form ;
+  lemon:writtenRep "of 38 districts"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:of_38_districts-3037_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:of_38_districts-3037_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :of_38_districts-3037_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/founder> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :of_38_districts-3037_sense_1_condition .
+
+:of_38_districts-3037_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Publisher> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Agent> .
+
+:arg2 lemon:marker :of_38_districts-3037_form_preposition .
+## Prepositions ##
+:of_38_districts-3037_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

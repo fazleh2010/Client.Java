@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Canada-5698 ;
+  lemon:entry    :Canada-5698_form_preposition .
+
+:Canada-5698 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Canada-5698_form ;
+  lemon:otherForm  :Canada-5698_singular ;
+  lemon:otherForm  :Canada-5698_plural ;
+  lemon:sense          :Canada-5698_sense_1 ;
+  lemon:synBehavior    :Canada-5698_nounpp .
+
+:Canada-5698_form a lemon:Form ;
+  lemon:writtenRep "Canada"@en .
+
+:Canada-5698_singular a    lemon:Form ;
+  lemon:writtenRep "Canada"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Canada-5698_plural a   lemon:Form ;
+  lemon:writtenRep "Canada"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Canada-5698_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Canada-5698_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Canada-5698_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/party> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Canada-5698_sense_1_condition .
+
+:Canada-5698_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/PoliticalParty> .
+
+:arg2 lemon:marker :Canada-5698_form_preposition .
+## Prepositions ##
+:Canada-5698_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

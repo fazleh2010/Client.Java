@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :painting-4903 ;
+  lemon:entry    :painting-4903_form_preposition .
+
+:painting-4903 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :painting-4903_form ;
+  lemon:otherForm  :painting-4903_singular ;
+  lemon:otherForm  :painting-4903_plural ;
+  lemon:sense          :painting-4903_sense_1 ;
+  lemon:synBehavior    :painting-4903_nounpp .
+
+:painting-4903_form a lemon:Form ;
+  lemon:writtenRep "painting"@en .
+
+:painting-4903_singular a    lemon:Form ;
+  lemon:writtenRep "painting"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:painting-4903_plural a   lemon:Form ;
+  lemon:writtenRep "painting"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:painting-4903_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:painting-4903_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :painting-4903_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/museum> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :painting-4903_sense_1_condition .
+
+:painting-4903_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Artwork> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Museum> .
+
+:arg2 lemon:marker :painting-4903_form_preposition .
+## Prepositions ##
+:painting-4903_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Mount_Panorama_Circuit-40308 ;
+  lemon:entry    :Mount_Panorama_Circuit-40308_form_preposition .
+
+:Mount_Panorama_Circuit-40308 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Mount_Panorama_Circuit-40308_form ;
+  lemon:otherForm  :Mount_Panorama_Circuit-40308_singular ;
+  lemon:otherForm  :Mount_Panorama_Circuit-40308_plural ;
+  lemon:sense          :Mount_Panorama_Circuit-40308_sense_1 ;
+  lemon:synBehavior    :Mount_Panorama_Circuit-40308_nounpp .
+
+:Mount_Panorama_Circuit-40308_form a lemon:Form ;
+  lemon:writtenRep "Mount Panorama Circuit"@en .
+
+:Mount_Panorama_Circuit-40308_singular a    lemon:Form ;
+  lemon:writtenRep "Mount Panorama Circuit"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Mount_Panorama_Circuit-40308_plural a   lemon:Form ;
+  lemon:writtenRep "Mount Panorama Circuit"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Mount_Panorama_Circuit-40308_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Mount_Panorama_Circuit-40308_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Mount_Panorama_Circuit-40308_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/location> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Mount_Panorama_Circuit-40308_sense_1_condition .
+
+:Mount_Panorama_Circuit-40308_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Location> .
+
+:arg2 lemon:marker :Mount_Panorama_Circuit-40308_form_preposition .
+## Prepositions ##
+:Mount_Panorama_Circuit-40308_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

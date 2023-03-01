@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :county_in-4418 ;
+  lemon:entry    :county_in-4418_form_preposition .
+
+:county_in-4418 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :county_in-4418_form ;
+  lemon:otherForm  :county_in-4418_singular ;
+  lemon:otherForm  :county_in-4418_plural ;
+  lemon:sense          :county_in-4418_sense_1 ;
+  lemon:synBehavior    :county_in-4418_nounpp .
+
+:county_in-4418_form a lemon:Form ;
+  lemon:writtenRep "county in"@en .
+
+:county_in-4418_singular a    lemon:Form ;
+  lemon:writtenRep "county in"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:county_in-4418_plural a   lemon:Form ;
+  lemon:writtenRep "county in"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:county_in-4418_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:county_in-4418_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :county_in-4418_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/location> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :county_in-4418_sense_1_condition .
+
+:county_in-4418_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Building> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :county_in-4418_form_preposition .
+## Prepositions ##
+:county_in-4418_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

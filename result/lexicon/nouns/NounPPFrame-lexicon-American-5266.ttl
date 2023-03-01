@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :American-5266 ;
+  lemon:entry    :American-5266_form_preposition .
+
+:American-5266 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :American-5266_form ;
+  lemon:otherForm  :American-5266_singular ;
+  lemon:otherForm  :American-5266_plural ;
+  lemon:sense          :American-5266_sense_1 ;
+  lemon:synBehavior    :American-5266_nounpp .
+
+:American-5266_form a lemon:Form ;
+  lemon:writtenRep "American"@en .
+
+:American-5266_singular a    lemon:Form ;
+  lemon:writtenRep "American"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:American-5266_plural a   lemon:Form ;
+  lemon:writtenRep "American"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:American-5266_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:American-5266_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :American-5266_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/numberOfSeasons> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :American-5266_sense_1_condition .
+
+:American-5266_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/TelevisionShow> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+
+:arg2 lemon:marker :American-5266_form_preposition .
+## Prepositions ##
+:American-5266_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

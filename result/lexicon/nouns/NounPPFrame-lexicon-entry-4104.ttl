@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :entry-4104 ;
+  lemon:entry    :entry-4104_form_preposition .
+
+:entry-4104 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :entry-4104_form ;
+  lemon:otherForm  :entry-4104_singular ;
+  lemon:otherForm  :entry-4104_plural ;
+  lemon:sense          :entry-4104_sense_1 ;
+  lemon:synBehavior    :entry-4104_nounpp .
+
+:entry-4104_form a lemon:Form ;
+  lemon:writtenRep "entry"@en .
+
+:entry-4104_singular a    lemon:Form ;
+  lemon:writtenRep "entry"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:entry-4104_plural a   lemon:Form ;
+  lemon:writtenRep "entry"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:entry-4104_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:entry-4104_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :entry-4104_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/language> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :entry-4104_sense_1_condition .
+
+:entry-4104_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Language> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Country> .
+
+:arg2 lemon:marker :entry-4104_form_preposition .
+## Prepositions ##
+:entry-4104_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

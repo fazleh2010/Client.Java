@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :station-5410 ;
+  lemon:entry    :station-5410_form_preposition .
+
+:station-5410 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :station-5410_form ;
+  lemon:otherForm  :station-5410_singular ;
+  lemon:otherForm  :station-5410_plural ;
+  lemon:sense          :station-5410_sense_1 ;
+  lemon:synBehavior    :station-5410_nounpp .
+
+:station-5410_form a lemon:Form ;
+  lemon:writtenRep "station"@en .
+
+:station-5410_singular a    lemon:Form ;
+  lemon:writtenRep "station"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:station-5410_plural a   lemon:Form ;
+  lemon:writtenRep "station"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:station-5410_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:station-5410_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :station-5410_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/openingDate> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :station-5410_sense_1_condition .
+
+:station-5410_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :station-5410_form_preposition .
+## Prepositions ##
+:station-5410_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

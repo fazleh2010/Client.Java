@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :wife-7293 ;
+  lemon:entry    :wife-7293_form_preposition .
+
+:wife-7293 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :wife-7293_form ;
+  lemon:otherForm  :wife-7293_singular ;
+  lemon:otherForm  :wife-7293_plural ;
+  lemon:sense          :wife-7293_sense_1 ;
+  lemon:synBehavior    :wife-7293_nounpp .
+
+:wife-7293_form a lemon:Form ;
+  lemon:writtenRep "wife"@en .
+
+:wife-7293_singular a    lemon:Form ;
+  lemon:writtenRep "wife"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:wife-7293_plural a   lemon:Form ;
+  lemon:writtenRep "wife"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:wife-7293_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:wife-7293_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :wife-7293_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/spouse> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :wife-7293_sense_1_condition .
+
+:wife-7293_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :wife-7293_form_preposition .
+## Prepositions ##
+:wife-7293_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

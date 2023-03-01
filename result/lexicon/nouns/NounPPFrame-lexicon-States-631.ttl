@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :States-631 ;
+  lemon:entry    :States-631_form_preposition .
+
+:States-631 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :States-631_form ;
+  lemon:otherForm  :States-631_singular ;
+  lemon:otherForm  :States-631_plural ;
+  lemon:sense          :States-631_sense_1 ;
+  lemon:synBehavior    :States-631_nounpp .
+
+:States-631_form a lemon:Form ;
+  lemon:writtenRep "States"@en .
+
+:States-631_singular a    lemon:Form ;
+  lemon:writtenRep "States"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:States-631_plural a   lemon:Form ;
+  lemon:writtenRep "States"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:States-631_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:States-631_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :States-631_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/battle> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :States-631_sense_1_condition .
+
+:States-631_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/MilitaryPerson> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/MilitaryConflict> .
+
+:arg2 lemon:marker :States-631_form_preposition .
+## Prepositions ##
+:States-631_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :band-533 ;
+  lemon:entry    :band-533_form_preposition .
+
+:band-533 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :band-533_form ;
+  lemon:otherForm  :band-533_singular ;
+  lemon:otherForm  :band-533_plural ;
+  lemon:sense          :band-533_sense_1 ;
+  lemon:synBehavior    :band-533_nounpp .
+
+:band-533_form a lemon:Form ;
+  lemon:writtenRep "band"@en .
+
+:band-533_singular a    lemon:Form ;
+  lemon:writtenRep "band"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:band-533_plural a   lemon:Form ;
+  lemon:writtenRep "band"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:band-533_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:band-533_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :band-533_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/associatedMusicalArtist> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :band-533_sense_1_condition .
+
+:band-533_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Band> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Place> .
+
+:arg2 lemon:marker :band-533_form_preposition .
+## Prepositions ##
+:band-533_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

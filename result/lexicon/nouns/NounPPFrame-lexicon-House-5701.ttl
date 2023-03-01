@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :House-5701 ;
+  lemon:entry    :House-5701_form_preposition .
+
+:House-5701 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :House-5701_form ;
+  lemon:otherForm  :House-5701_singular ;
+  lemon:otherForm  :House-5701_plural ;
+  lemon:sense          :House-5701_sense_1 ;
+  lemon:synBehavior    :House-5701_nounpp .
+
+:House-5701_form a lemon:Form ;
+  lemon:writtenRep "House"@en .
+
+:House-5701_singular a    lemon:Form ;
+  lemon:writtenRep "House"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:House-5701_plural a   lemon:Form ;
+  lemon:writtenRep "House"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:House-5701_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:House-5701_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :House-5701_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/party> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :House-5701_sense_1_condition .
+
+:House-5701_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/PoliticalParty> .
+
+:arg2 lemon:marker :House-5701_form_preposition .
+## Prepositions ##
+:House-5701_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

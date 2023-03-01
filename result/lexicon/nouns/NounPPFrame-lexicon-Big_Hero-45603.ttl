@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Big_Hero-45603 ;
+  lemon:entry    :Big_Hero-45603_form_preposition .
+
+:Big_Hero-45603 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Big_Hero-45603_form ;
+  lemon:otherForm  :Big_Hero-45603_singular ;
+  lemon:otherForm  :Big_Hero-45603_plural ;
+  lemon:sense          :Big_Hero-45603_sense_1 ;
+  lemon:synBehavior    :Big_Hero-45603_nounpp .
+
+:Big_Hero-45603_form a lemon:Form ;
+  lemon:writtenRep "Big Hero"@en .
+
+:Big_Hero-45603_singular a    lemon:Form ;
+  lemon:writtenRep "Big Hero"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Big_Hero-45603_plural a   lemon:Form ;
+  lemon:writtenRep "Big Hero"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Big_Hero-45603_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Big_Hero-45603_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Big_Hero-45603_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/nickname> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Big_Hero-45603_sense_1_condition .
+
+:Big_Hero-45603_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#String> .
+
+:arg2 lemon:marker :Big_Hero-45603_form_preposition .
+## Prepositions ##
+:Big_Hero-45603_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

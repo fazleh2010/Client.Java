@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :wine-8110 ;
+  lemon:entry    :wine-8110_form_preposition .
+
+:wine-8110 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :wine-8110_form ;
+  lemon:otherForm  :wine-8110_singular ;
+  lemon:otherForm  :wine-8110_plural ;
+  lemon:sense          :wine-8110_sense_1 ;
+  lemon:synBehavior    :wine-8110_nounpp .
+
+:wine-8110_form a lemon:Form ;
+  lemon:writtenRep "wine"@en .
+
+:wine-8110_singular a    lemon:Form ;
+  lemon:writtenRep "wine"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:wine-8110_plural a   lemon:Form ;
+  lemon:writtenRep "wine"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:wine-8110_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:wine-8110_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :wine-8110_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/wineRegion> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :wine-8110_sense_1_condition .
+
+:wine-8110_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Grape> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Place> .
+
+:arg2 lemon:marker :wine-8110_form_preposition .
+## Prepositions ##
+:wine-8110_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :theatre-7004 ;
+  lemon:entry    :theatre-7004_form_preposition .
+
+:theatre-7004 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :theatre-7004_form ;
+  lemon:otherForm  :theatre-7004_singular ;
+  lemon:otherForm  :theatre-7004_plural ;
+  lemon:sense          :theatre-7004_sense_1 ;
+  lemon:synBehavior    :theatre-7004_nounpp .
+
+:theatre-7004_form a lemon:Form ;
+  lemon:writtenRep "theatre"@en .
+
+:theatre-7004_singular a    lemon:Form ;
+  lemon:writtenRep "theatre"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:theatre-7004_plural a   lemon:Form ;
+  lemon:writtenRep "theatre"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:theatre-7004_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:theatre-7004_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :theatre-7004_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/seatingCapacity> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :theatre-7004_sense_1_condition .
+
+:theatre-7004_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Stadium> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+
+:arg2 lemon:marker :theatre-7004_form_preposition .
+## Prepositions ##
+:theatre-7004_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

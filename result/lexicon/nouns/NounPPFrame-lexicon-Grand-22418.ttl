@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Grand-22418 ;
+  lemon:entry    :Grand-22418_form_preposition .
+
+:Grand-22418 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Grand-22418_form ;
+  lemon:otherForm  :Grand-22418_singular ;
+  lemon:otherForm  :Grand-22418_plural ;
+  lemon:sense          :Grand-22418_sense_1 ;
+  lemon:synBehavior    :Grand-22418_nounpp .
+
+:Grand-22418_form a lemon:Form ;
+  lemon:writtenRep "Grand"@en .
+
+:Grand-22418_singular a    lemon:Form ;
+  lemon:writtenRep "Grand"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Grand-22418_plural a   lemon:Form ;
+  lemon:writtenRep "Grand"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Grand-22418_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Grand-22418_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Grand-22418_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/date> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Grand-22418_sense_1_condition .
+
+:Grand-22418_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/MilitaryConflict> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :Grand-22418_form_preposition .
+## Prepositions ##
+:Grand-22418_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

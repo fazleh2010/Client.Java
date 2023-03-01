@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :AVA-3288 ;
+  lemon:entry    :AVA-3288_form_preposition .
+
+:AVA-3288 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :AVA-3288_form ;
+  lemon:otherForm  :AVA-3288_singular ;
+  lemon:otherForm  :AVA-3288_plural ;
+  lemon:sense          :AVA-3288_sense_1 ;
+  lemon:synBehavior    :AVA-3288_nounpp .
+
+:AVA-3288_form a lemon:Form ;
+  lemon:writtenRep "AVA"@en .
+
+:AVA-3288_singular a    lemon:Form ;
+  lemon:writtenRep "AVA"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:AVA-3288_plural a   lemon:Form ;
+  lemon:writtenRep "AVA"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:AVA-3288_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:AVA-3288_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :AVA-3288_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/growingGrape> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :AVA-3288_sense_1_condition .
+
+:AVA-3288_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/WineRegion> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Grape> .
+
+:arg2 lemon:marker :AVA-3288_form_preposition .
+## Prepositions ##
+:AVA-3288_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

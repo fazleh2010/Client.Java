@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :U.S-4134 ;
+  lemon:entry    :U.S-4134_form_preposition .
+
+:U.S-4134 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :U.S-4134_form ;
+  lemon:otherForm  :U.S-4134_singular ;
+  lemon:otherForm  :U.S-4134_plural ;
+  lemon:sense          :U.S-4134_sense_1 ;
+  lemon:synBehavior    :U.S-4134_nounpp .
+
+:U.S-4134_form a lemon:Form ;
+  lemon:writtenRep "U.S"@en .
+
+:U.S-4134_singular a    lemon:Form ;
+  lemon:writtenRep "U.S"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:U.S-4134_plural a   lemon:Form ;
+  lemon:writtenRep "U.S"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:U.S-4134_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:U.S-4134_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :U.S-4134_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/largestCity> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :U.S-4134_sense_1_condition .
+
+:U.S-4134_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Country> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :U.S-4134_form_preposition .
+## Prepositions ##
+:U.S-4134_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

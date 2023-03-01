@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Supercheap_Auto-40314 ;
+  lemon:entry    :Supercheap_Auto-40314_form_preposition .
+
+:Supercheap_Auto-40314 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Supercheap_Auto-40314_form ;
+  lemon:otherForm  :Supercheap_Auto-40314_singular ;
+  lemon:otherForm  :Supercheap_Auto-40314_plural ;
+  lemon:sense          :Supercheap_Auto-40314_sense_1 ;
+  lemon:synBehavior    :Supercheap_Auto-40314_nounpp .
+
+:Supercheap_Auto-40314_form a lemon:Form ;
+  lemon:writtenRep "Supercheap Auto"@en .
+
+:Supercheap_Auto-40314_singular a    lemon:Form ;
+  lemon:writtenRep "Supercheap Auto"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Supercheap_Auto-40314_plural a   lemon:Form ;
+  lemon:writtenRep "Supercheap Auto"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Supercheap_Auto-40314_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Supercheap_Auto-40314_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Supercheap_Auto-40314_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/location> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Supercheap_Auto-40314_sense_1_condition .
+
+:Supercheap_Auto-40314_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Location> .
+
+:arg2 lemon:marker :Supercheap_Auto-40314_form_preposition .
+## Prepositions ##
+:Supercheap_Auto-40314_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

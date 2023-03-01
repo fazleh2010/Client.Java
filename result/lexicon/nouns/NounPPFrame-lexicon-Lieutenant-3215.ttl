@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Lieutenant-3215 ;
+  lemon:entry    :Lieutenant-3215_form_preposition .
+
+:Lieutenant-3215 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Lieutenant-3215_form ;
+  lemon:otherForm  :Lieutenant-3215_singular ;
+  lemon:otherForm  :Lieutenant-3215_plural ;
+  lemon:sense          :Lieutenant-3215_sense_1 ;
+  lemon:synBehavior    :Lieutenant-3215_nounpp .
+
+:Lieutenant-3215_form a lemon:Form ;
+  lemon:writtenRep "Lieutenant"@en .
+
+:Lieutenant-3215_singular a    lemon:Form ;
+  lemon:writtenRep "Lieutenant"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Lieutenant-3215_plural a   lemon:Form ;
+  lemon:writtenRep "Lieutenant"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Lieutenant-3215_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Lieutenant-3215_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Lieutenant-3215_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/governor> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Lieutenant-3215_sense_1_condition .
+
+:Lieutenant-3215_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :Lieutenant-3215_form_preposition .
+## Prepositions ##
+:Lieutenant-3215_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Eurovision_Song_Contest-4101 ;
+  lemon:entry    :Eurovision_Song_Contest-4101_form_preposition .
+
+:Eurovision_Song_Contest-4101 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Eurovision_Song_Contest-4101_form ;
+  lemon:otherForm  :Eurovision_Song_Contest-4101_singular ;
+  lemon:otherForm  :Eurovision_Song_Contest-4101_plural ;
+  lemon:sense          :Eurovision_Song_Contest-4101_sense_1 ;
+  lemon:synBehavior    :Eurovision_Song_Contest-4101_nounpp .
+
+:Eurovision_Song_Contest-4101_form a lemon:Form ;
+  lemon:writtenRep "Eurovision Song Contest"@en .
+
+:Eurovision_Song_Contest-4101_singular a    lemon:Form ;
+  lemon:writtenRep "Eurovision Song Contest"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Eurovision_Song_Contest-4101_plural a   lemon:Form ;
+  lemon:writtenRep "Eurovision Song Contest"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Eurovision_Song_Contest-4101_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Eurovision_Song_Contest-4101_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Eurovision_Song_Contest-4101_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/language> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Eurovision_Song_Contest-4101_sense_1_condition .
+
+:Eurovision_Song_Contest-4101_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Language> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Country> .
+
+:arg2 lemon:marker :Eurovision_Song_Contest-4101_form_preposition .
+## Prepositions ##
+:Eurovision_Song_Contest-4101_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

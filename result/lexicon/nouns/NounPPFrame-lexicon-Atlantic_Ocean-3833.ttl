@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Atlantic_Ocean-3833 ;
+  lemon:entry    :Atlantic_Ocean-3833_form_preposition .
+
+:Atlantic_Ocean-3833 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Atlantic_Ocean-3833_form ;
+  lemon:otherForm  :Atlantic_Ocean-3833_singular ;
+  lemon:otherForm  :Atlantic_Ocean-3833_plural ;
+  lemon:sense          :Atlantic_Ocean-3833_sense_1 ;
+  lemon:synBehavior    :Atlantic_Ocean-3833_nounpp .
+
+:Atlantic_Ocean-3833_form a lemon:Form ;
+  lemon:writtenRep "Atlantic Ocean"@en .
+
+:Atlantic_Ocean-3833_singular a    lemon:Form ;
+  lemon:writtenRep "Atlantic Ocean"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Atlantic_Ocean-3833_plural a   lemon:Form ;
+  lemon:writtenRep "Atlantic Ocean"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Atlantic_Ocean-3833_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Atlantic_Ocean-3833_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Atlantic_Ocean-3833_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/inflow> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Atlantic_Ocean-3833_sense_1_condition .
+
+:Atlantic_Ocean-3833_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/River> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/River> .
+
+:arg2 lemon:marker :Atlantic_Ocean-3833_form_preposition .
+## Prepositions ##
+:Atlantic_Ocean-3833_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

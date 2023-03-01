@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :priest-6568 ;
+  lemon:entry    :priest-6568_form_preposition .
+
+:priest-6568 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :priest-6568_form ;
+  lemon:otherForm  :priest-6568_singular ;
+  lemon:otherForm  :priest-6568_plural ;
+  lemon:sense          :priest-6568_sense_1 ;
+  lemon:synBehavior    :priest-6568_nounpp .
+
+:priest-6568_form a lemon:Form ;
+  lemon:writtenRep "priest"@en .
+
+:priest-6568_singular a    lemon:Form ;
+  lemon:writtenRep "priest"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:priest-6568_plural a   lemon:Form ;
+  lemon:writtenRep "priest"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:priest-6568_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:priest-6568_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :priest-6568_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/religion> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :priest-6568_sense_1_condition .
+
+:priest-6568_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#string> .
+
+:arg2 lemon:marker :priest-6568_form_preposition .
+## Prepositions ##
+:priest-6568_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :estimated_elevation-431 ;
+  lemon:entry    :estimated_elevation-431_form_preposition .
+
+:estimated_elevation-431 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :estimated_elevation-431_form ;
+  lemon:otherForm  :estimated_elevation-431_singular ;
+  lemon:otherForm  :estimated_elevation-431_plural ;
+  lemon:sense          :estimated_elevation-431_sense_1 ;
+  lemon:synBehavior    :estimated_elevation-431_nounpp .
+
+:estimated_elevation-431_form a lemon:Form ;
+  lemon:writtenRep "estimated elevation"@en .
+
+:estimated_elevation-431_singular a    lemon:Form ;
+  lemon:writtenRep "estimated elevation"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:estimated_elevation-431_plural a   lemon:Form ;
+  lemon:writtenRep "estimated elevation"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:estimated_elevation-431_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:estimated_elevation-431_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :estimated_elevation-431_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/areaCode> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :estimated_elevation-431_sense_1_condition .
+
+:estimated_elevation-431_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/City> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#string> .
+
+:arg2 lemon:marker :estimated_elevation-431_form_preposition .
+## Prepositions ##
+:estimated_elevation-431_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

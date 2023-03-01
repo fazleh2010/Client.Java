@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Pope-1906 ;
+  lemon:entry    :Pope-1906_form_preposition .
+
+:Pope-1906 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Pope-1906_form ;
+  lemon:otherForm  :Pope-1906_singular ;
+  lemon:otherForm  :Pope-1906_plural ;
+  lemon:sense          :Pope-1906_sense_1 ;
+  lemon:synBehavior    :Pope-1906_nounpp .
+
+:Pope-1906_form a lemon:Form ;
+  lemon:writtenRep "Pope"@en .
+
+:Pope-1906_singular a    lemon:Form ;
+  lemon:writtenRep "Pope"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Pope-1906_plural a   lemon:Form ;
+  lemon:writtenRep "Pope"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Pope-1906_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Pope-1906_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Pope-1906_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/deathPlace> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Pope-1906_sense_1_condition .
+
+:Pope-1906_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Politician> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :Pope-1906_form_preposition .
+## Prepositions ##
+:Pope-1906_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :cricket_ground_in-40316 ;
+  lemon:entry    :cricket_ground_in-40316_form_preposition .
+
+:cricket_ground_in-40316 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :cricket_ground_in-40316_form ;
+  lemon:otherForm  :cricket_ground_in-40316_singular ;
+  lemon:otherForm  :cricket_ground_in-40316_plural ;
+  lemon:sense          :cricket_ground_in-40316_sense_1 ;
+  lemon:synBehavior    :cricket_ground_in-40316_nounpp .
+
+:cricket_ground_in-40316_form a lemon:Form ;
+  lemon:writtenRep "cricket ground in"@en .
+
+:cricket_ground_in-40316_singular a    lemon:Form ;
+  lemon:writtenRep "cricket ground in"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:cricket_ground_in-40316_plural a   lemon:Form ;
+  lemon:writtenRep "cricket ground in"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:cricket_ground_in-40316_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:cricket_ground_in-40316_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :cricket_ground_in-40316_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/location> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :cricket_ground_in-40316_sense_1_condition .
+
+:cricket_ground_in-40316_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Location> .
+
+:arg2 lemon:marker :cricket_ground_in-40316_form_preposition .
+## Prepositions ##
+:cricket_ground_in-40316_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

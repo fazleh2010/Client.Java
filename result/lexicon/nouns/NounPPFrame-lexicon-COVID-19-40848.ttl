@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :COVID-19-40848 ;
+  lemon:entry    :COVID-19-40848_form_preposition .
+
+:COVID-19-40848 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :COVID-19-40848_form ;
+  lemon:otherForm  :COVID-19-40848_singular ;
+  lemon:otherForm  :COVID-19-40848_plural ;
+  lemon:sense          :COVID-19-40848_sense_1 ;
+  lemon:synBehavior    :COVID-19-40848_nounpp .
+
+:COVID-19-40848_form a lemon:Form ;
+  lemon:writtenRep "COVID-19"@en .
+
+:COVID-19-40848_singular a    lemon:Form ;
+  lemon:writtenRep "COVID-19"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:COVID-19-40848_plural a   lemon:Form ;
+  lemon:writtenRep "XX"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:COVID-19-40848_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:COVID-19-40848_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :COVID-19-40848_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/location> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :COVID-19-40848_sense_1_condition .
+
+:COVID-19-40848_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Location> .
+
+:arg2 lemon:marker :COVID-19-40848_form_preposition .
+## Prepositions ##
+:COVID-19-40848_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

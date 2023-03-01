@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :season-2789 ;
+  lemon:entry    :season-2789_form_preposition .
+
+:season-2789 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :season-2789_form ;
+  lemon:otherForm  :season-2789_singular ;
+  lemon:otherForm  :season-2789_plural ;
+  lemon:sense          :season-2789_sense_1 ;
+  lemon:synBehavior    :season-2789_nounpp .
+
+:season-2789_form a lemon:Form ;
+  lemon:writtenRep "season"@en .
+
+:season-2789_singular a    lemon:Form ;
+  lemon:writtenRep "season"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:season-2789_plural a   lemon:Form ;
+  lemon:writtenRep "season"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:season-2789_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:season-2789_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :season-2789_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/firstAirDate> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :season-2789_sense_1_condition .
+
+:season-2789_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/TelevisionSeason> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :season-2789_form_preposition .
+## Prepositions ##
+:season-2789_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

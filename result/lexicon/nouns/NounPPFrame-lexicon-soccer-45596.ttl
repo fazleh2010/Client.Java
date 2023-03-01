@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :soccer-45596 ;
+  lemon:entry    :soccer-45596_form_preposition .
+
+:soccer-45596 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :soccer-45596_form ;
+  lemon:otherForm  :soccer-45596_singular ;
+  lemon:otherForm  :soccer-45596_plural ;
+  lemon:sense          :soccer-45596_sense_1 ;
+  lemon:synBehavior    :soccer-45596_nounpp .
+
+:soccer-45596_form a lemon:Form ;
+  lemon:writtenRep "soccer"@en .
+
+:soccer-45596_singular a    lemon:Form ;
+  lemon:writtenRep "soccer"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:soccer-45596_plural a   lemon:Form ;
+  lemon:writtenRep "soccer"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:soccer-45596_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:soccer-45596_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :soccer-45596_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/nickname> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :soccer-45596_sense_1_condition .
+
+:soccer-45596_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#String> .
+
+:arg2 lemon:marker :soccer-45596_form_preposition .
+## Prepositions ##
+:soccer-45596_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

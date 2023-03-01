@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :public-5286 ;
+  lemon:entry    :public-5286_form_preposition .
+
+:public-5286 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :public-5286_form ;
+  lemon:otherForm  :public-5286_singular ;
+  lemon:otherForm  :public-5286_plural ;
+  lemon:sense          :public-5286_sense_1 ;
+  lemon:synBehavior    :public-5286_nounpp .
+
+:public-5286_form a lemon:Form ;
+  lemon:writtenRep "public"@en .
+
+:public-5286_singular a    lemon:Form ;
+  lemon:writtenRep "public"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:public-5286_plural a   lemon:Form ;
+  lemon:writtenRep "public"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:public-5286_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:public-5286_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :public-5286_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/numberOfStudents> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :public-5286_sense_1_condition .
+
+:public-5286_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/School> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+
+:arg2 lemon:marker :public-5286_form_preposition .
+## Prepositions ##
+:public-5286_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

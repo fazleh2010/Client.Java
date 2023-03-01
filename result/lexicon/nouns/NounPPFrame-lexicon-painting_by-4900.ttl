@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :painting_by-4900 ;
+  lemon:entry    :painting_by-4900_form_preposition .
+
+:painting_by-4900 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :painting_by-4900_form ;
+  lemon:otherForm  :painting_by-4900_singular ;
+  lemon:otherForm  :painting_by-4900_plural ;
+  lemon:sense          :painting_by-4900_sense_1 ;
+  lemon:synBehavior    :painting_by-4900_nounpp .
+
+:painting_by-4900_form a lemon:Form ;
+  lemon:writtenRep "painting by"@en .
+
+:painting_by-4900_singular a    lemon:Form ;
+  lemon:writtenRep "painting by"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:painting_by-4900_plural a   lemon:Form ;
+  lemon:writtenRep "painting by"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:painting_by-4900_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:painting_by-4900_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :painting_by-4900_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/museum> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :painting_by-4900_sense_1_condition .
+
+:painting_by-4900_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Artwork> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Museum> .
+
+:arg2 lemon:marker :painting_by-4900_form_preposition .
+## Prepositions ##
+:painting_by-4900_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

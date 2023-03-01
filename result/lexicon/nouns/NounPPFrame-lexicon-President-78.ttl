@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :President-78 ;
+  lemon:entry    :President-78_form_preposition .
+
+:President-78 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :President-78_form ;
+  lemon:otherForm  :President-78_singular ;
+  lemon:otherForm  :President-78_plural ;
+  lemon:sense          :President-78_sense_1 ;
+  lemon:synBehavior    :President-78_nounpp .
+
+:President-78_form a lemon:Form ;
+  lemon:writtenRep "President"@en .
+
+:President-78_singular a    lemon:Form ;
+  lemon:writtenRep "President"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:President-78_plural a   lemon:Form ;
+  lemon:writtenRep "President"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:President-78_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:President-78_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :President-78_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/activeYearsEndDate> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :President-78_sense_1_condition .
+
+:President-78_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Athlete> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :President-78_form_preposition .
+## Prepositions ##
+:President-78_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :officer-625 ;
+  lemon:entry    :officer-625_form_preposition .
+
+:officer-625 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :officer-625_form ;
+  lemon:otherForm  :officer-625_singular ;
+  lemon:otherForm  :officer-625_plural ;
+  lemon:sense          :officer-625_sense_1 ;
+  lemon:synBehavior    :officer-625_nounpp .
+
+:officer-625_form a lemon:Form ;
+  lemon:writtenRep "officer"@en .
+
+:officer-625_singular a    lemon:Form ;
+  lemon:writtenRep "officer"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:officer-625_plural a   lemon:Form ;
+  lemon:writtenRep "officer"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:officer-625_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:officer-625_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :officer-625_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/battle> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :officer-625_sense_1_condition .
+
+:officer-625_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/MilitaryPerson> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/MilitaryConflict> .
+
+:arg2 lemon:marker :officer-625_form_preposition .
+## Prepositions ##
+:officer-625_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

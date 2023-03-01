@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Council-4155 ;
+  lemon:entry    :Council-4155_form_preposition .
+
+:Council-4155 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Council-4155_form ;
+  lemon:otherForm  :Council-4155_singular ;
+  lemon:otherForm  :Council-4155_plural ;
+  lemon:sense          :Council-4155_sense_1 ;
+  lemon:synBehavior    :Council-4155_nounpp .
+
+:Council-4155_form a lemon:Form ;
+  lemon:writtenRep "Council"@en .
+
+:Council-4155_singular a    lemon:Form ;
+  lemon:writtenRep "Council"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Council-4155_plural a   lemon:Form ;
+  lemon:writtenRep "Council"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Council-4155_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Council-4155_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Council-4155_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/lastElectionDate> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Council-4155_sense_1_condition .
+
+:Council-4155_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Organisation> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :Council-4155_form_preposition .
+## Prepositions ##
+:Council-4155_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

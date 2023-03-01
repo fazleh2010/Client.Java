@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :cyclist-1910 ;
+  lemon:entry    :cyclist-1910_form_preposition .
+
+:cyclist-1910 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :cyclist-1910_form ;
+  lemon:otherForm  :cyclist-1910_singular ;
+  lemon:otherForm  :cyclist-1910_plural ;
+  lemon:sense          :cyclist-1910_sense_1 ;
+  lemon:synBehavior    :cyclist-1910_nounpp .
+
+:cyclist-1910_form a lemon:Form ;
+  lemon:writtenRep "cyclist"@en .
+
+:cyclist-1910_singular a    lemon:Form ;
+  lemon:writtenRep "cyclist"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:cyclist-1910_plural a   lemon:Form ;
+  lemon:writtenRep "cyclist"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:cyclist-1910_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:cyclist-1910_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :cyclist-1910_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/deathPlace> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :cyclist-1910_sense_1_condition .
+
+:cyclist-1910_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Politician> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :cyclist-1910_form_preposition .
+## Prepositions ##
+:cyclist-1910_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

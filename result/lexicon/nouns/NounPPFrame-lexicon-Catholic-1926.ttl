@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Catholic-1926 ;
+  lemon:entry    :Catholic-1926_form_preposition .
+
+:Catholic-1926 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Catholic-1926_form ;
+  lemon:otherForm  :Catholic-1926_singular ;
+  lemon:otherForm  :Catholic-1926_plural ;
+  lemon:sense          :Catholic-1926_sense_1 ;
+  lemon:synBehavior    :Catholic-1926_nounpp .
+
+:Catholic-1926_form a lemon:Form ;
+  lemon:writtenRep "Catholic"@en .
+
+:Catholic-1926_singular a    lemon:Form ;
+  lemon:writtenRep "Catholic"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Catholic-1926_plural a   lemon:Form ;
+  lemon:writtenRep "Catholic"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Catholic-1926_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Catholic-1926_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Catholic-1926_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/deathPlace> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Catholic-1926_sense_1_condition .
+
+:Catholic-1926_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Politician> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :Catholic-1926_form_preposition .
+## Prepositions ##
+:Catholic-1926_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

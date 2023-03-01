@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Perth_Kinross-5724 ;
+  lemon:entry    :Perth_Kinross-5724_form_preposition .
+
+:Perth_Kinross-5724 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Perth_Kinross-5724_form ;
+  lemon:otherForm  :Perth_Kinross-5724_singular ;
+  lemon:otherForm  :Perth_Kinross-5724_plural ;
+  lemon:sense          :Perth_Kinross-5724_sense_1 ;
+  lemon:synBehavior    :Perth_Kinross-5724_nounpp .
+
+:Perth_Kinross-5724_form a lemon:Form ;
+  lemon:writtenRep "Perth Kinross"@en .
+
+:Perth_Kinross-5724_singular a    lemon:Form ;
+  lemon:writtenRep "Perth Kinross"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Perth_Kinross-5724_plural a   lemon:Form ;
+  lemon:writtenRep "Perth Kinross"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Perth_Kinross-5724_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Perth_Kinross-5724_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Perth_Kinross-5724_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/minimumTemperature> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Perth_Kinross-5724_sense_1_condition .
+
+:Perth_Kinross-5724_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Planet> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#double> .
+
+:arg2 lemon:marker :Perth_Kinross-5724_form_preposition .
+## Prepositions ##
+:Perth_Kinross-5724_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

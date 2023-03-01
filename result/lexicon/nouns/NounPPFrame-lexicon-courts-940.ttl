@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :courts-940 ;
+  lemon:entry    :courts-940_form_preposition .
+
+:courts-940 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :courts-940_form ;
+  lemon:otherForm  :courts-940_singular ;
+  lemon:otherForm  :courts-940_plural ;
+  lemon:sense          :courts-940_sense_1 ;
+  lemon:synBehavior    :courts-940_nounpp .
+
+:courts-940_form a lemon:Form ;
+  lemon:writtenRep "courts"@en .
+
+:courts-940_singular a    lemon:Form ;
+  lemon:writtenRep "courts"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:courts-940_plural a   lemon:Form ;
+  lemon:writtenRep "courts"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:courts-940_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:courts-940_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :courts-940_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/budget> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :courts-940_sense_1_condition .
+
+:courts-940_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Film> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#double> .
+
+:arg2 lemon:marker :courts-940_form_preposition .
+## Prepositions ##
+:courts-940_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

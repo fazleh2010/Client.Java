@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Journal-19 ;
+  lemon:entry    :Journal-19_form_preposition .
+
+:Journal-19 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Journal-19_form ;
+  lemon:otherForm  :Journal-19_singular ;
+  lemon:otherForm  :Journal-19_plural ;
+  lemon:sense          :Journal-19_sense_1 ;
+  lemon:synBehavior    :Journal-19_nounpp .
+
+:Journal-19_form a lemon:Form ;
+  lemon:writtenRep "Journal"@en .
+
+:Journal-19_singular a    lemon:Form ;
+  lemon:writtenRep "Journal"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Journal-19_plural a   lemon:Form ;
+  lemon:writtenRep "Journal"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Journal-19_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Journal-19_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Journal-19_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/abbreviation> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Journal-19_sense_1_condition .
+
+:Journal-19_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://www.w3.org/2002/07/owl#Thing> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#string> .
+
+:arg2 lemon:marker :Journal-19_form_preposition .
+## Prepositions ##
+:Journal-19_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

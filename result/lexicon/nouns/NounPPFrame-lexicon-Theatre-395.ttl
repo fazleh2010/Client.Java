@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Theatre-395 ;
+  lemon:entry    :Theatre-395_form_preposition .
+
+:Theatre-395 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Theatre-395_form ;
+  lemon:otherForm  :Theatre-395_singular ;
+  lemon:otherForm  :Theatre-395_plural ;
+  lemon:sense          :Theatre-395_sense_1 ;
+  lemon:synBehavior    :Theatre-395_nounpp .
+
+:Theatre-395_form a lemon:Form ;
+  lemon:writtenRep "Theatre"@en .
+
+:Theatre-395_singular a    lemon:Form ;
+  lemon:writtenRep "Theatre"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Theatre-395_plural a   lemon:Form ;
+  lemon:writtenRep "Theatre"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Theatre-395_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Theatre-395_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Theatre-395_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/architect> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Theatre-395_sense_1_condition .
+
+:Theatre-395_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Architect> .
+
+:arg2 lemon:marker :Theatre-395_form_preposition .
+## Prepositions ##
+:Theatre-395_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

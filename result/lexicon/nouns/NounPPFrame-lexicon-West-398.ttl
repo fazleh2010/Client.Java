@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :West-398 ;
+  lemon:entry    :West-398_form_preposition .
+
+:West-398 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :West-398_form ;
+  lemon:otherForm  :West-398_singular ;
+  lemon:otherForm  :West-398_plural ;
+  lemon:sense          :West-398_sense_1 ;
+  lemon:synBehavior    :West-398_nounpp .
+
+:West-398_form a lemon:Form ;
+  lemon:writtenRep "West"@en .
+
+:West-398_singular a    lemon:Form ;
+  lemon:writtenRep "West"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:West-398_plural a   lemon:Form ;
+  lemon:writtenRep "West"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:West-398_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:West-398_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :West-398_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/architect> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :West-398_sense_1_condition .
+
+:West-398_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Architect> .
+
+:arg2 lemon:marker :West-398_form_preposition .
+## Prepositions ##
+:West-398_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :federal_subject-4709 ;
+  lemon:entry    :federal_subject-4709_form_preposition .
+
+:federal_subject-4709 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :federal_subject-4709_form ;
+  lemon:otherForm  :federal_subject-4709_singular ;
+  lemon:otherForm  :federal_subject-4709_plural ;
+  lemon:sense          :federal_subject-4709_sense_1 ;
+  lemon:synBehavior    :federal_subject-4709_nounpp .
+
+:federal_subject-4709_form a lemon:Form ;
+  lemon:writtenRep "federal subject"@en .
+
+:federal_subject-4709_singular a    lemon:Form ;
+  lemon:writtenRep "federal subject"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:federal_subject-4709_plural a   lemon:Form ;
+  lemon:writtenRep "federal subject"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:federal_subject-4709_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:federal_subject-4709_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :federal_subject-4709_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/leaderName> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :federal_subject-4709_sense_1_condition .
+
+:federal_subject-4709_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/City> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :federal_subject-4709_form_preposition .
+## Prepositions ##
+:federal_subject-4709_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

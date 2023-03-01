@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :season-3267 ;
+  lemon:entry    :season-3267_form_preposition .
+
+:season-3267 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :season-3267_form ;
+  lemon:otherForm  :season-3267_singular ;
+  lemon:otherForm  :season-3267_plural ;
+  lemon:sense          :season-3267_sense_1 ;
+  lemon:synBehavior    :season-3267_nounpp .
+
+:season-3267_form a lemon:Form ;
+  lemon:writtenRep "season"@en .
+
+:season-3267_singular a    lemon:Form ;
+  lemon:writtenRep "season"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:season-3267_plural a   lemon:Form ;
+  lemon:writtenRep "season"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:season-3267_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:season-3267_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :season-3267_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/ground> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :season-3267_sense_1_condition .
+
+:season-3267_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/SportsClub> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Stadium> .
+
+:arg2 lemon:marker :season-3267_form_preposition .
+## Prepositions ##
+:season-3267_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

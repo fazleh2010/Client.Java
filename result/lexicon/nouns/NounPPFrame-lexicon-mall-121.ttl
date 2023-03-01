@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :mall-121 ;
+  lemon:entry    :mall-121_form_preposition .
+
+:mall-121 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :mall-121_form ;
+  lemon:otherForm  :mall-121_singular ;
+  lemon:otherForm  :mall-121_plural ;
+  lemon:sense          :mall-121_sense_1 ;
+  lemon:synBehavior    :mall-121_nounpp .
+
+:mall-121_form a lemon:Form ;
+  lemon:writtenRep "mall"@en .
+
+:mall-121_singular a    lemon:Form ;
+  lemon:writtenRep "mall"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:mall-121_plural a   lemon:Form ;
+  lemon:writtenRep "mall"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:mall-121_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:mall-121_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :mall-121_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/address> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :mall-121_sense_1_condition .
+
+:mall-121_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#string> .
+
+:arg2 lemon:marker :mall-121_form_preposition .
+## Prepositions ##
+:mall-121_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

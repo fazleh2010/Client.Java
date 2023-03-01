@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Railway-2019 ;
+  lemon:entry    :Railway-2019_form_preposition .
+
+:Railway-2019 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Railway-2019_form ;
+  lemon:otherForm  :Railway-2019_singular ;
+  lemon:otherForm  :Railway-2019_plural ;
+  lemon:sense          :Railway-2019_sense_1 ;
+  lemon:synBehavior    :Railway-2019_nounpp .
+
+:Railway-2019_form a lemon:Form ;
+  lemon:writtenRep "Railway"@en .
+
+:Railway-2019_singular a    lemon:Form ;
+  lemon:writtenRep "Railway"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Railway-2019_plural a   lemon:Form ;
+  lemon:writtenRep "Railway"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Railway-2019_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Railway-2019_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Railway-2019_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/designer> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Railway-2019_sense_1_condition .
+
+:Railway-2019_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Building> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :Railway-2019_form_preposition .
+## Prepositions ##
+:Railway-2019_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :tennis-938 ;
+  lemon:entry    :tennis-938_form_preposition .
+
+:tennis-938 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :tennis-938_form ;
+  lemon:otherForm  :tennis-938_singular ;
+  lemon:otherForm  :tennis-938_plural ;
+  lemon:sense          :tennis-938_sense_1 ;
+  lemon:synBehavior    :tennis-938_nounpp .
+
+:tennis-938_form a lemon:Form ;
+  lemon:writtenRep "tennis"@en .
+
+:tennis-938_singular a    lemon:Form ;
+  lemon:writtenRep "tennis"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:tennis-938_plural a   lemon:Form ;
+  lemon:writtenRep "tennis"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:tennis-938_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:tennis-938_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :tennis-938_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/budget> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :tennis-938_sense_1_condition .
+
+:tennis-938_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Film> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#double> .
+
+:arg2 lemon:marker :tennis-938_form_preposition .
+## Prepositions ##
+:tennis-938_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

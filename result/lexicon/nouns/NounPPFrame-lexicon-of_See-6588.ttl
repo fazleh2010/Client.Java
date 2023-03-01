@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :of_See-6588 ;
+  lemon:entry    :of_See-6588_form_preposition .
+
+:of_See-6588 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :of_See-6588_form ;
+  lemon:otherForm  :of_See-6588_singular ;
+  lemon:otherForm  :of_See-6588_plural ;
+  lemon:sense          :of_See-6588_sense_1 ;
+  lemon:synBehavior    :of_See-6588_nounpp .
+
+:of_See-6588_form a lemon:Form ;
+  lemon:writtenRep "of See"@en .
+
+:of_See-6588_singular a    lemon:Form ;
+  lemon:writtenRep "of See"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:of_See-6588_plural a   lemon:Form ;
+  lemon:writtenRep "of See"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:of_See-6588_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:of_See-6588_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :of_See-6588_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/residence> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :of_See-6588_sense_1_condition .
+
+:of_See-6588_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Single> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :of_See-6588_form_preposition .
+## Prepositions ##
+:of_See-6588_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

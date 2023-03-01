@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :role-playing-2015 ;
+  lemon:entry    :role-playing-2015_form_preposition .
+
+:role-playing-2015 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :role-playing-2015_form ;
+  lemon:otherForm  :role-playing-2015_singular ;
+  lemon:otherForm  :role-playing-2015_plural ;
+  lemon:sense          :role-playing-2015_sense_1 ;
+  lemon:synBehavior    :role-playing-2015_nounpp .
+
+:role-playing-2015_form a lemon:Form ;
+  lemon:writtenRep "role-playing"@en .
+
+:role-playing-2015_singular a    lemon:Form ;
+  lemon:writtenRep "role-playing"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:role-playing-2015_plural a   lemon:Form ;
+  lemon:writtenRep "XX"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:role-playing-2015_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:role-playing-2015_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :role-playing-2015_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/designer> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :role-playing-2015_sense_1_condition .
+
+:role-playing-2015_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Building> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :role-playing-2015_form_preposition .
+## Prepositions ##
+:role-playing-2015_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

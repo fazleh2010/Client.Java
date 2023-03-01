@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Observatory-2140 ;
+  lemon:entry    :Observatory-2140_form_preposition .
+
+:Observatory-2140 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Observatory-2140_form ;
+  lemon:otherForm  :Observatory-2140_singular ;
+  lemon:otherForm  :Observatory-2140_plural ;
+  lemon:sense          :Observatory-2140_sense_1 ;
+  lemon:synBehavior    :Observatory-2140_nounpp .
+
+:Observatory-2140_form a lemon:Form ;
+  lemon:writtenRep "Observatory"@en .
+
+:Observatory-2140_singular a    lemon:Form ;
+  lemon:writtenRep "Observatory"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Observatory-2140_plural a   lemon:Form ;
+  lemon:writtenRep "Observatory"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Observatory-2140_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Observatory-2140_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Observatory-2140_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/discoverer> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Observatory-2140_sense_1_condition .
+
+:Observatory-2140_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Planet> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :Observatory-2140_form_preposition .
+## Prepositions ##
+:Observatory-2140_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

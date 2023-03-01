@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :video-6549 ;
+  lemon:entry    :video-6549_form_preposition .
+
+:video-6549 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :video-6549_form ;
+  lemon:otherForm  :video-6549_singular ;
+  lemon:otherForm  :video-6549_plural ;
+  lemon:sense          :video-6549_sense_1 ;
+  lemon:synBehavior    :video-6549_nounpp .
+
+:video-6549_form a lemon:Form ;
+  lemon:writtenRep "video"@en .
+
+:video-6549_singular a    lemon:Form ;
+  lemon:writtenRep "video"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:video-6549_plural a   lemon:Form ;
+  lemon:writtenRep "video"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:video-6549_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:video-6549_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :video-6549_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/releaseDate> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :video-6549_sense_1_condition .
+
+:video-6549_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Software> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :video-6549_form_preposition .
+## Prepositions ##
+:video-6549_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

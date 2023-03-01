@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :National-1418 ;
+  lemon:entry    :National-1418_form_preposition .
+
+:National-1418 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :National-1418_form ;
+  lemon:otherForm  :National-1418_singular ;
+  lemon:otherForm  :National-1418_plural ;
+  lemon:sense          :National-1418_sense_1 ;
+  lemon:synBehavior    :National-1418_nounpp .
+
+:National-1418_form a lemon:Form ;
+  lemon:writtenRep "National"@en .
+
+:National-1418_singular a    lemon:Form ;
+  lemon:writtenRep "National"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:National-1418_plural a   lemon:Form ;
+  lemon:writtenRep "National"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:National-1418_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:National-1418_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :National-1418_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/coach> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :National-1418_sense_1_condition .
+
+:National-1418_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/HockeyTeam> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :National-1418_form_preposition .
+## Prepositions ##
+:National-1418_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

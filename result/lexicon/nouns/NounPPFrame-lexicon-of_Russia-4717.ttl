@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :of_Russia-4717 ;
+  lemon:entry    :of_Russia-4717_form_preposition .
+
+:of_Russia-4717 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :of_Russia-4717_form ;
+  lemon:otherForm  :of_Russia-4717_singular ;
+  lemon:otherForm  :of_Russia-4717_plural ;
+  lemon:sense          :of_Russia-4717_sense_1 ;
+  lemon:synBehavior    :of_Russia-4717_nounpp .
+
+:of_Russia-4717_form a lemon:Form ;
+  lemon:writtenRep "of Russia"@en .
+
+:of_Russia-4717_singular a    lemon:Form ;
+  lemon:writtenRep "of Russia"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:of_Russia-4717_plural a   lemon:Form ;
+  lemon:writtenRep "of Russia"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:of_Russia-4717_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:of_Russia-4717_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :of_Russia-4717_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/leaderName> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :of_Russia-4717_sense_1_condition .
+
+:of_Russia-4717_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/City> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :of_Russia-4717_form_preposition .
+## Prepositions ##
+:of_Russia-4717_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

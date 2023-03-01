@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :season-1413 ;
+  lemon:entry    :season-1413_form_preposition .
+
+:season-1413 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :season-1413_form ;
+  lemon:otherForm  :season-1413_singular ;
+  lemon:otherForm  :season-1413_plural ;
+  lemon:sense          :season-1413_sense_1 ;
+  lemon:synBehavior    :season-1413_nounpp .
+
+:season-1413_form a lemon:Form ;
+  lemon:writtenRep "season"@en .
+
+:season-1413_singular a    lemon:Form ;
+  lemon:writtenRep "season"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:season-1413_plural a   lemon:Form ;
+  lemon:writtenRep "season"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:season-1413_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:season-1413_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :season-1413_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/coach> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :season-1413_sense_1_condition .
+
+:season-1413_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/HockeyTeam> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :season-1413_form_preposition .
+## Prepositions ##
+:season-1413_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

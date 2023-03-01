@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Henry_James-5238 ;
+  lemon:entry    :Henry_James-5238_form_preposition .
+
+:Henry_James-5238 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Henry_James-5238_form ;
+  lemon:otherForm  :Henry_James-5238_singular ;
+  lemon:otherForm  :Henry_James-5238_plural ;
+  lemon:sense          :Henry_James-5238_sense_1 ;
+  lemon:synBehavior    :Henry_James-5238_nounpp .
+
+:Henry_James-5238_form a lemon:Form ;
+  lemon:writtenRep "Henry James"@en .
+
+:Henry_James-5238_singular a    lemon:Form ;
+  lemon:writtenRep "Henry James"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Henry_James-5238_plural a   lemon:Form ;
+  lemon:writtenRep "Henry James"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Henry_James-5238_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Henry_James-5238_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Henry_James-5238_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/numberOfPages> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Henry_James-5238_sense_1_condition .
+
+:Henry_James-5238_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/WrittenWork> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#positiveInteger> .
+
+:arg2 lemon:marker :Henry_James-5238_form_preposition .
+## Prepositions ##
+:Henry_James-5238_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

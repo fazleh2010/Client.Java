@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :athletic_teams-45594 ;
+  lemon:entry    :athletic_teams-45594_form_preposition .
+
+:athletic_teams-45594 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :athletic_teams-45594_form ;
+  lemon:otherForm  :athletic_teams-45594_singular ;
+  lemon:otherForm  :athletic_teams-45594_plural ;
+  lemon:sense          :athletic_teams-45594_sense_1 ;
+  lemon:synBehavior    :athletic_teams-45594_nounpp .
+
+:athletic_teams-45594_form a lemon:Form ;
+  lemon:writtenRep "athletic teams"@en .
+
+:athletic_teams-45594_singular a    lemon:Form ;
+  lemon:writtenRep "athletic teams"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:athletic_teams-45594_plural a   lemon:Form ;
+  lemon:writtenRep "athletic teams"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:athletic_teams-45594_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:athletic_teams-45594_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :athletic_teams-45594_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/nickname> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :athletic_teams-45594_sense_1_condition .
+
+:athletic_teams-45594_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#String> .
+
+:arg2 lemon:marker :athletic_teams-45594_form_preposition .
+## Prepositions ##
+:athletic_teams-45594_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

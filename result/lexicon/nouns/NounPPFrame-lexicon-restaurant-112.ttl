@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :restaurant-112 ;
+  lemon:entry    :restaurant-112_form_preposition .
+
+:restaurant-112 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :restaurant-112_form ;
+  lemon:otherForm  :restaurant-112_singular ;
+  lemon:otherForm  :restaurant-112_plural ;
+  lemon:sense          :restaurant-112_sense_1 ;
+  lemon:synBehavior    :restaurant-112_nounpp .
+
+:restaurant-112_form a lemon:Form ;
+  lemon:writtenRep "restaurant"@en .
+
+:restaurant-112_singular a    lemon:Form ;
+  lemon:writtenRep "restaurant"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:restaurant-112_plural a   lemon:Form ;
+  lemon:writtenRep "restaurant"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:restaurant-112_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:restaurant-112_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :restaurant-112_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/address> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :restaurant-112_sense_1_condition .
+
+:restaurant-112_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#string> .
+
+:arg2 lemon:marker :restaurant-112_form_preposition .
+## Prepositions ##
+:restaurant-112_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

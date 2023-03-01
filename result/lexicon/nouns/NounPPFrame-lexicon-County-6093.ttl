@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :County-6093 ;
+  lemon:entry    :County-6093_form_preposition .
+
+:County-6093 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :County-6093_form ;
+  lemon:otherForm  :County-6093_singular ;
+  lemon:otherForm  :County-6093_plural ;
+  lemon:sense          :County-6093_sense_1 ;
+  lemon:synBehavior    :County-6093_nounpp .
+
+:County-6093_form a lemon:Form ;
+  lemon:writtenRep "County"@en .
+
+:County-6093_singular a    lemon:Form ;
+  lemon:writtenRep "County"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:County-6093_plural a   lemon:Form ;
+  lemon:writtenRep "County"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:County-6093_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:County-6093_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :County-6093_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/postalCode> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :County-6093_sense_1_condition .
+
+:County-6093_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Place> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+
+:arg2 lemon:marker :County-6093_form_preposition .
+## Prepositions ##
+:County-6093_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

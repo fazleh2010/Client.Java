@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :motor_race_held-22410 ;
+  lemon:entry    :motor_race_held-22410_form_preposition .
+
+:motor_race_held-22410 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :motor_race_held-22410_form ;
+  lemon:otherForm  :motor_race_held-22410_singular ;
+  lemon:otherForm  :motor_race_held-22410_plural ;
+  lemon:sense          :motor_race_held-22410_sense_1 ;
+  lemon:synBehavior    :motor_race_held-22410_nounpp .
+
+:motor_race_held-22410_form a lemon:Form ;
+  lemon:writtenRep "motor race held"@en .
+
+:motor_race_held-22410_singular a    lemon:Form ;
+  lemon:writtenRep "motor race held"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:motor_race_held-22410_plural a   lemon:Form ;
+  lemon:writtenRep "motor race held"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:motor_race_held-22410_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:motor_race_held-22410_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :motor_race_held-22410_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/date> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :motor_race_held-22410_sense_1_condition .
+
+:motor_race_held-22410_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/MilitaryConflict> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :motor_race_held-22410_form_preposition .
+## Prepositions ##
+:motor_race_held-22410_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

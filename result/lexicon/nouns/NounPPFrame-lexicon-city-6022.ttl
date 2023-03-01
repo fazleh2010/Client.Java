@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :city-6022 ;
+  lemon:entry    :city-6022_form_preposition .
+
+:city-6022 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :city-6022_form ;
+  lemon:otherForm  :city-6022_singular ;
+  lemon:otherForm  :city-6022_plural ;
+  lemon:sense          :city-6022_sense_1 ;
+  lemon:synBehavior    :city-6022_nounpp .
+
+:city-6022_form a lemon:Form ;
+  lemon:writtenRep "city"@en .
+
+:city-6022_singular a    lemon:Form ;
+  lemon:writtenRep "city"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:city-6022_plural a   lemon:Form ;
+  lemon:writtenRep "city"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:city-6022_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:city-6022_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :city-6022_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/populationTotal> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :city-6022_sense_1_condition .
+
+:city-6022_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/City> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#double> .
+
+:arg2 lemon:marker :city-6022_form_preposition .
+## Prepositions ##
+:city-6022_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

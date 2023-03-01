@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :tributary-44006 ;
+  lemon:entry    :tributary-44006_form_preposition .
+
+:tributary-44006 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :tributary-44006_form ;
+  lemon:otherForm  :tributary-44006_singular ;
+  lemon:otherForm  :tributary-44006_plural ;
+  lemon:sense          :tributary-44006_sense_1 ;
+  lemon:synBehavior    :tributary-44006_nounpp .
+
+:tributary-44006_form a lemon:Form ;
+  lemon:writtenRep "tributary"@en .
+
+:tributary-44006_singular a    lemon:Form ;
+  lemon:writtenRep "tributary"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:tributary-44006_plural a   lemon:Form ;
+  lemon:writtenRep "tributary"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:tributary-44006_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:tributary-44006_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :tributary-44006_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/mouthLocation> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :tributary-44006_sense_1_condition .
+
+:tributary-44006_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/River> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Country> .
+
+:arg2 lemon:marker :tributary-44006_form_preposition .
+## Prepositions ##
+:tributary-44006_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

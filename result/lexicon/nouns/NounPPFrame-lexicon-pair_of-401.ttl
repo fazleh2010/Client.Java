@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :pair_of-401 ;
+  lemon:entry    :pair_of-401_form_preposition .
+
+:pair_of-401 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :pair_of-401_form ;
+  lemon:otherForm  :pair_of-401_singular ;
+  lemon:otherForm  :pair_of-401_plural ;
+  lemon:sense          :pair_of-401_sense_1 ;
+  lemon:synBehavior    :pair_of-401_nounpp .
+
+:pair_of-401_form a lemon:Form ;
+  lemon:writtenRep "pair of"@en .
+
+:pair_of-401_singular a    lemon:Form ;
+  lemon:writtenRep "pair of"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:pair_of-401_plural a   lemon:Form ;
+  lemon:writtenRep "pair of"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:pair_of-401_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:pair_of-401_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :pair_of-401_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/architect> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :pair_of-401_sense_1_condition .
+
+:pair_of-401_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Architect> .
+
+:arg2 lemon:marker :pair_of-401_form_preposition .
+## Prepositions ##
+:pair_of-401_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

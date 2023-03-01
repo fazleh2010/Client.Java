@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Highway-6777 ;
+  lemon:entry    :Highway-6777_form_preposition .
+
+:Highway-6777 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Highway-6777_form ;
+  lemon:otherForm  :Highway-6777_singular ;
+  lemon:otherForm  :Highway-6777_plural ;
+  lemon:sense          :Highway-6777_sense_1 ;
+  lemon:synBehavior    :Highway-6777_nounpp .
+
+:Highway-6777_form a lemon:Form ;
+  lemon:writtenRep "Highway"@en .
+
+:Highway-6777_singular a    lemon:Form ;
+  lemon:writtenRep "Highway"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Highway-6777_plural a   lemon:Form ;
+  lemon:writtenRep "Highway"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Highway-6777_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Highway-6777_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Highway-6777_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/routeStart> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Highway-6777_sense_1_condition .
+
+:Highway-6777_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Road> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Road> .
+
+:arg2 lemon:marker :Highway-6777_form_preposition .
+## Prepositions ##
+:Highway-6777_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

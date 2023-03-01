@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :member_of-5691 ;
+  lemon:entry    :member_of-5691_form_preposition .
+
+:member_of-5691 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :member_of-5691_form ;
+  lemon:otherForm  :member_of-5691_singular ;
+  lemon:otherForm  :member_of-5691_plural ;
+  lemon:sense          :member_of-5691_sense_1 ;
+  lemon:synBehavior    :member_of-5691_nounpp .
+
+:member_of-5691_form a lemon:Form ;
+  lemon:writtenRep "member of"@en .
+
+:member_of-5691_singular a    lemon:Form ;
+  lemon:writtenRep "member of"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:member_of-5691_plural a   lemon:Form ;
+  lemon:writtenRep "member of"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:member_of-5691_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:member_of-5691_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :member_of-5691_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/party> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :member_of-5691_sense_1_condition .
+
+:member_of-5691_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/PoliticalParty> .
+
+:arg2 lemon:marker :member_of-5691_form_preposition .
+## Prepositions ##
+:member_of-5691_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :United_States-2798 ;
+  lemon:entry    :United_States-2798_form_preposition .
+
+:United_States-2798 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :United_States-2798_form ;
+  lemon:otherForm  :United_States-2798_singular ;
+  lemon:otherForm  :United_States-2798_plural ;
+  lemon:sense          :United_States-2798_sense_1 ;
+  lemon:synBehavior    :United_States-2798_nounpp .
+
+:United_States-2798_form a lemon:Form ;
+  lemon:writtenRep "United States"@en .
+
+:United_States-2798_singular a    lemon:Form ;
+  lemon:writtenRep "United States"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:United_States-2798_plural a   lemon:Form ;
+  lemon:writtenRep "United States"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:United_States-2798_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:United_States-2798_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :United_States-2798_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/firstAirDate> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :United_States-2798_sense_1_condition .
+
+:United_States-2798_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/TelevisionSeason> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :United_States-2798_form_preposition .
+## Prepositions ##
+:United_States-2798_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

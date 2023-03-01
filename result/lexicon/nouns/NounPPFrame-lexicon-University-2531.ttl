@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :University-2531 ;
+  lemon:entry    :University-2531_form_preposition .
+
+:University-2531 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :University-2531_form ;
+  lemon:otherForm  :University-2531_singular ;
+  lemon:otherForm  :University-2531_plural ;
+  lemon:sense          :University-2531_sense_1 ;
+  lemon:synBehavior    :University-2531_nounpp .
+
+:University-2531_form a lemon:Form ;
+  lemon:writtenRep "University"@en .
+
+:University-2531_singular a    lemon:Form ;
+  lemon:writtenRep "University"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:University-2531_plural a   lemon:Form ;
+  lemon:writtenRep "University"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:University-2531_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:University-2531_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :University-2531_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/employer> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :University-2531_sense_1_condition .
+
+:University-2531_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Place> .
+
+:arg2 lemon:marker :University-2531_form_preposition .
+## Prepositions ##
+:University-2531_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :church-394 ;
+  lemon:entry    :church-394_form_preposition .
+
+:church-394 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :church-394_form ;
+  lemon:otherForm  :church-394_singular ;
+  lemon:otherForm  :church-394_plural ;
+  lemon:sense          :church-394_sense_1 ;
+  lemon:synBehavior    :church-394_nounpp .
+
+:church-394_form a lemon:Form ;
+  lemon:writtenRep "church"@en .
+
+:church-394_singular a    lemon:Form ;
+  lemon:writtenRep "church"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:church-394_plural a   lemon:Form ;
+  lemon:writtenRep "church"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:church-394_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:church-394_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :church-394_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/architect> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :church-394_sense_1_condition .
+
+:church-394_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Architect> .
+
+:arg2 lemon:marker :church-394_form_preposition .
+## Prepositions ##
+:church-394_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

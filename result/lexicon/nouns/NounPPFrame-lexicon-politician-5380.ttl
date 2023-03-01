@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :politician-5380 ;
+  lemon:entry    :politician-5380_form_preposition .
+
+:politician-5380 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :politician-5380_form ;
+  lemon:otherForm  :politician-5380_singular ;
+  lemon:otherForm  :politician-5380_plural ;
+  lemon:sense          :politician-5380_sense_1 ;
+  lemon:synBehavior    :politician-5380_nounpp .
+
+:politician-5380_form a lemon:Form ;
+  lemon:writtenRep "politician"@en .
+
+:politician-5380_singular a    lemon:Form ;
+  lemon:writtenRep "politician"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:politician-5380_plural a   lemon:Form ;
+  lemon:writtenRep "politician"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:politician-5380_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:politician-5380_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :politician-5380_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/office> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :politician-5380_sense_1_condition .
+
+:politician-5380_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Country> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#string> .
+
+:arg2 lemon:marker :politician-5380_form_preposition .
+## Prepositions ##
+:politician-5380_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

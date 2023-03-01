@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Representative-77 ;
+  lemon:entry    :Representative-77_form_preposition .
+
+:Representative-77 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Representative-77_form ;
+  lemon:otherForm  :Representative-77_singular ;
+  lemon:otherForm  :Representative-77_plural ;
+  lemon:sense          :Representative-77_sense_1 ;
+  lemon:synBehavior    :Representative-77_nounpp .
+
+:Representative-77_form a lemon:Form ;
+  lemon:writtenRep "Representative"@en .
+
+:Representative-77_singular a    lemon:Form ;
+  lemon:writtenRep "Representative"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Representative-77_plural a   lemon:Form ;
+  lemon:writtenRep "Representative"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Representative-77_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Representative-77_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Representative-77_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/activeYearsEndDate> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Representative-77_sense_1_condition .
+
+:Representative-77_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Athlete> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :Representative-77_form_preposition .
+## Prepositions ##
+:Representative-77_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

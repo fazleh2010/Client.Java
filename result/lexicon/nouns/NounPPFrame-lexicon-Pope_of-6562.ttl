@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Pope_of-6562 ;
+  lemon:entry    :Pope_of-6562_form_preposition .
+
+:Pope_of-6562 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Pope_of-6562_form ;
+  lemon:otherForm  :Pope_of-6562_singular ;
+  lemon:otherForm  :Pope_of-6562_plural ;
+  lemon:sense          :Pope_of-6562_sense_1 ;
+  lemon:synBehavior    :Pope_of-6562_nounpp .
+
+:Pope_of-6562_form a lemon:Form ;
+  lemon:writtenRep "Pope of"@en .
+
+:Pope_of-6562_singular a    lemon:Form ;
+  lemon:writtenRep "Pope of"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Pope_of-6562_plural a   lemon:Form ;
+  lemon:writtenRep "Pope of"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Pope_of-6562_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Pope_of-6562_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Pope_of-6562_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/religion> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Pope_of-6562_sense_1_condition .
+
+:Pope_of-6562_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#string> .
+
+:arg2 lemon:marker :Pope_of-6562_form_preposition .
+## Prepositions ##
+:Pope_of-6562_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

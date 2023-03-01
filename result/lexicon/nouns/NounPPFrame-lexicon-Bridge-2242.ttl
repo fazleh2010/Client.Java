@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Bridge-2242 ;
+  lemon:entry    :Bridge-2242_form_preposition .
+
+:Bridge-2242 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Bridge-2242_form ;
+  lemon:otherForm  :Bridge-2242_singular ;
+  lemon:otherForm  :Bridge-2242_plural ;
+  lemon:sense          :Bridge-2242_sense_1 ;
+  lemon:synBehavior    :Bridge-2242_nounpp .
+
+:Bridge-2242_form a lemon:Form ;
+  lemon:writtenRep "Bridge"@en .
+
+:Bridge-2242_singular a    lemon:Form ;
+  lemon:writtenRep "Bridge"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Bridge-2242_plural a   lemon:Form ;
+  lemon:writtenRep "Bridge"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Bridge-2242_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Bridge-2242_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Bridge-2242_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/crosses> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Bridge-2242_sense_1_condition .
+
+:Bridge-2242_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Bridge> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/River> .
+
+:arg2 lemon:marker :Bridge-2242_form_preposition .
+## Prepositions ##
+:Bridge-2242_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :coach-1891 ;
+  lemon:entry    :coach-1891_form_preposition .
+
+:coach-1891 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :coach-1891_form ;
+  lemon:otherForm  :coach-1891_singular ;
+  lemon:otherForm  :coach-1891_plural ;
+  lemon:sense          :coach-1891_sense_1 ;
+  lemon:synBehavior    :coach-1891_nounpp .
+
+:coach-1891_form a lemon:Form ;
+  lemon:writtenRep "coach"@en .
+
+:coach-1891_singular a    lemon:Form ;
+  lemon:writtenRep "coach"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:coach-1891_plural a   lemon:Form ;
+  lemon:writtenRep "coach"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:coach-1891_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:coach-1891_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :coach-1891_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/deathDate> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :coach-1891_sense_1_condition .
+
+:coach-1891_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Person> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :coach-1891_form_preposition .
+## Prepositions ##
+:coach-1891_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

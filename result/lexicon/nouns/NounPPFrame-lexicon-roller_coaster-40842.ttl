@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :roller_coaster-40842 ;
+  lemon:entry    :roller_coaster-40842_form_preposition .
+
+:roller_coaster-40842 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :roller_coaster-40842_form ;
+  lemon:otherForm  :roller_coaster-40842_singular ;
+  lemon:otherForm  :roller_coaster-40842_plural ;
+  lemon:sense          :roller_coaster-40842_sense_1 ;
+  lemon:synBehavior    :roller_coaster-40842_nounpp .
+
+:roller_coaster-40842_form a lemon:Form ;
+  lemon:writtenRep "roller coaster"@en .
+
+:roller_coaster-40842_singular a    lemon:Form ;
+  lemon:writtenRep "roller coaster"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:roller_coaster-40842_plural a   lemon:Form ;
+  lemon:writtenRep "roller coaster"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:roller_coaster-40842_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:roller_coaster-40842_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :roller_coaster-40842_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/location> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :roller_coaster-40842_sense_1_condition .
+
+:roller_coaster-40842_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Location> .
+
+:arg2 lemon:marker :roller_coaster-40842_form_preposition .
+## Prepositions ##
+:roller_coaster-40842_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

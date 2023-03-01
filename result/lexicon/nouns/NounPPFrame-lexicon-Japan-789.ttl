@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Japan-789 ;
+  lemon:entry    :Japan-789_form_preposition .
+
+:Japan-789 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Japan-789_form ;
+  lemon:otherForm  :Japan-789_singular ;
+  lemon:otherForm  :Japan-789_plural ;
+  lemon:sense          :Japan-789_sense_1 ;
+  lemon:synBehavior    :Japan-789_nounpp .
+
+:Japan-789_form a lemon:Form ;
+  lemon:writtenRep "Japan"@en .
+
+:Japan-789_singular a    lemon:Form ;
+  lemon:writtenRep "Japan"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Japan-789_plural a   lemon:Form ;
+  lemon:writtenRep "Japan"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Japan-789_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Japan-789_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Japan-789_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/birthPlace> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Japan-789_sense_1_condition .
+
+:Japan-789_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/resource/Surfing> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Country> .
+
+:arg2 lemon:marker :Japan-789_form_preposition .
+## Prepositions ##
+:Japan-789_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

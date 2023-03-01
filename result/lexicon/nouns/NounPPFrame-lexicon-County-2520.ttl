@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :County-2520 ;
+  lemon:entry    :County-2520_form_preposition .
+
+:County-2520 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :County-2520_form ;
+  lemon:otherForm  :County-2520_singular ;
+  lemon:otherForm  :County-2520_plural ;
+  lemon:sense          :County-2520_sense_1 ;
+  lemon:synBehavior    :County-2520_nounpp .
+
+:County-2520_form a lemon:Form ;
+  lemon:writtenRep "County"@en .
+
+:County-2520_singular a    lemon:Form ;
+  lemon:writtenRep "County"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:County-2520_plural a   lemon:Form ;
+  lemon:writtenRep "County"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:County-2520_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:County-2520_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :County-2520_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/elevation> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :County-2520_sense_1_condition .
+
+:County-2520_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Mountain> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#double> .
+
+:arg2 lemon:marker :County-2520_form_preposition .
+## Prepositions ##
+:County-2520_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

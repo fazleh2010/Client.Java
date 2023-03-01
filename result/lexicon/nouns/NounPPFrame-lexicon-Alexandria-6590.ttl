@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Alexandria-6590 ;
+  lemon:entry    :Alexandria-6590_form_preposition .
+
+:Alexandria-6590 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Alexandria-6590_form ;
+  lemon:otherForm  :Alexandria-6590_singular ;
+  lemon:otherForm  :Alexandria-6590_plural ;
+  lemon:sense          :Alexandria-6590_sense_1 ;
+  lemon:synBehavior    :Alexandria-6590_nounpp .
+
+:Alexandria-6590_form a lemon:Form ;
+  lemon:writtenRep "Alexandria"@en .
+
+:Alexandria-6590_singular a    lemon:Form ;
+  lemon:writtenRep "Alexandria"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Alexandria-6590_plural a   lemon:Form ;
+  lemon:writtenRep "Alexandria"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Alexandria-6590_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Alexandria-6590_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Alexandria-6590_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/residence> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Alexandria-6590_sense_1_condition .
+
+:Alexandria-6590_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Single> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :Alexandria-6590_form_preposition .
+## Prepositions ##
+:Alexandria-6590_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

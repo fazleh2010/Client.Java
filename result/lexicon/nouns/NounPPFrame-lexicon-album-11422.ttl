@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :album-11422 ;
+  lemon:entry    :album-11422_form_preposition .
+
+:album-11422 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :album-11422_form ;
+  lemon:otherForm  :album-11422_singular ;
+  lemon:otherForm  :album-11422_plural ;
+  lemon:sense          :album-11422_sense_1 ;
+  lemon:synBehavior    :album-11422_nounpp .
+
+:album-11422_form a lemon:Form ;
+  lemon:writtenRep "album"@en .
+
+:album-11422_singular a    lemon:Form ;
+  lemon:writtenRep "album"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:album-11422_plural a   lemon:Form ;
+  lemon:writtenRep "album"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:album-11422_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:album-11422_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :album-11422_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/artist> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :album-11422_sense_1_condition .
+
+:album-11422_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Work> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Person> .
+
+:arg2 lemon:marker :album-11422_form_preposition .
+## Prepositions ##
+:album-11422_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

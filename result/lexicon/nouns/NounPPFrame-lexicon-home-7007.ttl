@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :home-7007 ;
+  lemon:entry    :home-7007_form_preposition .
+
+:home-7007 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :home-7007_form ;
+  lemon:otherForm  :home-7007_singular ;
+  lemon:otherForm  :home-7007_plural ;
+  lemon:sense          :home-7007_sense_1 ;
+  lemon:synBehavior    :home-7007_nounpp .
+
+:home-7007_form a lemon:Form ;
+  lemon:writtenRep "home"@en .
+
+:home-7007_singular a    lemon:Form ;
+  lemon:writtenRep "home"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:home-7007_plural a   lemon:Form ;
+  lemon:writtenRep "home"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:home-7007_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:home-7007_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :home-7007_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/seatingCapacity> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :home-7007_sense_1_condition .
+
+:home-7007_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Stadium> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#nonNegativeInteger> .
+
+:arg2 lemon:marker :home-7007_form_preposition .
+## Prepositions ##
+:home-7007_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

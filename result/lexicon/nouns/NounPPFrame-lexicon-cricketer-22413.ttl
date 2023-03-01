@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :cricketer-22413 ;
+  lemon:entry    :cricketer-22413_form_preposition .
+
+:cricketer-22413 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :cricketer-22413_form ;
+  lemon:otherForm  :cricketer-22413_singular ;
+  lemon:otherForm  :cricketer-22413_plural ;
+  lemon:sense          :cricketer-22413_sense_1 ;
+  lemon:synBehavior    :cricketer-22413_nounpp .
+
+:cricketer-22413_form a lemon:Form ;
+  lemon:writtenRep "cricketer"@en .
+
+:cricketer-22413_singular a    lemon:Form ;
+  lemon:writtenRep "cricketer"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:cricketer-22413_plural a   lemon:Form ;
+  lemon:writtenRep "cricketer"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:cricketer-22413_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:cricketer-22413_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :cricketer-22413_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/date> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :cricketer-22413_sense_1_condition .
+
+:cricketer-22413_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/MilitaryConflict> ;
+  lemon:propertyRange   <http://www.w3.org/2001/XMLSchema#date> .
+
+:arg2 lemon:marker :cricketer-22413_form_preposition .
+## Prepositions ##
+:cricketer-22413_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

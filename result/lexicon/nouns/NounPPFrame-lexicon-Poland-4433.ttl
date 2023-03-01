@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :Poland-4433 ;
+  lemon:entry    :Poland-4433_form_preposition .
+
+:Poland-4433 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :Poland-4433_form ;
+  lemon:otherForm  :Poland-4433_singular ;
+  lemon:otherForm  :Poland-4433_plural ;
+  lemon:sense          :Poland-4433_sense_1 ;
+  lemon:synBehavior    :Poland-4433_nounpp .
+
+:Poland-4433_form a lemon:Form ;
+  lemon:writtenRep "Poland"@en .
+
+:Poland-4433_singular a    lemon:Form ;
+  lemon:writtenRep "Poland"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:Poland-4433_plural a   lemon:Form ;
+  lemon:writtenRep "Poland"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:Poland-4433_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:Poland-4433_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :Poland-4433_sense_1 ;
+  lemon:reference           <http://dbpedia.org/ontology/location> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :Poland-4433_sense_1_condition .
+
+:Poland-4433_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/Building> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/City> .
+
+:arg2 lemon:marker :Poland-4433_form_preposition .
+## Prepositions ##
+:Poland-4433_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+

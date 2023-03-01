@@ -1,0 +1,52 @@
+@prefix :        <http://localhost:8080/lexicon#> .
+
+@prefix lexinfo: <http://www.lexinfo.net/ontology/2.0/lexinfo#> .
+@prefix lemon:   <http://lemon-model.net/lemon#> .
+
+@base            <http://localhost:8080#> .
+
+:lexicon_en a    lemon:Lexicon ;
+  lemon:language "en" ;
+  lemon:entry    :ground-40309 ;
+  lemon:entry    :ground-40309_form_preposition .
+
+:ground-40309 a       lemon:LexicalEntry ;
+  lexinfo:partOfSpeech lexinfo:noun ;
+  lemon:canonicalForm  :ground-40309_form ;
+  lemon:otherForm  :ground-40309_singular ;
+  lemon:otherForm  :ground-40309_plural ;
+  lemon:sense          :ground-40309_sense_1 ;
+  lemon:synBehavior    :ground-40309_nounpp .
+
+:ground-40309_form a lemon:Form ;
+  lemon:writtenRep "ground"@en .
+
+:ground-40309_singular a    lemon:Form ;
+  lemon:writtenRep "ground"@en ;
+  lexinfo:number   lexinfo:singular .
+
+:ground-40309_plural a   lemon:Form ;
+  lemon:writtenRep "ground"@en ;
+  lexinfo:number    lexinfo:plural .
+
+:ground-40309_nounpp a        lexinfo:NounPPFrame ;
+  lexinfo:copulativeArg        :arg1 ;
+  lexinfo:prepositionalAdjunct :arg2 .
+
+:ground-40309_sense_1 a lemon:OntoMap, lemon:LexicalSense ;
+  lemon:ontoMapping         :ground-40309_sense_1 ;
+  lemon:reference           <http://dbpedia.org/property/location> ;
+  lemon:subjOfProp          :arg2 ;
+  lemon:objOfProp           :arg1 ;
+  lemon:condition           :ground-40309_sense_1_condition .
+
+:ground-40309_sense_1_condition a lemon:condition ;
+  lemon:propertyDomain  <http://dbpedia.org/ontology/ArchitecturalStructure> ;
+  lemon:propertyRange   <http://dbpedia.org/ontology/Location> .
+
+:arg2 lemon:marker :ground-40309_form_preposition .
+## Prepositions ##
+:ground-40309_form_preposition a                  lemon:SynRoleMarker ;
+  lemon:canonicalForm  [ lemon:writtenRep ""@en ] ;
+  lexinfo:partOfSpeech lexinfo:preposition .
+
