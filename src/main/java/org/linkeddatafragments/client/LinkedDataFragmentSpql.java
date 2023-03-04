@@ -26,8 +26,8 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import static org.fest.assertions.Assertions.assertThat;
 import org.linkeddatafragments.model.LinkedDataFragmentGraph;
-import util.io.FileUtils;
-import util.io.Manual;
+import org.linkeddatafragments.util.io.FileUtils;
+import org.linkeddatafragments.util.io.Manual;
 
 /**
  *
