@@ -34,9 +34,9 @@ public class QueGG implements Constants {
         // FIND_SIMILARITY has to run alone. for unknown reasons all menu does not work
         //menu.add(MAKE_PROPERTY_FILE);
         //menu.add(FIND_QALD_ANSWER);
-         menu.add(FIND_SIMILARITY);
-         //menu.add(FIND_QALD_QUEGG_ANSWER);
-         //menu.add(EVALUTE_QALD_QUEGG);
+        menu.add(FIND_SIMILARITY);
+        //menu.add(FIND_QALD_QUEGG_ANSWER);
+        //menu.add(EVALUTE_QALD_QUEGG);
         String lexiconsDir = "/media/elahi/Elements/A-project/LDK2023/resources/en/lexicons/";
         String parameterFileName = "/media/elahi/Elements/A-project/LDK2023/resources/en/lexicons/parameter.txt";
         String evalutionType="inductive";
@@ -47,8 +47,7 @@ public class QueGG implements Constants {
         if(evalutionType.contains("incremental")){
           patternFiles = findMultipleParameterFile(lexiconsDir, parameterFileName);
         }
-        
-       
+       //exit(1);
         
         /*Map<String, CsvFile> ruleSingleFile = new TreeMap<String, CsvFile>();
         for (String parameter : ruleFiles.keySet()) {
@@ -84,9 +83,11 @@ public class QueGG implements Constants {
                     queGG.evalutionTest(inputCofiguration);
                 } else if (type.contains("train")) {
                     for(String parameter:patternFiles.keySet()){
-                        List<File> files=patternFiles.get(parameter);
-                        queGG.evalutionTrain(inputCofiguration,files);   
+                            List<File> files=patternFiles.get(parameter);
+                            queGG.evalutionTrain(inputCofiguration,files); 
+                        //exit(1);
                     }
+                    //queGG.evalutionTrain(inputCofiguration,new ArrayList<File>()); 
                 }
             }
 
@@ -249,8 +250,13 @@ public class QueGG implements Constants {
         String lexialEntry = null;
         
         Map<String, String[]> queGGQuestions = new TreeMap<String, String[]>();
+        
+        //String dir="/media/elahi/Elements/A-project/LDK2023/Client.Java/output/en/questions/lexicalEntry";
+        //File []files=new File(dir).listFiles();
 
         for (File file : files) {
+            System.out.println("fileName::"+file.getName());
+            
             startRange = startRange + 1;
             FilterRows filterRows = new FilterRows(file);
             queGGQuestions.putAll(filterRows.getQueGGQuestions());

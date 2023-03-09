@@ -127,7 +127,7 @@
                     <finalName>ldf-client</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>org.linkeddatafragments.client.QueryResultsWriter</mainClass>
+                            <mainClass>org.linkeddatafragments.main.QueGG</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
