@@ -41,12 +41,10 @@ public class StringSimilarity {
         for (String question : grammarEntities.keySet()) {
             QueGGinfomation queGGinfomation = grammarEntities.get(question);
             map.put(question, queGGinfomation.getValue());
-            System.out.println(question + " " + queGGinfomation);
         }
         ValueComparator bvc = new ValueComparator(map);
         TreeMap<String, Double> sorted_map = new TreeMap<String, Double>(bvc);
         sorted_map.putAll(map);
-        //System.out.println("sorted_map: " + sorted_map);
         String key = sorted_map.firstKey();
         Double value = sorted_map.get(key);
 
@@ -348,6 +346,13 @@ public class StringSimilarity {
         System.out.println("s13 and s14:::" + jaccardSimilarityManual(test2, test3));
         System.out.println("s13 and s14:::" + jaccardSimilarityManual("How many companies were founded in the same year as Google?", 
                                                                       "How many companies were founded by Google?"));
+        
+        System.out.println("s13 and s14:::" + jaccardSimilarityManual("which persons were born in Philippines?", 
+                                                                      "Which professional surfers were born on the Philippines?"));
+
+         System.out.println("s13 and s14:::" + jaccardSimilarityManual("Who was the wife of Abraham Lincoln?", 
+                                                                       "Who was the wife of U.S. president Lincoln?"));
+
 
 
 

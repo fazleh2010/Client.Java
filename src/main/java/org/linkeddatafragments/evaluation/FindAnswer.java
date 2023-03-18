@@ -49,12 +49,12 @@ public class FindAnswer implements Constants {
        
     }
     
-    public List<EntryComparison> getAnswerOfSparqlQuery(String QALDQueGGMatch, String QALDAnswer, String QaldQueggAnswer) throws IOException, FileNotFoundException, CsvException {
+    public List<EntryComparison> getAnswerOfSparqlQuery(String FIND_SIMILARITY_RESULT, String QALDAnswer, String QaldQueggAnswer) throws IOException, FileNotFoundException, CsvException {
         List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
         List<String[]> qaldAnswerData = new ArrayList<String[]>();
         Integer index = 0;
         CsvFile csvFile = new CsvFile();
-        List<String[]> rows = csvFile.getRows(new File(QALDQueGGMatch));
+        List<String[]> rows = csvFile.getRows(new File(FIND_SIMILARITY_RESULT));
         
         Map<String, List<String>> qaldInfo = this.getQaldOffLineAnswer(QALDAnswer);
 

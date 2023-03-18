@@ -49,8 +49,11 @@ public class EvaluateAgainstQALD implements Constants{
     private Boolean online = false;
     private  static Map<String,List<String>> answers=new TreeMap<String,List<String>>();
     private   List< String[]> result = new ArrayList<String[]>();
+    private Boolean doneFileFlag=false;
+    private String parameter=null;
 
-    public EvaluateAgainstQALD(String language, String endpoint, Set<String> menu, String FIND_SIMILARITY_RESULT, String resultComparisonFile, String qaldAnswerFile, String qaldQueGGAnswerFile,Boolean online,String startRange) {
+    public EvaluateAgainstQALD(String language, String endpoint, Set<String> menu, String FIND_SIMILARITY_RESULT, String resultComparisonFile, 
+            String qaldAnswerFile, String qaldQueGGAnswerFile,Boolean online,String startRange,String parameter) {
         this.language = language;
         this.endpoint = endpoint;
         this.menu = menu;
@@ -59,6 +62,7 @@ public class EvaluateAgainstQALD implements Constants{
         this.QALD_QUEGG_ANSWER_FILE = qaldQueGGAnswerFile.replace(".csv",startRange.toString()+".csv");
         this.QALD_ANSWER_FILE = qaldAnswerFile;
         this.online=online;
+        this.parameter=parameter;
     }
     
     public static void setOfflineAnswerList(Map<String,List<String>> answersT){
@@ -431,11 +435,7 @@ public class EvaluateAgainstQALD implements Constants{
             String qaldQuestion = QALDImporter.getQaldQuestionString(qaldQuestions, languageCode);
             String qaldSparqlQuery = QALDImporter.getQaldSparqlQuery(qaldQuestions);
             String id = QALDImporter.getQaldId(qaldQuestions);
-            
-            /*System.out.println("qaldQuestion::"+qaldQuestion);
-            System.out.println("qaldSparqlQuery::"+qaldSparqlQuery);
-            exit(1);*/
- 
+            System.out.println("paramter::"+this.parameter+" id:"+id+" question:"+qaldQuestion);
             Map<String, QueGGinfomation> grammarEntities = this.matchedRealQuestions(id,qaldQuestion, qaldSparqlQuery, realQuestions, similarityPercentage, index);
             StringSimilarity stringSimilarity = new StringSimilarity();
             index = index + 1;
@@ -541,17 +541,17 @@ public class EvaluateAgainstQALD implements Constants{
             multipleFlag = true;
         }
 
-
         for (String queGGquestion : questions.keySet()) {
             String[] row = questions.get(queGGquestion);
             qaldsentence = qaldsentence.replace("\"", "");
             queGGquestion = queGGquestion.replace("\"", "");
             Double value = StringSimilarity.jaccardSimilarityManual(qaldsentence, queGGquestion);
-            System.out.println(similarityPercentage+" "+qaldID + " MATCHED: " + qaldsentence + ":" + queGGquestion + " cosineSimilarityPercentage::" + value);
            if (value > similarityPercentage) {                
                 QueGGinfomation queGGinfomation = new QueGGinfomation(row, value, qaldSparqlQuery,qaldID);
                 sort.put(queGGinfomation.getQuestion(), value);
                 matchedQuestions.put(queGGinfomation.getQuestion(), queGGinfomation);
+                //System.out.println(similarityPercentage+" "+qaldID + " MATCHED: " + qaldsentence + ":" + queGGquestion + " cosineSimilarityPercentage::" + value);
+
             }
         }
 

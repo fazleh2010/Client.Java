@@ -7,7 +7,7 @@
   "dataset" : "QALD",
   "fileType" : "train",
   "numberOfEntities" : 100,
-  "similarityThresold" : 0.51,
+  "similarityThresold" : 0.5,
   "csvToTurtle" : false,
   "turtleToProtoType" : false,
   "single": false,
