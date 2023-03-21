@@ -11,45 +11,64 @@ import org.linkeddatafragments.util.io.Calculation;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencsv.exceptions.CsvException;
 import org.linkeddatafragments.evaluation.EvaluateAgainstQALD;
-import org.linkeddatafragments.evaluation.QueGGAnswers;
+import org.linkeddatafragments.evaluation.OfflineQueGGAnswers;
 import lombok.NoArgsConstructor;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import java.util.*;
 import java.io.*;
 import static java.lang.System.exit;
+import org.linkeddatafragments.evaluation.FindAnswer;
 
 @NoArgsConstructor
-public class QueggEvalution_3 implements Constants {
+public class QueggEvalution_1 implements Constants {
 
-    private static final Logger LOG = LogManager.getLogger(QueggEvalution_3.class);
+    private static final Logger LOG = LogManager.getLogger(QueggEvalution_1.class);
     private static LinkedHashSet<String> menu = new LinkedHashSet<String>();
     private static Boolean online = false;
     private static List<String[]> results = new ArrayList<String[]>();
-    private static  Map<String, List<File>> patternFiles = new TreeMap<String, List<File>>();
+    private static Map<String, List<File>> patternFiles = new TreeMap<String, List<File>>();
+    //private static Map<String, List<File>> lexParamters = new TreeMap<String, List<File>>();
+    private static String[] header=new String[]{"lexiconName","configuration","Tp","Fp","Fn","global-precision","global-recall","global-f-measure","average-precision","average-recall","average-f-measure"};
 
     public static void main(String[] args) throws Exception {
 
-        QueggEvalution_3 queGG = new QueggEvalution_3();
+        QueggEvalution_1 queGG = new QueggEvalution_1();
         // FIND_SIMILARITY has to run alone. for unknown reasons all menu does not work
         //menu.add(MAKE_PROPERTY_FILE);
         //menu.add(FIND_QALD_ANSWER);
-        menu.add(FIND_SIMILARITY);
-        //menu.add(FIND_QALD_QUEGG_ANSWER);
+        //menu.add(FIND_SIMILARITY);
+        menu.add(FIND_QALD_QUEGG_ANSWER);
         //menu.add(EVALUTE_QALD_QUEGG);
+        //menu.add(SUMMARY);
         String lexiconsDir = "/media/elahi/Elements/A-project/LDK2023/resources/en/lexicons/";
         String parameterFileName = "/media/elahi/Elements/A-project/LDK2023/resources/en/lexicons/parameter.txt";
-        String evalutionType="inductive";
-        
-        if(evalutionType.contains("inductive")){
-          patternFiles = findSingleParameterFile(lexiconsDir, parameterFileName);
+        String evalutionType = "inductive";
+        InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));
+
+        if (evalutionType.contains("inductive")) {
+            patternFiles = findSingleParameterFile(lexiconsDir, parameterFileName);
         }
-        if(evalutionType.contains("incremental")){
-          patternFiles = findMultipleParameterFile(lexiconsDir, parameterFileName);
+        if (evalutionType.contains("incremental")) {
+            patternFiles = findMultipleParameterFile(lexiconsDir, parameterFileName);
         }
-        System.out.println(patternFiles);
-       //exit(1);
+        LinkedHashMap<String, String> lexParameters = FileUtils.fileToLinkedHashMap(parameterFileName);
+        System.out.println(lexParameters);
         
+        //System.out.println(inputCofiguration.getOutputDir()+ File.separator+ "Summary.csv");
+        //exit(1);
+        /*if(menu.contains(SUMMARY)){
+            lexParamters=findlexParameterParameterFile(inputCofiguration.getOutputDir(), parameterFileName);
+            for(String parameter:lexParamters.keySet()){
+                List<File> files=lexParamters.get(parameter);
+                for(File file:files){
+                    System.out.println(file.getName());
+                }
+                
+            }
+        }*/
+        //exit(1);
+        //exit(1);
         /*Map<String, CsvFile> ruleSingleFile = new TreeMap<String, CsvFile>();
         for (String parameter : ruleFiles.keySet()) {
             List<File> files = ruleFiles.get(parameter);
@@ -61,14 +80,10 @@ public class QueggEvalution_3 implements Constants {
                 ruleSingleFile.put(parameter, csvFile);
             }
         }*/
-       
-           
-
-
         try {
-            InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));
-            String []donefiles=new File(inputCofiguration.getOutputDir()).list();
-            List<String> doneFiles=Arrays.asList(donefiles);
+            //InputCofiguration inputCofiguration = FileUtils.getInputConfig(new File(configFile));
+            String[] donefiles = new File(inputCofiguration.getOutputDir()).list();
+            List<String> doneFiles = Arrays.asList(donefiles);
             online = inputCofiguration.getOnline();
             inputCofiguration.setLinkedData(dataSetConfFile);
             Boolean online = inputCofiguration.getOnline();
@@ -83,28 +98,54 @@ public class QueggEvalution_3 implements Constants {
                 String type = inputCofiguration.getFileType();
 
                 if (type.contains("test")) {
-                     for (String parameter : patternFiles.keySet()) {
-                        if (!isDone(doneFiles, parameter)) {
-                            List<File> files = patternFiles.get(parameter);
-                            if (parameter.contains("lexicon_3")) {
-                                //System.out.println(parameter);
-                                 queGG.evalutionTest(inputCofiguration,parameter);
-                            }
-                        }
-                    }
-                   
-                } else if (type.contains("train")) {
                     for (String parameter : patternFiles.keySet()) {
                         if (!isDone(doneFiles, parameter)) {
                             List<File> files = patternFiles.get(parameter);
                             if (parameter.contains("lexicon_3")) {
                                 //System.out.println(parameter);
-                                queGG.evalutionTrain(inputCofiguration, files, doneFiles,parameter);
+                                queGG.evalutionTest(inputCofiguration, parameter, lexParameters);
                             }
                         }
                     }
+
+                } else if (type.contains("train")) {
+                    Integer index = 0;
+                    for (String parameter : patternFiles.keySet()) {
+                        List<File> files = patternFiles.get(parameter);
+                        if (menu.contains(FIND_SIMILARITY)) {
+                            if (!isDone(doneFiles, parameter)) {
+                                if (parameter.contains("lexicon_5")||parameter.contains("lexicon_6")
+                                        ||parameter.contains("lexicon_7")||parameter.contains("lexicon_8")||
+                                        parameter.contains("lexicon_9")) {
+                                    //System.out.println(parameter);
+                                    queGG.evalutionTrain(inputCofiguration, files, doneFiles, parameter, lexParameters);
+                                }
+                            }
+
+                        } else if (menu.contains(FIND_QALD_QUEGG_ANSWER)) {
+                             if (parameter.contains("lexicon_5")||parameter.contains("lexicon_6")
+                                        ||parameter.contains("lexicon_7")||parameter.contains("lexicon_8")||
+                                        parameter.contains("lexicon_9")) {
+                              System.out.println(parameter);
+                              queGG.evalutionTrain(inputCofiguration, files, doneFiles, parameter, lexParameters);
+                             }
+                        }//break;
+                        else if (menu.contains(EVALUTE_QALD_QUEGG)) {
+                            //if (parameter.equals("lexicon_1")) {
+                            //System.out.println(parameter);
+                            queGG.evalutionTrain(inputCofiguration, files, doneFiles, parameter, lexParameters);
+                            index = index + 1;
+                            /*if (index >= 5) {
+                                break;
+                            }*/
+                            //}
+                        }//break;
+                    }
                     //queGG.evalutionTrain(inputCofiguration,new ArrayList<File>()); 
                 }
+                //FileUtils.ResultToFile(EvaluateAgainstQALD.getOverallResult(), inputCofiguration.getOutputDir()+File.separator+"A-Summary.csv",header);
+                //System.out.print(EvaluateAgainstQALD.getOverallResultRanked().keySet());
+                FileUtils.ResultToFileRanked(EvaluateAgainstQALD.getOverallResultRanked(), inputCofiguration.getOutputDir()+File.separator+"A-Summary-ranked.csv",header);
             }
 
         } catch (IllegalArgumentException | IOException e) {
@@ -115,7 +156,7 @@ public class QueggEvalution_3 implements Constants {
         exit(1);
 
     }
-    
+
     /*private static Map<String, List<File>> findSingleParameterFile(String lexiconsDir, String parameterFileName) throws IOException, FileNotFoundException, CsvException {
 
         Set<String> parameters = FileUtils.FileToSet(parameterFileName);
@@ -145,7 +186,6 @@ public class QueggEvalution_3 implements Constants {
         }
         return ruleFiles;
     }*/
-
     private static boolean isDone(List<String> doneFiles, String parameter) {
         for (String fileString : doneFiles) {
             if (!fileString.contains(".csv")) {
@@ -157,9 +197,25 @@ public class QueggEvalution_3 implements Constants {
         }
         return false;
     }
-    
-   
-    public void evalutionTrain(InputCofiguration inputCofiguration,List<File> files,List<String>doneFiles,String parameter) throws IOException, Exception {
+
+    /*private static Map<String, List<File>> findlexParameterParameterFile(String lexiconsDir, String parameterFileName) throws IOException {
+        LinkedHashMap<String, String> parameters = FileUtils.FileToLinkedHashMap(parameterFileName);
+
+        Map<String, List<File>> ruleFiles = new TreeMap<String, List<File>>();
+        for (String paramter : parameters.keySet()) {
+            String value = parameters.get(paramter);
+            File[] parameterFiles = new File(lexiconsDir).listFiles();
+            for (File fileName : parameterFiles) {
+                if (fileName.getName().contains("paramter")&&) {
+                    List<File> list = new ArrayList<File>();
+                    list.add(fileName);
+                    ruleFiles.put(value, list);
+                }
+            }
+        }
+        return ruleFiles;
+    }*/
+    public void evalutionTrain(InputCofiguration inputCofiguration, List<File> files, List<String> doneFiles, String parameter, LinkedHashMap<String, String> lexParameters) throws IOException, Exception {
         String queGGJson = null, queGGJsonCombined = null, qaldFile = null, qaldModifiedFile = null;
         ObjectMapper objectMapper = new ObjectMapper();
         String qaldDir = inputCofiguration.getQaldDir();
@@ -172,15 +228,15 @@ public class QueggEvalution_3 implements Constants {
         String dataset = inputCofiguration.getDataset();
         String fileType = inputCofiguration.getFileType();
 
-        String FIND_SIMILARITY_OUTPUT = outputDir + File.separator + dataset + "-QueGG-Match_" + languageCode + "_" + fileType + ".csv";
+        //String FIND_SIMILARITY_OUTPUT = outputDir + File.separator + dataset + "-QueGG-Match_" + languageCode + "_" + fileType + ".csv";
+        String FIND_SIMILARITY_OUTPUT = outputDir + File.separator + dataset + "-QueGG-answer_" + languageCode + "_" + fileType + ".csv";
         String comparisonFile = outputDir + File.separator + dataset + "-QueGG-Comparison_" + languageCode + "_" + fileType + ".csv";
         String qaldAnswerFile = outputDir + File.separator + dataset + "-answer_" + languageCode + "_" + fileType + ".csv";
         String qaldQueGGAnswerFile = outputDir + File.separator + dataset + "-QueGG-answer_" + languageCode + "_" + fileType + ".csv";
         String qaldRaw = outputDir + File.separator + dataset + "_" + fileType + "-dataset-raw.csv";
         String qaldQueGGAnswerJsonFile = outputDir + File.separator + "QueGG-Answer" + ".json";
         String summaryFile = outputDir + File.separator + dataset + "_" + "summary" + ".csv";
-        
-       
+
         //EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint,menu,resultMatchFile);
         for (String fileName : new File(qaldDir).list()) {
             if (fileName.contains(inputCofiguration.getFileType())) {
@@ -193,34 +249,30 @@ public class QueggEvalution_3 implements Constants {
                 qaldFile = qaldModifiedFile = qaldDir + File.separator + fileName;
             }
         }
-        
-        
 
         //temporary code for qald entity creation...
         //FileUtils.stringToFile(string, entityLabelDir+File.separator+"qaldEntities.txt");
         //english 1 to 43
         //test code temporarily block.....................
         //String questionDir = inputCofiguration.getOutputDir() + "/questions/" + "lexicalEntry/";
-        
         Integer endRange = 102;
         Integer index = 0;
         EvaluateAgainstQALD.getAnswers();
-        QueGGAnswers queGGAnswers = JsonAccess.readObjectJson(qaldQueGGAnswerJsonFile);
-        EvaluateAgainstQALD.setOfflineAnswerList(queGGAnswers.getAnswers());
+        OfflineQueGGAnswers queGGAnswers = JsonAccess.readObjectJson(qaldQueGGAnswerJsonFile);
+        System.out.println(queGGAnswers.getAnswers());
+        //EvaluateAgainstQALD.setOfflineAnswerList(queGGAnswers.getAnswers());
         List<String[]> results = new ArrayList<String[]>();
         results.add(Summary.setStart());
 
         Integer startRange = 0;
         String lexialEntry = null;
-        
+
         Map<String, String[]> queGGQuestions = new TreeMap<String, String[]>();
-        
+
         //String dir="/media/elahi/Elements/A-project/LDK2023/Client.Java/output/en/questions/lexicalEntry";
         //File []files=new File(dir).listFiles();
-         
-
-        for (File file : files) {            
-            startRange = startRange + 1;         
+        for (File file : files) {
+            startRange = startRange + 1;
             FilterRows filterRows = new FilterRows(file);
             queGGQuestions.putAll(filterRows.getQueGGQuestions());
             lexialEntry = "_" + file.getName().replace(".csv", "").replace("questions_", "") + "_" + startRange.toString();
@@ -233,13 +285,13 @@ public class QueggEvalution_3 implements Constants {
                 //throw new Exception("no question found in QueGG!!!");
                 continue;
             } else {
-                EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint, menu, FIND_SIMILARITY_OUTPUT, comparisonFile, qaldAnswerFile, qaldQueGGAnswerFile, online, lexialEntry,parameter);
+                EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint, menu, FIND_SIMILARITY_OUTPUT, comparisonFile, qaldAnswerFile, qaldQueGGAnswerFile, online, lexialEntry, parameter, queGGAnswers, lexParameters);
                 evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile, qaldRaw, languageCode, similarityMeasure, lexialEntry);
                 results.addAll(evaluateAgainstQALD.getResult());
             }
         }
 
-        QueGGAnswers newQueGGAnswers = new QueGGAnswers(EvaluateAgainstQALD.getAnswers());
+        OfflineQueGGAnswers newQueGGAnswers = new OfflineQueGGAnswers(FindAnswer.getAnswers());
         JsonAccess.writeObjectJson(qaldQueGGAnswerJsonFile.replace(".csv", ".json"), newQueGGAnswers);
 
         CsvFile CsvFile = new CsvFile(new File(summaryFile));
@@ -251,13 +303,12 @@ public class QueggEvalution_3 implements Constants {
             }
         }
         CsvFile.writeToCSV(results);
-    }
-    
-   
-         
-    
 
-    public void evalutionTest(InputCofiguration inputCofiguration,String parameter) throws IOException, Exception {
+        FileUtils.hashMapOrgtoFile(FindAnswer.getLongResultSparql(), "src/main/resources/sparql.txt");
+
+    }
+
+    public void evalutionTest(InputCofiguration inputCofiguration, String parameter, LinkedHashMap<String, String> lexParameters) throws IOException, Exception {
         String queGGJson = null, queGGJsonCombined = null, qaldFile = null, qaldModifiedFile = null;
         //initialization......
         ObjectMapper objectMapper = new ObjectMapper();
@@ -300,8 +351,8 @@ public class QueggEvalution_3 implements Constants {
         Integer endRange = 35, index = 0;
         String filterFileName = "filter";
         //EvaluateAgainstQALD.getAnswers();
-        QueGGAnswers queGGAnswers = JsonAccess.readObjectJson(qaldQueGGAnswerJsonFile);
-        EvaluateAgainstQALD.setOfflineAnswerList(queGGAnswers.getAnswers());
+        OfflineQueGGAnswers queGGAnswers = JsonAccess.readObjectJson(qaldQueGGAnswerJsonFile);
+        //EvaluateAgainstQALD.setOfflineAnswerList(queGGAnswers.getAnswers());
         List<String[]> results = new ArrayList<String[]>();
         results.add(Summary.setStart());
 
@@ -317,13 +368,13 @@ public class QueggEvalution_3 implements Constants {
             if (queGGQuestions.isEmpty()) {
                 throw new Exception("no question found in QueGG!!!");
             } else {
-                EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint, menu, FIND_SIMILARITY_OUTPUT, comparisonFile, qaldAnswerFile, qaldQueGGAnswerFile, online, startRange.toString(),parameter);
+                EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(languageCode, endpoint, menu, FIND_SIMILARITY_OUTPUT, comparisonFile, qaldAnswerFile, qaldQueGGAnswerFile, online, startRange.toString(), parameter, queGGAnswers, lexParameters);
                 evaluateAgainstQALD.evaluateAndOutput(queGGQuestions, qaldFile, qaldModifiedFile, qaldRaw, languageCode, similarityMeasure, lexialEntry);
                 results.addAll(evaluateAgainstQALD.getResult());
             }
         }
 
-        QueGGAnswers newQueGGAnswers = new QueGGAnswers(EvaluateAgainstQALD.getAnswers());
+        OfflineQueGGAnswers newQueGGAnswers = new OfflineQueGGAnswers(EvaluateAgainstQALD.getAnswers());
         JsonAccess.writeObjectJson(qaldQueGGAnswerJsonFile.replace(".csv", ".json"), newQueGGAnswers);
 
         CsvFile CsvFile = new CsvFile(new File(summaryFile));
@@ -385,14 +436,14 @@ public class QueggEvalution_3 implements Constants {
         System.out.println(189.01 - 163.14);
         System.out.println(191.24 - 189.01);
     }
-    
-     private static Map<String, List<File>> findSingleParameterFile(String lexiconsDir, String parameterFileName) throws IOException, FileNotFoundException, CsvException {
+
+    private static Map<String, List<File>> findSingleParameterFile(String lexiconsDir, String parameterFileName) throws IOException, FileNotFoundException, CsvException {
 
         Set<String> parameters = FileUtils.FileToSet(parameterFileName);
 
         Map<String, List<File>> ruleFiles = new TreeMap<String, List<File>>();
         for (String paramter : parameters) {
-            String dir = lexiconsDir + paramter ;
+            String dir = lexiconsDir + paramter;
             File[] parameterFiles = new File(dir).listFiles();
             for (File fileName : parameterFiles) {
                 if (fileName.getName().contains(".csv")) {
@@ -405,6 +456,49 @@ public class QueggEvalution_3 implements Constants {
         return ruleFiles;
     }
 
+    private static void findParameterResults(String evalutionDir, String parameterFileName) throws IOException, FileNotFoundException, CsvException {
+
+        LinkedHashMap<String, String> parameters = FileUtils.fileToLinkedHashMap(parameterFileName);
+        File[] allFiles = new File(evalutionDir).listFiles();
+
+        for (String lexT : parameters.keySet()) {
+            String parameter = parameters.get(lexT);
+            for (File fileName : allFiles) {
+                if (fileName.getName().contains("Comparison")) {
+                    CsvFile CsvFile = new CsvFile();
+                    List<String[]> rows = CsvFile.getRows(fileName);
+                    for (String[] row : rows) {
+                        String id = row[0];
+                        if (id.contains("214")) {
+
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    /*private static void findParameterResults(String evalutionDir, String parameterFileName) throws IOException, FileNotFoundException, CsvException {
+
+        LinkedHashMap<String, String> parameters = FileUtils.fileToLinkedHashMap(parameterFileName);
+        File[] allFiles = new File(evalutionDir).listFiles();
+
+        for (String lexT : parameters.keySet()) {
+            String parameter = parameters.get(lexT);
+            for (File fileName : allFiles) {
+                if (fileName.getName().contains("Comparison")) {
+                    CsvFile CsvFile = new CsvFile();
+                    List<String[]> rows = CsvFile.getRows(fileName);
+                    for (String[] row : rows) {
+                        String id = row[0];
+                        if(id.contains("214")){
+                            
+                        }
+                    }
+                }
+            }
+        }
+    }*/
     private static Map<String, List<File>> findMultipleParameterFile(String lexiconsDir, String parameterFileName) throws IOException, FileNotFoundException, CsvException {
         Set<String> parameters = FileUtils.FileToSet(parameterFileName);
         Map<String, List<File>> ruleFiles = new TreeMap<String, List<File>>();
@@ -426,8 +520,6 @@ public class QueggEvalution_3 implements Constants {
         }
         return ruleFiles;
     }
-
-   
 
     /*private static Map<String, List<String>> findParamerFiles(String questionDir, String parameterFileName,Integer parameterIndex) {
 
@@ -451,6 +543,4 @@ public class QueggEvalution_3 implements Constants {
         }
         return ruleFiles;
     }*/
-
-
 }

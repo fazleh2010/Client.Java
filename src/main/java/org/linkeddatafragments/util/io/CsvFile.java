@@ -200,6 +200,7 @@ public class CsvFile implements CsvConstants {
                 rows = generateLinebyLine(qaldFile);
                  //System.out.println("@@@@@@@@@@@@@@@@@@@@@@" + qaldFile.getName()+" size:"+rows.size());
             } else*/ {
+                try{
                 reader = new CSVReader(new FileReader(qaldFile));
                 rows = reader.readAll();
                 /*for(String []row:rows){
@@ -207,6 +208,9 @@ public class CsvFile implements CsvConstants {
                    System.out.println(row[1]) ; 
                    System.out.println(row[2]) ; 
                 }*/
+                }catch(Exception ex){
+                   System.out.println("file not found!!");
+                }
             }
        
         return rows;

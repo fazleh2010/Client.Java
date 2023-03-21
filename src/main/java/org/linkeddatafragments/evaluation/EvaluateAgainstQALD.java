@@ -16,6 +16,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -51,18 +52,26 @@ public class EvaluateAgainstQALD implements Constants{
     private   List< String[]> result = new ArrayList<String[]>();
     private Boolean doneFileFlag=false;
     private String parameter=null;
+    private  OfflineQueGGAnswers offlineQueGGAnswers=null;
+    private static Map<Float,String[]> overallResultRanked=new TreeMap<Float,String[]>(Collections.reverseOrder());
+    private static Map<String,String[]> overallResult=new TreeMap<String,String[]>();
+    private static LinkedHashMap<String, String> lexParameters=new  LinkedHashMap<String, String> ();
 
     public EvaluateAgainstQALD(String language, String endpoint, Set<String> menu, String FIND_SIMILARITY_RESULT, String resultComparisonFile, 
-            String qaldAnswerFile, String qaldQueGGAnswerFile,Boolean online,String startRange,String parameter) {
+                               String qaldAnswerFile, String qaldQueGGAnswerFile,Boolean online,String startRange,
+                               String parameter,OfflineQueGGAnswers offlineQueGGAnswers,LinkedHashMap<String, String> lexParameters ) {
         this.language = language;
         this.endpoint = endpoint;
         this.menu = menu;
         this.FIND_SIMILARITY_RESULT = FIND_SIMILARITY_RESULT.replace(".csv",startRange.toString()+".csv");
         this.evalutionFile = resultComparisonFile.replace(".csv",startRange.toString()+".csv");
-        this.QALD_QUEGG_ANSWER_FILE = qaldQueGGAnswerFile.replace(".csv",startRange.toString()+".csv");
+        //this.QALD_QUEGG_ANSWER_FILE = qaldQueGGAnswerFile.replace(".csv",startRange.toString()+".csv");
+        this.QALD_QUEGG_ANSWER_FILE = qaldQueGGAnswerFile.replace(".csv",(startRange).toString()+"_"+"new"+".csv");
         this.QALD_ANSWER_FILE = qaldAnswerFile;
         this.online=online;
         this.parameter=parameter;
+        this.offlineQueGGAnswers= offlineQueGGAnswers;
+        this.lexParameters=lexParameters;
     }
     
     public static void setOfflineAnswerList(Map<String,List<String>> answersT){
@@ -111,7 +120,7 @@ public class EvaluateAgainstQALD implements Constants{
         if (menu.contains(FIND_QALD_QUEGG_ANSWER)) {
             if(this.FIND_SIMILARITY_RESULT.contains("~lock."))
             return;
-            FindAnswer findAnswer=new FindAnswer(FIND_QALD_QUEGG_ANSWER,this.endpoint);
+            FindAnswer findAnswer=new FindAnswer(FIND_QALD_QUEGG_ANSWER,this.endpoint,this.offlineQueGGAnswers,this.parameter);
             entryComparisons = findAnswer.getAnswerOfSparqlQuery(this.FIND_SIMILARITY_RESULT, this.QALD_ANSWER_FILE, this.QALD_QUEGG_ANSWER_FILE);
             System.out.println("FIND_QALD_QUEGG_ANSWER completed!!");
 
@@ -122,6 +131,9 @@ public class EvaluateAgainstQALD implements Constants{
             entryComparisons = calulateEvalution.retrivedDataFromXslSheet(this.QALD_QUEGG_ANSWER_FILE);
             result = calulateEvalution.doEvaluation(qaldModified, entryComparisons, languageCode, false,lexialEntry);
             Writer.writeResult(qaldImporter, qaldOriginal, result, this.evalutionFile, languageCode, EVALUTE_QALD_QUEGG);
+            //this.setOverallResults(result);
+            this.setOverallResultsRanked(result);
+          
             } catch(FileNotFoundException ex){
               System.out.println("previous step is not ompleted"+ex.getMessage());
               }
@@ -642,7 +654,7 @@ public class EvaluateAgainstQALD implements Constants{
         return false;
     }
     
-    private List<EntryComparison> getAnswerOfSparqlQuery(String QALDQueGGMatch, String QALDAnswer, String QaldQueggAnswer) throws IOException, FileNotFoundException, CsvException {
+    /*private List<EntryComparison> getAnswerOfSparqlQuery(String QALDQueGGMatch, String QALDAnswer, String QaldQueggAnswer) throws IOException, FileNotFoundException, CsvException {
         List<EntryComparison> entryComparisons = new ArrayList<EntryComparison>();
         List<String[]> qaldAnswerData = new ArrayList<String[]>();
         Integer index = 0;
@@ -780,10 +792,7 @@ public class EvaluateAgainstQALD implements Constants{
             answers.put(queGGQuestion, queGGResults);
 
 
-            /*if (id.contains("62")) {
-                System.out.println(qaldResults.size()+" "+queGGResults.size());
-                exit(1);
-            } */              
+          
             queGG.setId(id);
             queGG.setQuestions(queGGQuestion);
             queGG.setSparql(queGGSparql);
@@ -812,7 +821,7 @@ public class EvaluateAgainstQALD implements Constants{
         System.out.println(qaldAnswerData.size());
         csvFile.writeToCSV(qaldQueggAnswerFile, qaldAnswerData);
         return entryComparisons;
-    }
+    }*/
 
 
    
@@ -1104,8 +1113,38 @@ public class EvaluateAgainstQALD implements Constants{
         return false;
 
     }
-
     
+    /*private void setOverallResults(EvaluationResult result) {
+        String konfiguration = lexParameters.get(this.parameter);
+       
+        
+        overallResult.put(this.parameter+"~"+konfiguration, new String[]{
+            this.parameter, konfiguration,Float.toString(result.tp_global), Float.toString(result.fp_global),Float.toString(result.fn_global),
+            Float.toString(result.precision_global), Float.toString(result.recall_global), Float.toString(result.f_measure_global),
+            Float.toString(result.precision_average), Float.toString(result.recall_average), Float.toString(result.f_measure_average),result.numberOfMatch.toString(),Float.toString(result.percentage)});
+    }*/
+    
+    private void setOverallResultsRanked(EvaluationResult result) {
+        String konfiguration = lexParameters.get(this.parameter);
+       
+        
+        overallResultRanked.put(result.f_measure_global, new String[]{Float.toString(result.f_measure_global),
+            this.parameter, konfiguration,Float.toString(result.tp_global), Float.toString(result.fp_global),Float.toString(result.fn_global),
+            Float.toString(result.precision_global), Float.toString(result.recall_global), Float.toString(result.f_measure_global),
+            Float.toString(result.precision_average), Float.toString(result.recall_average), Float.toString(result.f_measure_average),result.numberOfMatch.toString(),Float.toString(result.percentage)});
+    }
 
+
+    public static Map<String, String[]> getOverallResult() {
+        return overallResult;
+    }
+
+    public  LinkedHashMap<String, String> getLexParameters() {
+        return lexParameters;
+    }
+
+    public static Map<Float, String[]> getOverallResultRanked() {
+        return overallResultRanked;
+    }
    
 }

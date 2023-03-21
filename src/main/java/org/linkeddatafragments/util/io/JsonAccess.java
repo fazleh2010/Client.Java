@@ -6,7 +6,7 @@
 package org.linkeddatafragments.util.io;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.linkeddatafragments.evaluation.QueGGAnswers;
+import org.linkeddatafragments.evaluation.OfflineQueGGAnswers;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  */
 public class JsonAccess {
 
-    public static void writeObjectJson( String fileName,  QueGGAnswers resources) {
+    public static void writeObjectJson( String fileName,  OfflineQueGGAnswers resources) {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
@@ -31,14 +31,14 @@ public class JsonAccess {
         }
     }
 
-    public static QueGGAnswers readObjectJson(String fileName) {
-        QueGGAnswers resources = null;
+    public static OfflineQueGGAnswers readObjectJson(String fileName) {
+        OfflineQueGGAnswers resources = null;
         try {
             ObjectMapper mapper = new ObjectMapper();
-            resources = mapper.readValue(new File(fileName), QueGGAnswers.class);
+            resources = mapper.readValue(new File(fileName), OfflineQueGGAnswers.class);
         } catch (IOException ex) {
             Logger.getLogger(JsonAccess.class.getName()).log(Level.SEVERE, null, ex);
-            return new QueGGAnswers();
+            return new OfflineQueGGAnswers();
         }
         return resources;
     }

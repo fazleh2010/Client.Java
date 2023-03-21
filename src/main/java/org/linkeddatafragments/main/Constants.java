@@ -33,6 +33,8 @@ public interface Constants {
     public static final String BOG = "BOG";
     public static final String PROTOTYPE_QUESTION = "PROTOTYPE_QUESTION";
     public static final String REAL_QUESTION = "REAL_QUESTION";
+    public static final String SUMMARY="SUMMARY";
+    
     public static LinkedDataFragmentGraph ldfg = new LinkedDataFragmentGraph("http://data.linkeddatafragments.org/dbpedia2014");
     public static Model model = ModelFactory.createModelForGraph(ldfg); 
     public static String configFile = "conf/inputConf.json";

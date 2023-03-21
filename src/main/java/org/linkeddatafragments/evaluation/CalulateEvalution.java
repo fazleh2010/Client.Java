@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import static java.util.Objects.isNull;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.linkeddatafragments.util.io.CsvFile;
@@ -48,10 +49,10 @@ public class CalulateEvalution {
             List<String> queGGResults = new ArrayList<String>();
             List<String> qaldResults = new ArrayList<String>();
 
-            if (index == 0) {
+           /* if (index == 0) {
                 index = index + 1;
                 continue;
-            }
+            }*/
             index = index + 1;
 
             Double similarityScore = 0.0;
@@ -61,8 +62,8 @@ public class CalulateEvalution {
             String queGGQuestion = row[3];
             String qaldSparql = row[4].replace("\n", "");
             String queGGSparql = row[5].replace("\n", "");
-            qaldResults = this.makeList(row[6]);
-            queGGResults = this.makeList(row[7]);
+            qaldResults = StringFilter.makeList(row[6]);
+            queGGResults = StringFilter.makeList(row[7]);
 
             qald.setId(id);
             qald.setQuestions(qaldQuestion);
@@ -77,6 +78,7 @@ public class CalulateEvalution {
             if (similarityScore > 0.0) {
                 matchedFlag = Boolean.TRUE;
             }
+            
             EntryComparison EntryComparison = new EntryComparison(qald, queGG, matchedFlag, qaldResults, queGGResults, similarityScore);
             entryComparisons.add(EntryComparison);
 
@@ -89,10 +91,18 @@ public class CalulateEvalution {
         EvaluationResult evaluationResult = new EvaluationResult();
         Integer numberOfElement = 0;
         float globalTp = 0, globalFp = 0, globalFn = 0, totalPreision = 0, totalRecall = 0, totalF_measure = 0;
+        Integer numberOfMatch=0;
         for (EntryComparison entryComparison : entryComparisons) {
             numberOfElement = numberOfElement + 1;
             //ignore for now..
             //realQuestionComparision(entryComparison, flag);
+            
+             if (!isNull(entryComparison.getQueGGEntry())
+                    && !isNull(entryComparison.getQueGGEntry().getSparql())
+                    && !entryComparison.getQueGGEntry().getSparql().equals("")) {
+                numberOfMatch++;
+            }
+            
             FscoreCalculation fscore = new FscoreCalculation(entryComparison.getQaldResults(), entryComparison.getQueGGResults());
 
             // Add TP, FP, FN
@@ -117,14 +127,14 @@ public class CalulateEvalution {
             if ((entryComparison.getPrecision() + entryComparison.getRecall()) > 0) {
                 entryComparison.setF_measure(fscore.getFscore());
             }
-            if (entryComparison.getQaldEntry().getId().contains("210")) {
+            /*if (entryComparison.getQaldEntry().getId().contains("210")) {
                 System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! START  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
                 System.out.println("getQaldResults()::" + entryComparison.getQaldResults());
                 System.out.println("getQueGGResults()::" + entryComparison.getQueGGResults());
                 System.out.println("tp::" + entryComparison.getTp() + " fp::" + entryComparison.getFp() + " fn::" + entryComparison.getFn());
                 System.out.println("preision::" + entryComparison.getPrecision() + " reall::" + entryComparison.getRecall() + " f-sore::" + entryComparison.getF_measure());
                 System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! END  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            }
+            }*/
 
             evaluationResult.getEntryComparisons().add(entryComparison);
 
@@ -150,6 +160,12 @@ public class CalulateEvalution {
         evaluationResult.setPrecision_average(totalPreision / numberOfElement);
         evaluationResult.setRecall_average(totalRecall / numberOfElement);
         evaluationResult.setF_measure_average(totalF_measure / numberOfElement);
+        evaluationResult.setNumberOfMatch(numberOfMatch);
+        evaluationResult.setPercentage(0);
+        //evaluationResult.setPercentage(0);
+        float perkentage=((float) (numberOfElement) / (float) numberOfElement * 100);   
+         evaluationResult.setPercentage(perkentage);
+
 
         this.result.add(Summary.setKomparsionResult(evalutionFile, lexialEntry, evaluationResult));
 
@@ -180,35 +196,6 @@ public class CalulateEvalution {
         return evaluationResult;
     }
 
-    private List<String> makeList(String data) {
-        List<String> list = new ArrayList<String>();
-
-        data = data.replace("[", "").replace("]", "");
-        data = data.replace("(", "").replace(")", "");
-        data=data.replace(" ", "").strip().stripLeading().stripTrailing().trim().replace("\"", "");
-
-        if (data.contains(",")) {
-            List<String> newlist = new ArrayList<String>();
-            list = Arrays.asList(data.split(","));
-
-            for (String element : list) {
-                element = element.strip().stripLeading().stripTrailing().trim();
-                if (element.contains("http")) {
-                    element = element;
-                }
-                newlist.add(element);
-            }
-            return newlist;
-        } else {
-            data = data.strip().stripLeading().stripTrailing().trim();
-            if (data.contains("http")) {
-                data = data.replace(" ", "");
-            }
-            list.add(data);
-
-            return list;
-        }
-
-    }
+  
 
 }

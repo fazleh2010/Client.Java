@@ -116,18 +116,30 @@ public class LinkedDataFragmentSpql {
         System.out.println(qaldSparql);
         Query qry = QueryFactory.create(qaldSparql);
         QueryExecution qe = QueryExecutionFactory.create(qry, model);
+        Integer line=0;Boolean flag=false;
         try {
             ResultSet rs = qe.execSelect();
             Integer index = 0;
 
             while (rs.hasNext()) {
                 String result = rs.nextSolution().toString();
+                result=result.replace("\"", "");
                 index = index + 1;
                 results.add(result);
-                System.out.println(result);
+                System.out.println(line+" "+result);
+                line=line+1;
+                /*if(line>50){
+                    flag=true;
+                    break;
+                }*/
             }
+            /*if (flag) {
+                results = new ArrayList<String>();
+                //results.add("NOT");
+
+            }*/
         } catch (Exception ex) {
-            return  new ArrayList<String>(); 
+            results=  new ArrayList<String>(); 
         }
         return results;
     }

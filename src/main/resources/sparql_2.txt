@@ -1,0 +1,1 @@
+whereisfranceproduced?=select  ?s    {   ?s <http://dbpedia.org/ontology/location>  <http://dbpedia.org/resource/France> .   ?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type>  <http://dbpedia.org/ontology/City> .    }

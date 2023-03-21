@@ -25,6 +25,7 @@ import static java.lang.System.exit;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -64,6 +65,30 @@ public class FileUtils {
             str += line;
         }
         stringToFile(str, fileName);
+    }
+    
+    public static void ResultToFile(Map<String, String[]> overallResult, String fileName,String[] header) throws IOException {
+        List<String[]> csvData = new ArrayList<String[]>();
+        CsvFile CsvFile = new CsvFile(new File(fileName));
+        csvData.add(header);
+        for (String key : overallResult.keySet()) {
+            String[] value = overallResult.get(key);
+            csvData.add(value);
+
+        }
+        CsvFile.writeToCSV(csvData);
+    }
+    
+     public static void ResultToFileRanked(Map<Float, String[]> overallResult, String fileName,String[] header) throws IOException {
+        List<String[]> csvData = new ArrayList<String[]>();
+        CsvFile CsvFile = new CsvFile(new File(fileName));
+        csvData.add(header);
+        for (Float key : overallResult.keySet()) {
+            String[] value = overallResult.get(key);
+            csvData.add(value);
+
+        }
+        CsvFile.writeToCSV(csvData);
     }
 
     public static String fileToString(String fileName) {
@@ -158,6 +183,16 @@ public class FileUtils {
 
             }
             str += line + "\n";
+        }
+        FileUtils.stringToFile(str, fileName);
+    }
+    
+    public static void hashMapOrgtoFile(Map<String, String> duplicateUris, String fileName) throws IOException {
+        String str = "";
+        for (String key : duplicateUris.keySet()) {
+            String value =duplicateUris.get(key);
+            String line=key+"="+value;
+            str += line.replace("\"", "") + "\n";
         }
         FileUtils.stringToFile(str, fileName);
     }
@@ -404,10 +439,10 @@ public class FileUtils {
         return str;
     }
 
-    public static Map<String, String> FileToHashMap(String fileName) throws FileNotFoundException, IOException {
+    public static LinkedHashMap<String, String> fileToLinkedHashMap(String fileName) throws FileNotFoundException, IOException {
         BufferedReader reader;
         String line = "";
-        Map<String, String> map = new TreeMap<String, String>();
+        LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
         try {
             reader = new BufferedReader(new FileReader(fileName));
             while ((line = reader.readLine()) != null) {
@@ -465,6 +500,44 @@ public class FileUtils {
                     }
 
                 }
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return set;
+    }
+    public static List<String> FileToSetOrginal(String fileName) {
+        BufferedReader reader;
+        String line = "";
+        List<String> set = new ArrayList<String>();
+        try {
+            reader = new BufferedReader(new FileReader(fileName));
+            while ((line = reader.readLine()) != null) {
+                line=line.trim().strip().stripLeading().stripTrailing();
+                set.add(line);
+            }
+            reader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return set;
+    }
+    
+    public static List<String> FileToList(String fileName) {
+        BufferedReader reader;
+        String line = "";
+        List<String> set = new ArrayList<String>();
+        try {
+            reader = new BufferedReader(new FileReader(fileName));
+            while ((line = reader.readLine()) != null) {
+                if(line.contains("=")){
+                    String []info=line.split("=");
+                    String value=info[1].replace(">)", ">").replace(" ", "").strip().stripLeading().stripTrailing().trim();
+                    value=value.replace(">)", ">");
+                    set.add(value);
+                }
+               
             }
             reader.close();
         } catch (IOException e) {

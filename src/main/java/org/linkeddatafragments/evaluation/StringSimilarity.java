@@ -352,8 +352,19 @@ public class StringSimilarity {
 
          System.out.println("s13 and s14:::" + jaccardSimilarityManual("Who was the wife of Abraham Lincoln?", 
                                                                        "Who was the wife of U.S. president Lincoln?"));
-
-
+         
+         
+         
+         System.out.println("s13 and s14:::" + jaccardSimilarityManual("When did princess Diana die?", 
+                                                                       "When did Diana Princess of Wales die?"));
+         
+          System.out.println("s13 and s14:::" + jaccardSimilarityManual("In what city is the Heineken brewery?", 
+                                                                       "In what city is Heineken International located?"));
+          
+           /*System.out.println("s13 and s14:::" + jaccardSimilarityManual("Give me all professional skateboarders from Sweden.", 
+                                                                         "Give me all professional Swedish skateboarders."));*/
+         
+         
 
 
 
