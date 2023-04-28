@@ -26,8 +26,8 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import static org.fest.assertions.Assertions.assertThat;
 import org.linkeddatafragments.model.LinkedDataFragmentGraph;
-import org.linkeddatafragments.util.io.FileUtils;
-import org.linkeddatafragments.util.io.Manual;
+import util.io.FileUtils;
+import util.io.Manual;
 
 /**
  *
@@ -105,7 +105,6 @@ public class LinkedDataFragmentSpql {
             index=index+1;
             result=parseLine(result, className);
             results.add(result);
-            //System.out.println(index+" "+result);
         }
         return results;
     }
@@ -113,92 +112,43 @@ public class LinkedDataFragmentSpql {
     public List<String> sparqlObjectAsVariable(String qaldSparql) {
         List<String> results = new ArrayList<String>();
 
-        System.out.println(qaldSparql);
+
         Query qry = QueryFactory.create(qaldSparql);
         QueryExecution qe = QueryExecutionFactory.create(qry, model);
-        Integer line=0;Boolean flag=false;
         try {
             ResultSet rs = qe.execSelect();
             Integer index = 0;
-
+            
             while (rs.hasNext()) {
                 String result = rs.nextSolution().toString();
-                result=result.replace("\"", "");
                 index = index + 1;
+                result="<"+StringUtils.substringBetween(result, "<", ">")+">";
+                //System.out.println(result);
                 results.add(result);
-                System.out.println(line+" "+result);
-                line=line+1;
-                /*if(line>50){
-                    flag=true;
-                    break;
-                }*/
             }
-            /*if (flag) {
-                results = new ArrayList<String>();
-                //results.add("NOT");
-
-            }*/
         } catch (Exception ex) {
-            results=  new ArrayList<String>(); 
+            return  new ArrayList<String>(); 
         }
         return results;
     }
-    
+
+
     public List<String> parseResultList(List<String> results) {
 
         List<String> parsedResult = new ArrayList<String>();
         for (String result : results) {
-            result=StringUtils.substringBetween(result, "( ",  " )");
-            if (result.contains(",")) {
+            System.out.println(result);
+            /*if (result.contains(",")) {
                 String[] info = result.split(",\\s*"); // split on commas
                 for (String value : info) {
                     if (value.contains("=")) {
                         String[] info1 = value.split("=");
                         value = info1[1];
-                        if (value.contains("<")) {
-                            value = value.replace("<", "");
-                            value = value.replace(">", "");
-                        }
-                        value = value.strip().trim().trim().stripLeading().stripTrailing();
-                        parsedResult.add(value);
-                    }
-                }
-            } else {
-                String value = result;
-                if (value.contains("=")) {
-                    String[] info1 = value.split("=");
-                    value = info1[1].strip().trim().stripLeading().stripTrailing();
-                    /*if (value.contains("<")) {
-                        value = value.replace("<", "");
-                        value = value.replace(">", "");
-                    }*/
-                    parsedResult.add(value);
-
-                }
-
-            }
-        }
-
-        return parsedResult;
-    }
-    
-
-
-    public List<String> parseResultListT(List<String> results) {
-
-        List<String> parsedResult = new ArrayList<String>();
-        for (String result : results) {
-            if (result.contains(",")) {
-                String[] info = result.split(",\\s*"); // split on commas
-                for (String value : info) {
-                    if (value.contains("=")) {
-                        String[] info1 = value.split("=");
-                        value = info1[1];
-                        if (value.contains("<")) {
-                            value = value.replace("<", "");
-                            value = value.replace(">", "");
-                        }
-                        value = "(" + value.strip().trim();
+                        //if (value.contains("<")) {
+                        //value = value.replace("<", "");
+                        //value = value.replace(">", "");
+                        //}
+                        value = value.strip().trim();
                         parsedResult.add(value);
                     }
                 }
@@ -207,21 +157,21 @@ public class LinkedDataFragmentSpql {
                 if (value.contains("=")) {
                     String[] info1 = value.split("=");
                     value = info1[1];
-                    if (value.contains("<")) {
-                        value = value.replace("<", "");
-                        value = value.replace(">", "");
-                    }
-                    value = "(" + value.strip().trim();
+                    //if (value.contains("<")) {
+                    //value = value.replace("<", "");
+                    //value = value.replace(">", "");
+                    //}
+                    value = value.strip().trim();
                     parsedResult.add(value);
 
                 }
 
-            }
+            }*/
         }
 
         return parsedResult;
     }
-    
+
     public static String parseLine(String line, String className) {
         //"http://dbpedia.org/resource/Heineken","Heineken","Food"
         String uri=null;
