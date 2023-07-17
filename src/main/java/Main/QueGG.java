@@ -123,7 +123,7 @@ public class QueGG implements Constants {
         for (String fileName : new File(qaldDir).list()) {
              System.out.println("qaldDir::"+qaldDir+" fileName::"+fileName+" "+inputCofiguration.getFileType());
             if (fileName.contains(inputCofiguration.getFileType())) {
-                if (fileName.contains("modified")) {
+                if (fileName.contains("modified")&&fileName.contains("qald")) {
                     qaldModifiedFile = qaldDir + File.separator + fileName;
                 } else {
                     qaldFile = qaldDir + File.separator + fileName;
@@ -131,8 +131,10 @@ public class QueGG implements Constants {
             } else if (fileName.contains("lcquad")) {
                 qaldFile = qaldModifiedFile = qaldDir + File.separator + fileName;
             }
+            
+
         }
-        
+        qaldAnswerFile = outputDir + File.separator + dataset +"-answer_" + languageCode +"_"+fileType+ ".csv";
         EvaluateAgainstQALD evaluateAgainstQALD = new EvaluateAgainstQALD(new HashMap<String, String[]> (),languageCode, endpoint, menu, FIND_SIMILARITY_OUTPUT, comparisonFile, qaldAnswerFile, qaldQueGGAnswerFile, online);
         evaluateAgainstQALD.evaluateAndOutput(qaldFile, qaldModifiedFile, qaldRaw, languageCode, similarityMeasure);
 
