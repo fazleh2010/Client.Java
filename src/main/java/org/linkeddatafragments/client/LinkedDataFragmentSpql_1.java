@@ -22,7 +22,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import static org.fest.assertions.Assertions.assertThat;
 import org.linkeddatafragments.model.LinkedDataFragmentGraph;
-import org.linkeddatafragments.util.io.FileUtils;
+import util.io.FileUtils;
 
 /**
  *

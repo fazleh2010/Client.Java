@@ -7,7 +7,7 @@
   <version>0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>Linked Data Fragments client-T</name>
+  <name>Linked Data Fragments client</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -127,7 +127,7 @@
                     <finalName>ldf-client</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>org.linkeddatafragments.main.QueGG</mainClass>
+                            <mainClass>org.linkeddatafragments.client.QueryResultsWriter</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

@@ -26,8 +26,7 @@ import org.apache.jena.rdf.model.Model;
 import org.apache.jena.rdf.model.ModelFactory;
 import static org.fest.assertions.Assertions.assertThat;
 import org.linkeddatafragments.model.LinkedDataFragmentGraph;
-import org.linkeddatafragments.util.io.FileUtils;
-import org.linkeddatafragments.util.io.Manual;
+import util.io.FileUtils;
 
 /**
  *
@@ -95,6 +94,7 @@ public class LinkedDataFragmentSpql {
     
      public List<String> sparqlObjectAsVariable(String queryString,String className) {
         List<String> results = new ArrayList<String>();
+        System.out.println("queryString::" + queryString);
         Query qry = QueryFactory.create(queryString);
         QueryExecution qe = QueryExecutionFactory.create(qry, model);
         ResultSet rs = qe.execSelect();
@@ -105,86 +105,34 @@ public class LinkedDataFragmentSpql {
             index=index+1;
             result=parseLine(result, className);
             results.add(result);
-            //System.out.println(index+" "+result);
+            System.out.println(index+" "+result);
         }
         return results;
     }
      
     public List<String> sparqlObjectAsVariable(String qaldSparql) {
         List<String> results = new ArrayList<String>();
-
-        System.out.println(qaldSparql);
         Query qry = QueryFactory.create(qaldSparql);
         QueryExecution qe = QueryExecutionFactory.create(qry, model);
-        Integer line=0;Boolean flag=false;
         try {
             ResultSet rs = qe.execSelect();
             Integer index = 0;
-
+            //System.out.println("qaldSparql::"+qaldSparql);
             while (rs.hasNext()) {
                 String result = rs.nextSolution().toString();
-                result=result.replace("\"", "");
                 index = index + 1;
                 results.add(result);
-                System.out.println(line+" "+result);
-                line=line+1;
-                /*if(line>50){
-                    flag=true;
-                    break;
-                }*/
+                System.out.println(index + " " + result);
             }
-            /*if (flag) {
-                results = new ArrayList<String>();
-                //results.add("NOT");
-
-            }*/
-        } catch (Exception ex) {
-            results=  new ArrayList<String>(); 
+        }catch(Exception ex){
+            return new ArrayList<String>();
         }
+        
         return results;
     }
-    
+
+
     public List<String> parseResultList(List<String> results) {
-
-        List<String> parsedResult = new ArrayList<String>();
-        for (String result : results) {
-            result=StringUtils.substringBetween(result, "( ",  " )");
-            if (result.contains(",")) {
-                String[] info = result.split(",\\s*"); // split on commas
-                for (String value : info) {
-                    if (value.contains("=")) {
-                        String[] info1 = value.split("=");
-                        value = info1[1];
-                        if (value.contains("<")) {
-                            value = value.replace("<", "");
-                            value = value.replace(">", "");
-                        }
-                        value = value.strip().trim().trim().stripLeading().stripTrailing();
-                        parsedResult.add(value);
-                    }
-                }
-            } else {
-                String value = result;
-                if (value.contains("=")) {
-                    String[] info1 = value.split("=");
-                    value = info1[1].strip().trim().stripLeading().stripTrailing();
-                    /*if (value.contains("<")) {
-                        value = value.replace("<", "");
-                        value = value.replace(">", "");
-                    }*/
-                    parsedResult.add(value);
-
-                }
-
-            }
-        }
-
-        return parsedResult;
-    }
-    
-
-
-    public List<String> parseResultListT(List<String> results) {
 
         List<String> parsedResult = new ArrayList<String>();
         for (String result : results) {
@@ -271,8 +219,6 @@ public class LinkedDataFragmentSpql {
         System.out.println(answers.size());
         
     }
-
-    
 
   
 }

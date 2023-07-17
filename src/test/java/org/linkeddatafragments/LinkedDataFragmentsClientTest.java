@@ -26,13 +26,13 @@ public class LinkedDataFragmentsClientTest {
         model = ModelFactory.createModelForGraph(ldfg);
     }
 
-    @Ignore
+    @Test
     public void testSize() {
         assertThat(model.size()).isEqualTo(377367913);
         System.out.println(model.size());
     }
 
-    @Ignore
+    @Test
     public void testBasicSparql() {
         String queryString = "SELECT ?p ?o WHERE { <http://dbpedia.org/resource/Barack_Obama> ?p ?o }";
         Query qry = QueryFactory.create(queryString);
@@ -45,7 +45,7 @@ public class LinkedDataFragmentsClientTest {
         assertThat(rs.getRowNumber()).isGreaterThan(0);
     }
 
-    @Ignore
+    @Test
     public void testTypeSparql() {
         String queryString = "SELECT ?o WHERE { <http://dbpedia.org/resource/Barack_Obama> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> ?o }";
         Query qry = QueryFactory.create(queryString);
@@ -58,7 +58,7 @@ public class LinkedDataFragmentsClientTest {
         assertThat(rs.getRowNumber()).isGreaterThan(0);
     }
 
-    @Ignore
+    @Test
     public void testLiteralSparql() {
 
         String queryString = "SELECT (COUNT(?o) AS ?count) WHERE { ?o <http://www.w3.org/2000/01/rdf-schema#label> \"Belgium\"@en }";
@@ -73,7 +73,7 @@ public class LinkedDataFragmentsClientTest {
 
     }
 
-    @Ignore
+    @Test
     public void testSingleJoinSparql() {
 
         String queryString = "SELECT ?o ?n WHERE { <http://dbpedia.org/resource/Barack_Obama> <http://dbpedia.org/ontology/almaMater> ?o " +
@@ -90,7 +90,7 @@ public class LinkedDataFragmentsClientTest {
 
     }
 
-    @Ignore
+    @Test
     public void testSingleCountPredicateSparql() {
 
         String queryString = "SELECT (COUNT(DISTINCT ?p) AS ?count) where { ?o ?p <http://dbpedia.org/resource/Barack_Obama> }";
@@ -106,7 +106,7 @@ public class LinkedDataFragmentsClientTest {
 
     }
 
-    @Ignore
+    @Test
     public void testSingleCountSubjectSparql() {
 
         String queryString = "SELECT (COUNT(DISTINCT ?o) AS ?count) where { ?o ?p <http://dbpedia.org/resource/Barack_Obama> }";
@@ -122,7 +122,7 @@ public class LinkedDataFragmentsClientTest {
 
     }
 
-    @Ignore
+    @Test
     public void testSingleCountObjectSparql() {
 
         String queryString = "SELECT (COUNT(DISTINCT ?o) AS ?count) where { <http://dbpedia.org/resource/Barack_Obama> ?p ?o }";

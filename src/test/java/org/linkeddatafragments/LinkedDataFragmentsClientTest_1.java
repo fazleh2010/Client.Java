@@ -26,7 +26,7 @@ public class LinkedDataFragmentsClientTest_1 {
         model = ModelFactory.createModelForGraph(ldfg);
     }
 
-    @Ignore
+    @Test
     public void testSize() {
         assertThat(model.size()).isEqualTo(377367913);
         System.out.println(model.size());
